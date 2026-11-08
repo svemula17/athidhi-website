@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -11,6 +10,16 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  images: {
+    // Images are served from the old deployment until they're self-hosted (see src/lib/assets.ts).
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "athidi.vercel.app",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
