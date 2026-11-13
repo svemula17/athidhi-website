@@ -1,10 +1,9 @@
 // Copies every image and PDF the site references from the old deployment (athidi.vercel.app)
-// into /public, so the site stops depending on it.
+// into /public, so the site stops depending on it. Once every file is in place it also switches
+// the site over to these copies (ASSET_BASE = "" in src/lib/assets.ts). Safe to run again.
 //
 //   node scripts/download-assets.mjs            download everything
 //   node scripts/download-assets.mjs --dry-run  only list the files
-//
-// Afterwards set ASSET_BASE = "" in src/lib/assets.ts.
 
 import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
@@ -69,5 +68,19 @@ for (const assetPath of paths) {
 }
 
 console.log(`\nSaved ${saved} new files to public/ (${present} already there, ${failed} failed).`);
-if (failed) process.exitCode = 1;
-else console.log('Next: set ASSET_BASE = "" in src/lib/assets.ts.');
+
+if (failed) {
+  // Leave the site on the old host so no picture goes missing; run the script again to retry.
+  process.exitCode = 1;
+  console.log("Some files didn't download, so the site still loads them from athidi.vercel.app. Run this again to retry.");
+} else {
+  const assetsFile = path.join(root, "src", "lib", "assets.ts");
+  const source = await readFile(assetsFile, "utf8");
+  const switched = source.replace(/export const ASSET_BASE = "[^"]*";/, 'export const ASSET_BASE = "";');
+  if (switched !== source) {
+    await writeFile(assetsFile, switched);
+    console.log("Switched the site to these copies (src/lib/assets.ts). Commit public/ and src/lib/assets.ts.");
+  } else {
+    console.log("The site already uses these copies.");
+  }
+}

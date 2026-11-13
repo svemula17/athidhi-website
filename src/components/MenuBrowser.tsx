@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { flushSync } from "react-dom";
-import { menuCategories, mostLoved, type MenuItem } from "@/data/menu";
+import { OrderButton, button } from "@/components/ui";
+import { menuCategories, mostLoved, type Diet, type MenuItem } from "@/data/menu";
+import { site } from "@/data/site";
 import { asset } from "@/lib/assets";
 
 type View = "grid" | "list";
@@ -13,9 +15,9 @@ const formatPrice = (n: number) => `$${n.toFixed(2)}`;
 function Price({ item, className = "mt-4" }: { item: MenuItem; className?: string }) {
   return (
     <p className={`flex items-baseline gap-2 ${className}`}>
-      <span className="font-serif text-xl text-gold">{formatPrice(item.price)}</span>
+      <span className="font-serif text-xl text-gold-deep">{formatPrice(item.price)}</span>
       {item.originalPrice !== undefined && (
-        <span className="font-serif text-xs text-ink/40 line-through">
+        <span className="font-serif text-xs text-ink/60 line-through">
           <span className="sr-only">was </span>
           {formatPrice(item.originalPrice)}
         </span>
@@ -24,46 +26,67 @@ function Price({ item, className = "mt-4" }: { item: MenuItem; className?: strin
   );
 }
 
-// Online ordering isn't connected yet, so this button has no action for now.
-function AddButton({ name, className = "" }: { name: string; className?: string }) {
+const dietLabels: Record<Diet, string> = {
+  veg: "Vegetarian",
+  nonveg: "Non-vegetarian",
+  both: "Vegetarian or non-vegetarian",
+};
+
+function DietSymbol({ type }: { type: "veg" | "nonveg" }) {
+  // The familiar Indian food marks: a green dot (vegetarian) or brown triangle (non-vegetarian) in a square.
+  const color = type === "veg" ? "text-green-700" : "text-orange-800";
   return (
-    <button
-      type="button"
-      aria-label={`Add ${name}`}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-ink shadow-lg shadow-ink/20 transition hover:bg-gold-light ${className}`}
-    >
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.25} strokeLinecap="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M12 5v14M5 12h14" />
-      </svg>
-    </button>
+    <svg viewBox="0 0 16 16" className={`h-4 w-4 shrink-0 ${color}`} aria-hidden="true">
+      <rect x="1" y="1" width="14" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      {type === "veg" ? <circle cx="8" cy="8" r="3.5" fill="currentColor" /> : <path d="M8 4.2 12 11.3H4Z" fill="currentColor" />}
+    </svg>
   );
 }
 
+function DietMark({ diet }: { diet?: Diet }) {
+  if (!diet) return null;
+  return (
+    <span role="img" aria-label={dietLabels[diet]} title={dietLabels[diet]} className="mt-1.5 inline-flex shrink-0 gap-1">
+      {diet !== "nonveg" && <DietSymbol type="veg" />}
+      {diet !== "veg" && <DietSymbol type="nonveg" />}
+    </span>
+  );
+}
+
+function DishName({ item, className }: { item: MenuItem; className: string }) {
+  return (
+    <div className="flex items-start gap-2.5">
+      <DietMark diet={item.diet} />
+      <h3 className={`font-serif leading-snug text-ink ${className}`}>{item.name}</h3>
+    </div>
+  );
+}
+
+// Cards are `relative` so the screen-reader-only "was" price stays inside the scrolling row
+// (otherwise it widens the page on phones).
 function DishCard({ item, view, className = "" }: { item: MenuItem; view: View; className?: string }) {
   if (view === "list") {
     return (
-      <article className="flex items-center gap-4 rounded-2xl border border-maroon/10 bg-white p-3 shadow-sm">
+      <article className="relative flex items-center gap-4 rounded-2xl border border-maroon/10 bg-white p-3 shadow-sm">
         <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-24">
           <Image src={asset(item.image)} alt="" fill sizes="96px" className="object-cover" />
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="font-serif text-lg leading-snug text-ink">{item.name}</h3>
-          <p className="mt-1 text-sm text-ink/60">{item.description}</p>
+          <DishName item={item} className="text-lg" />
+          <p className="mt-1 text-sm text-ink/70">{item.description}</p>
           <Price item={item} className="mt-2" />
         </div>
-        <AddButton name={item.name} />
       </article>
     );
   }
   return (
-    <article className={`flex flex-col overflow-hidden rounded-3xl border border-maroon/10 bg-white shadow-sm transition hover:shadow-lg ${className}`}>
+    <article className={`relative flex flex-col overflow-hidden rounded-3xl border border-maroon/10 bg-white shadow-sm transition hover:shadow-lg ${className}`}>
       <div className="relative h-48">
         <Image src={asset(item.image)} alt="" fill sizes="320px" className="object-cover" />
-        <AddButton name={item.name} className="absolute bottom-3 right-3" />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-serif text-xl leading-snug text-ink">{item.name}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">{item.description}</p>
+        <DishName item={item} className="text-xl" />
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/70">{item.description}</p>
         <Price item={item} />
       </div>
     </article>
@@ -87,7 +110,7 @@ function DishSection({
     <section id={id} className="scroll-mt-24 pt-12 md:scroll-mt-32">
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="font-serif text-2xl text-maroon md:text-3xl">{title}</h2>
-        <span className="text-xs uppercase tracking-[0.2em] text-ink/40">
+        <span className="text-xs uppercase tracking-[0.2em] text-ink/60">
           {items.length} {items.length === 1 ? "dish" : "dishes"}
         </span>
       </div>
@@ -132,11 +155,51 @@ function ToggleButton({
       aria-pressed={pressed}
       onClick={onClick}
       className={`flex h-9 w-9 items-center justify-center rounded-full transition ${
-        pressed ? "bg-white text-maroon shadow-sm" : "text-ink/50 hover:text-ink"
+        pressed ? "bg-white text-maroon shadow-sm" : "text-ink/60 hover:text-ink"
       }`}
     >
       {children}
     </button>
+  );
+}
+
+/** How to order, until (and once) online ordering is connected — see site.orderOnlineUrl. */
+function OrderBanner() {
+  const online = Boolean(site.orderOnlineUrl);
+  return (
+    <div className="mt-8 flex flex-col gap-5 rounded-3xl bg-maroon px-6 py-6 text-cream sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div>
+        <p className="font-serif text-2xl">{online ? "Order online for pickup" : "Takeout & pickup"}</p>
+        <p className="mt-1 text-sm text-cream/80">
+          {online ? (
+            "Place your order online and we’ll have it ready."
+          ) : (
+            <>
+              Call{" "}
+              <a href={site.phoneHref} className="font-semibold text-gold underline-offset-4 hover:underline">
+                {site.phone}
+              </a>{" "}
+              to place your order.
+            </>
+          )}
+        </p>
+      </div>
+      <OrderButton className={`${button.gold} shrink-0 shadow-lg shadow-ink/20`} />
+    </div>
+  );
+}
+
+function DietLegend() {
+  return (
+    <p className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink/70">
+      <span className="inline-flex items-center gap-2">
+        <DietSymbol type="veg" /> Vegetarian
+      </span>
+      <span className="inline-flex items-center gap-2">
+        <DietSymbol type="nonveg" /> Non-vegetarian
+      </span>
+      <span>Ask us about allergens.</span>
+    </p>
   );
 }
 
@@ -190,7 +253,7 @@ export default function MenuBrowser() {
         <div className="space-y-6 p-4 sm:p-6 lg:p-8">
           <label className="relative block">
             <span className="sr-only">Search dishes</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/60" aria-hidden="true">
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" />
             </svg>
@@ -199,11 +262,11 @@ export default function MenuBrowser() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search dishes..."
-              className="w-full rounded-full border border-maroon/10 bg-white py-3 pl-11 pr-4 text-sm text-ink shadow-sm outline-none placeholder:text-ink/40 focus:border-gold focus:ring-2 focus:ring-gold/30"
+              className="w-full rounded-full border border-maroon/10 bg-white py-3 pl-11 pr-4 text-sm text-ink shadow-sm outline-none placeholder:text-ink/50 focus:border-gold focus:ring-2 focus:ring-gold/30"
             />
           </label>
           <div>
-            <p className="font-serif text-xs uppercase tracking-[0.3em] text-ink/50">Collections</p>
+            <p className="font-serif text-xs uppercase tracking-[0.3em] text-ink/60">Collections</p>
             <nav
               aria-label="Menu categories"
               className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0"
@@ -224,7 +287,7 @@ export default function MenuBrowser() {
                     }`}
                   >
                     <span>{category.name}</span>
-                    <span className={`font-sans text-xs ${isActive ? "text-gold" : "text-ink/40"}`}>{category.items.length}</span>
+                    <span className={`font-sans text-xs ${isActive ? "text-gold" : "text-ink/60"}`}>{category.items.length}</span>
                   </a>
                 );
               })}
@@ -236,7 +299,7 @@ export default function MenuBrowser() {
       <div className="min-w-0 flex-1 px-4 pb-24 sm:px-6 lg:px-10">
         <div className="flex items-end justify-between gap-4 border-b border-maroon/10 pb-8 pt-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Athidhi Restaurant</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Athidhi Restaurant</p>
             <h1 className="mt-2 font-serif text-4xl text-maroon md:text-5xl">Menu Discovery</h1>
           </div>
           <div role="group" aria-label="Layout" className="flex rounded-full border border-maroon/10 bg-sand p-1">
@@ -255,6 +318,9 @@ export default function MenuBrowser() {
             </ToggleButton>
           </div>
         </div>
+
+        <OrderBanner />
+        <DietLegend />
 
         {q ? (
           results.length > 0 ? (

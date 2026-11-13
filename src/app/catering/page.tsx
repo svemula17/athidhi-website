@@ -1,55 +1,87 @@
-import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import EnquiryForm from "@/components/EnquiryForm";
-import { Eyebrow, button } from "@/components/ui";
+import Reveal from "@/components/Reveal";
+import { ArrowRight, Eyebrow, Icon, button } from "@/components/ui";
+import { cateringMenu } from "@/data/catering";
 import { asset } from "@/lib/assets";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Catering Menu — Athidhi",
   description: "Athidhi's full banquet and catering menu for weddings, corporate events and celebrations.",
-};
+  path: "/catering",
+});
 
-// The catering menu is a designed three-page card (same files the old site shows).
-const menuPages = [
-  { src: "/catering-menu-1.png", alt: "Athidhi catering menu, page 1" },
-  { src: "/catering-menu-2.png", alt: "Athidhi catering menu, page 2" },
-  { src: "/catering-menu-3.png", alt: "Athidhi catering menu, page 3" },
-];
-
+// The printed version of the same menu, for guests who want to download or share it.
 const menuPdf = "/Athidhi%20Banquet-Catering%20Menu.pdf";
 
 export default function CateringPage() {
   return (
     <>
-      <section className="bg-cream py-16 md:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-            <h1 className="font-serif text-4xl text-maroon md:text-6xl">Full Catering Menu</h1>
-            <a
-              href={asset(menuPdf)}
-              target="_blank"
-              rel="noopener noreferrer"
-              download="Athidhi Banquet-Catering Menu.pdf"
-              className={`${button.maroon} shadow-lg shadow-maroon/20`}
-            >
-              Download
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
-                <path d="M12 4v11m-5-5 5 5 5-5M5 20h14" />
-              </svg>
-            </a>
-          </div>
-          <div className="mt-12 space-y-8">
-            {menuPages.map((page, i) => (
-              <Image
-                key={page.src}
-                src={asset(page.src)}
-                alt={page.alt}
-                width={1224}
-                height={1584}
-                priority={i === 0}
-                sizes="(min-width: 1024px) 960px, 100vw"
-                className="h-auto w-full rounded-3xl shadow-xl shadow-ink/10"
-              />
+      <section className="bg-cream pb-24 pt-16 md:pt-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal stagger className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+            <div>
+              <Eyebrow>Weddings &amp; Events</Eyebrow>
+              <h1 className="mt-5 font-serif text-4xl tracking-tight text-maroon md:text-6xl">Full Catering Menu</h1>
+              <p className="mt-5 max-w-xl text-lg font-light leading-relaxed text-ink/75">
+                Every dish below is available for banquets and catering. Send us a request and we’ll plan the menu with
+                you.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="#request" className={button.maroon}>
+                Request Catering <ArrowRight />
+              </Link>
+              <a
+                href={asset(menuPdf)}
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Athidhi Banquet-Catering Menu.pdf"
+                className={button.maroonOutline}
+              >
+                Download PDF
+                <Icon name="download" className="h-4 w-4" />
+              </a>
+            </div>
+          </Reveal>
+
+          <nav aria-label="Catering menu sections" className="mt-12 flex flex-wrap gap-2">
+            {cateringMenu.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="rounded-full border border-maroon/15 bg-white px-4 py-2 text-sm text-ink/80 transition hover:border-gold hover:text-maroon"
+              >
+                {section.title}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-10 gap-6 md:columns-2 xl:columns-3">
+            {cateringMenu.map((section) => (
+              <Reveal key={section.id} className="mb-6 break-inside-avoid">
+                <section
+                  id={section.id}
+                  aria-labelledby={`${section.id}-title`}
+                  className="scroll-mt-28 rounded-3xl border border-maroon/10 bg-white p-7 shadow-sm md:scroll-mt-36"
+                >
+                  <h2 id={`${section.id}-title`} className="font-serif text-2xl text-maroon">
+                    {section.title}
+                  </h2>
+                  <div aria-hidden="true" className="mt-3 h-px w-12 bg-gold" />
+                  {section.groups.map((group, i) => (
+                    <ul key={i} className="mt-4 space-y-1.5 text-[15px] leading-snug text-ink">
+                      {group.map((dish) => (
+                        <li key={dish.name}>
+                          {dish.name}
+                          {dish.options && <span className="text-ink/70"> — {dish.options}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  ))}
+                </section>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -57,16 +89,16 @@ export default function CateringPage() {
 
       <section id="request" className="scroll-mt-24 bg-sand py-24 md:scroll-mt-32">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="text-center">
+          <Reveal stagger className="text-center">
             <Eyebrow center>Enquire Now</Eyebrow>
             <h2 className="mt-5 font-serif text-4xl text-maroon md:text-5xl">Request Catering</h2>
-            <p className="mx-auto mt-4 max-w-xl text-ink/70">
+            <p className="mx-auto mt-4 max-w-xl text-ink/75">
               Fill out your details below and we will contact you directly via WhatsApp to finalize the arrangements.
             </p>
-          </div>
-          <div className="mt-12">
+          </Reveal>
+          <Reveal className="mt-12">
             <EnquiryForm kind="catering" />
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

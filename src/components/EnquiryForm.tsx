@@ -111,7 +111,7 @@ export default function EnquiryForm({ kind }: { kind: "banquet" | "catering" }) 
       <button type="submit" className={`${button.maroon} w-full`}>
         Submit {label} Request
       </button>
-      <p className="text-center text-xs text-ink/50">Submitting opens WhatsApp with your details filled in, ready to send to Athidhi.</p>
+      <p className="text-center text-xs text-ink/60">Submitting opens WhatsApp with your details filled in, ready to send to Athidhi.</p>
     </form>
   );
 }

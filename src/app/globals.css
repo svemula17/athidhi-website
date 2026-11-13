@@ -8,10 +8,9 @@
   --color-maroon: #5b0b13;
   --color-gold: #c9a227;
   --color-gold-light: #e4c767;
+  /* Gold for text on cream, sand or white: the bright gold is too faint there to read (WCAG AA). */
+  --color-gold-deep: #846510;
   --color-brass: #c89b3c;
-
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   /* Hero entrance animation (used with motion-safe:, so reduced-motion visitors skip it). */
   --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -64,6 +63,12 @@
   }
 }
 
+/* Fonts come from next/font in the root layout, which sets these variables on <html>. */
+@theme inline {
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   @media (prefers-reduced-motion: no-preference) {
     html {
@@ -74,7 +79,7 @@
   body {
     background-color: var(--color-cream);
     color: var(--color-ink);
-    font-family: var(--font-sans);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   }
 }
 

@@ -1,36 +1,57 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { site } from "@/data/site";
+import { siteUrl } from "@/lib/seo";
 
+// Fonts are served with the site (src/fonts) rather than fetched from Google on every visit.
+const inter = localFont({
+  src: "../fonts/inter-latin-wght-normal.woff2",
+  weight: "100 900",
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = localFont({
+  src: [
+    { path: "../fonts/playfair-display-latin-wght-normal.woff2", weight: "400 900", style: "normal" },
+    { path: "../fonts/playfair-display-latin-wght-italic.woff2", weight: "400 900", style: "italic" },
+  ],
+  variable: "--font-playfair",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
+});
+
+// Defaults for every page; each page sets its own title, description and canonical link (src/lib/seo.ts).
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Athidhi — Athidhi Devo Bhava | Luxury Indian Fine Dining, Plainsboro NJ",
-  description:
-    "A sanctuary of Indian heritage cuisine, where every guest is welcomed as a form of the divine. 660 Plainsboro Rd, Plainsboro Township, NJ.",
+  description: `${site.description} ${site.address.street}, ${site.address.city}.`,
+  applicationName: site.name,
+  openGraph: { type: "website", siteName: site.name, locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Without JavaScript the scroll-reveal never fires, so show that content straight away. */}
         <noscript
           dangerouslySetInnerHTML={{
             __html: "<style>.reveal,.reveal-zoom,.reveal-stagger>*{opacity:1!important;transform:none!important}</style>",
           }}
         />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- this is the root layout, so the fonts load on every page */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
-        />
       </head>
       <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
+        {/* Visitor counts in the Vercel dashboard (turn on Web Analytics for the project there). */}
+        <Analytics />
       </body>
     </html>
   );

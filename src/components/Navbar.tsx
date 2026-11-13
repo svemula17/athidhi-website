@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Icon, OrderButton } from "@/components/ui";
+import { site } from "@/data/site";
 import { asset } from "@/lib/assets";
 
 const mainLinks = [
@@ -25,15 +27,6 @@ function subscribeToScroll(onChange: () => void) {
 const isScrolled = () => window.scrollY > 24;
 const isScrolledOnServer = () => false;
 
-function CartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-      <circle cx="8" cy="21" r="1" />
-      <circle cx="19" cy="21" r="1" />
-      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-    </svg>
-  );
-}
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -134,30 +127,20 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            href="/cart"
-            onClick={closeMenus}
-            aria-label="Cart"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition ${
+          {/* Phones: a one-tap call button where the order button doesn't fit. */}
+          <a
+            href={site.phoneHref}
+            aria-label={`Call Athidhi: ${site.phone}`}
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition md:hidden ${
               overlay ? "bg-white/10 text-cream hover:bg-white/20" : "bg-ink/5 text-ink hover:bg-ink/10"
             }`}
           >
-            <CartIcon />
-          </Link>
-          <Link
-            href="/auth"
-            className={`hidden rounded-full border px-6 py-2.5 text-sm font-bold transition md:inline-flex ${
-              overlay ? "border-cream/70 text-cream hover:bg-cream hover:text-ink" : "border-ink text-ink hover:bg-ink hover:text-cream"
-            }`}
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/menu"
-            className="hidden rounded-full bg-brass px-6 py-2.5 text-sm font-bold text-ink shadow-sm transition hover:bg-gold md:inline-flex"
-          >
-            Order online ›
-          </Link>
+            <Icon name="phone" className="h-5 w-5" />
+          </a>
+          <OrderButton
+            onClick={closeMenus}
+            className="hidden items-center gap-2 rounded-full bg-brass px-6 py-2.5 text-sm font-bold text-ink shadow-sm transition hover:bg-gold md:inline-flex"
+          />
           <button
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -188,13 +171,11 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-4 grid grid-cols-2 gap-3 border-t border-maroon/10 pt-4 md:hidden">
-              <Link href="/auth" onClick={closeMenus} className="rounded-full border border-ink py-3 text-center text-sm font-bold text-ink">
-                Sign In
-              </Link>
-              <Link href="/menu" onClick={closeMenus} className="rounded-full bg-brass py-3 text-center text-sm font-bold text-ink">
-                Order online ›
-              </Link>
+            <div className="mt-4 border-t border-maroon/10 pt-4 md:hidden">
+              <OrderButton
+                onClick={closeMenus}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-brass py-3 text-sm font-bold text-ink"
+              />
             </div>
           </div>
         </nav>

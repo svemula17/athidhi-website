@@ -2,15 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Mandala from "@/components/Mandala";
-import { site } from "@/data/site";
+import { Icon } from "@/components/ui";
+import { hoursLabel, site } from "@/data/site";
 import { asset } from "@/lib/assets";
 
 const explore = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/menu", label: "Menu" },
+  { href: "/banquet", label: "Banquet" },
+  { href: "/catering", label: "Catering" },
+  { href: "/about", label: "Our Story" },
   { href: "/#gallery", label: "Gallery" },
-  { href: "/#visit", label: "Reservations" },
   { href: "/#visit", label: "Contact" },
 ];
 
@@ -50,21 +52,14 @@ const socials: { label: string; href: string; icon: ReactNode }[] = [
 
 const heading = "font-serif text-sm uppercase tracking-[0.3em] text-gold";
 
-function Icon({ children }: { children: ReactNode }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" aria-hidden="true">
-      {children}
-    </svg>
-  );
-}
-
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-cream/80">
       <Mandala className="pointer-events-none absolute -bottom-48 -right-40 h-[560px] w-[560px] text-gold/[0.07]" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
-          <Image src={asset("/assets/logo-BgkjBRVm.png")} alt="Athidhi" width={577} height={433} className="h-24 w-auto" />
+          {/* The logo artwork is maroon; turned white so it reads on the dark footer. */}
+          <Image src={asset("/assets/logo-BgkjBRVm.png")} alt="Athidhi" width={577} height={433} className="h-24 w-auto brightness-0 invert" />
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">{site.description}</p>
           <ul className="mt-8 flex gap-3">
             {socials.map((social) => (
@@ -102,27 +97,27 @@ export default function Footer() {
           <h2 className={heading}>Contact</h2>
           <ul className="mt-6 space-y-4 text-sm">
             <li className="flex gap-3">
-              <Icon>
-                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                <circle cx="12" cy="10" r="3" />
-              </Icon>
+              <Icon name="mapPin" className="mt-0.5 h-[18px] w-[18px] text-gold" />
               <span>
                 {site.address.street}, {site.address.city}
+                <br />
+                <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer" className="text-gold transition hover:text-gold-light">
+                  Get directions
+                </a>
               </span>
             </li>
             <li className="flex gap-3">
-              <Icon>
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </Icon>
-              <a href={site.phoneHref} className="transition hover:text-gold">
-                {site.phone}
-              </a>
+              <Icon name="phone" className="mt-0.5 h-[18px] w-[18px] text-gold" />
+              <span>
+                <a href={site.phoneHref} className="transition hover:text-gold">
+                  {site.phone}
+                </a>
+                <br />
+                <span className="text-cream/60">Reservations &amp; takeout</span>
+              </span>
             </li>
             <li className="flex gap-3">
-              <Icon>
-                <rect width="20" height="16" x="2" y="4" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </Icon>
+              <Icon name="mail" className="mt-0.5 h-[18px] w-[18px] text-gold" />
               <a href={`mailto:${site.email}`} className="transition hover:text-gold">
                 {site.email}
               </a>
@@ -131,8 +126,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className={heading}>Newsletter</h2>
-          <p className="mt-6 text-sm leading-relaxed text-cream/60">Receive tasting menus, chef stories, and reservations.</p>
+          <h2 className={heading}>Hours</h2>
+          <dl className="mt-6 space-y-4 text-sm">
+            {site.hours.map((row) => (
+              <div key={row.days}>
+                <dt className="text-cream/60">{row.days}</dt>
+                <dd className="mt-0.5">{hoursLabel(row)}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
 

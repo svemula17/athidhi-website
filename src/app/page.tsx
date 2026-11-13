@@ -1,12 +1,53 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import Mandala from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
 import SplitSection from "@/components/SplitSection";
-import { ArrowRight, Eyebrow, button } from "@/components/ui";
-import { site } from "@/data/site";
+import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
+import { hoursLabel, site, whatsappChatUrl } from "@/data/site";
 import { asset } from "@/lib/assets";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Athidhi — Athidhi Devo Bhava | Luxury Indian Fine Dining, Plainsboro NJ",
+  description: `${site.description} ${site.address.street}, ${site.address.city}.`,
+  path: "/",
+});
+
+// What Google shows for the restaurant: address, phone, hours, menu (schema.org Restaurant).
+const restaurantJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": absoluteUrl("/#restaurant"),
+  name: site.name,
+  description: site.description,
+  url: absoluteUrl("/"),
+  telephone: site.phoneHref.replace("tel:", ""),
+  email: site.email,
+  image: [absoluteUrl(asset("/assets/Hero-u8a6ujtO.jpg")), absoluteUrl(asset("/assets/IAML3728-IDPyBwOE.JPG"))],
+  logo: absoluteUrl(asset("/assets/logo-BgkjBRVm.png")),
+  servesCuisine: ["Indian", "South Indian", "Indo-Chinese"],
+  priceRange: "$$",
+  menu: absoluteUrl("/menu"),
+  acceptsReservations: true,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: site.address.country,
+  },
+  openingHoursSpecification: site.hours.map((row) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: row.dayOfWeek,
+    opens: row.opens,
+    closes: row.closes,
+  })),
+  sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
+};
 
 const heroSlides = [
   "/assets/IAML3711-CiZrVyWb.JPG",
@@ -15,7 +56,7 @@ const heroSlides = [
 ].map((path) => asset(path));
 
 const gallery = [
-  { src: "/assets/Hero-u8a6ujtO.jpg", alt: "Heritage fine dining dish" },
+  { src: "/assets/AthidhiIndianFineDineRestaurant_PunjabiHariyaliKabab-sl2f_csU.jpg", alt: "Punjabi hariyali kabab" },
   { src: "/assets/AthidhiIndianFineDineRestaurant_HyderabadiGoatDumBiryani-COewIYqx.jpg", alt: "Hyderabadi goat dum biryani" },
   { src: "/assets/AthidhiIndianFineDineRestaurant_Dosa-CX4LpkSf.jpg", alt: "Masala dosa" },
   { src: "/assets/AthidhiIndianFineDineRestaurant_CashewMuttonRoast-C-zGc1EQ.jpg", alt: "Cashew mutton roast" },
@@ -30,18 +71,22 @@ const banquetPhotos = [
 
 const heroWord = "ATHIDHI";
 
-const outlineMaroon =
-  "inline-flex items-center justify-center gap-2 rounded-full border border-maroon/40 px-8 py-3.5 font-semibold tracking-wide text-maroon transition hover:bg-maroon hover:text-cream";
+// Narrower buttons so the three Visit actions fit on one line.
+const compact = (classes: string) => classes.replace("px-8", "px-6");
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* Hero — pulled up under the sticky header so the photo fills the screen behind it */}
       <section className="relative isolate -mt-20 flex min-h-svh items-center justify-center overflow-hidden bg-ink md:-mt-28">
         <HeroSlideshow images={heroSlides} />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/50 to-ink/75" />
         <div className="relative z-10 px-4 pb-24 pt-36 text-center md:pt-44">
-          <Eyebrow center animate>
+          <Eyebrow center animate tone="gold">
             Established with Reverence
           </Eyebrow>
           {/* Each letter rises into place in turn; the heading itself is read as one word. */}
@@ -76,9 +121,7 @@ export default function Home() {
             <Link href="/menu" className={button.maroon}>
               View Menu
             </Link>
-            <Link href="/menu" className={button.goldOutline}>
-              Order Online
-            </Link>
+            <OrderButton className={button.goldOutline} />
           </div>
         </div>
       </section>
@@ -92,7 +135,7 @@ export default function Home() {
         eyebrow="Our Story"
         title={
           <>
-            The Guest is <em className="text-gold">Divine</em>
+            The Guest is <em className="text-gold-deep">Divine</em>
           </>
         }
         actions={
@@ -146,7 +189,7 @@ export default function Home() {
             <Link href="/banquet#request" className={button.gold}>
               Request a Banquet <ArrowRight />
             </Link>
-            <Link href="/banquet" className={outlineMaroon}>
+            <Link href="/banquet" className={button.maroonOutline}>
               See the Banquet Hall
             </Link>
           </>
@@ -185,7 +228,7 @@ export default function Home() {
       <section id="gallery" className="scroll-mt-24 bg-ink py-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal stagger className="text-center">
-            <Eyebrow center>A Feast for the Eyes</Eyebrow>
+            <Eyebrow center tone="gold">A Feast for the Eyes</Eyebrow>
             <h2 className="mt-5 font-serif text-4xl tracking-tight text-white md:text-5xl lg:text-6xl">
               From the Tandoor and Skillet.
             </h2>
@@ -227,10 +270,26 @@ export default function Home() {
         image={{ src: asset("/assets/Athidi-ClHi8Gav.png"), alt: "Visit Athidhi" }}
         eyebrow="Plainsboro, NJ"
         title="Visit Athidhi"
+        actions={
+          <>
+            <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer" className={compact(button.maroon)}>
+              <Icon name="mapPin" className="h-4 w-4" />
+              Get Directions
+            </a>
+            <a href={site.phoneHref} className={compact(button.maroonOutline)}>
+              <Icon name="phone" className="h-4 w-4" />
+              Call to Book
+            </a>
+            <a href={whatsappChatUrl} target="_blank" rel="noopener noreferrer" className={compact(button.maroonOutline)}>
+              <Icon name="chat" className="h-4 w-4" />
+              WhatsApp
+            </a>
+          </>
+        }
       >
         <div className="space-y-8 font-normal text-ink">
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Location</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Location</h3>
             <p className="mt-3 text-lg">
               {site.address.street}
               <br />
@@ -238,7 +297,7 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Reservations &amp; Info</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Reservations &amp; Info</h3>
             <p className="mt-3 text-lg">
               <a href={site.phoneHref} className="transition hover:text-maroon">
                 {site.phone}
@@ -251,12 +310,12 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Service Hours</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Service Hours</h3>
             <dl className="mt-3">
               {site.hours.map((row) => (
                 <div key={row.days} className="flex justify-between gap-6 border-b border-maroon/10 py-3">
                   <dt className="font-light text-ink/60">{row.days}</dt>
-                  <dd className="font-semibold text-maroon">{row.time}</dd>
+                  <dd className="font-semibold text-maroon">{hoursLabel(row)}</dd>
                 </div>
               ))}
             </dl>
