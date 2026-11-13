@@ -7,8 +7,8 @@ import Reveal from "@/components/Reveal";
 import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
 import { hoursLabel, site, whatsappChatUrl } from "@/data/site";
-import { asset } from "@/lib/assets";
-import { absoluteUrl, pageMetadata } from "@/lib/seo";
+import { asset, publicFile } from "@/lib/assets";
+import { absoluteAssetUrl, absoluteUrl, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Athidhi — Athidhi Devo Bhava | Luxury Indian Fine Dining, Plainsboro NJ",
@@ -26,8 +26,8 @@ const restaurantJsonLd = {
   url: absoluteUrl("/"),
   telephone: site.phoneHref.replace("tel:", ""),
   email: site.email,
-  image: [absoluteUrl(asset("/assets/Hero-u8a6ujtO.jpg")), absoluteUrl(asset("/assets/IAML3728-IDPyBwOE.JPG"))],
-  logo: absoluteUrl(asset("/assets/logo-BgkjBRVm.png")),
+  image: [absoluteAssetUrl(asset("/assets/Hero-u8a6ujtO.jpg")), absoluteAssetUrl(asset("/assets/IAML3728-IDPyBwOE.JPG"))],
+  logo: absoluteAssetUrl(asset("/assets/logo-BgkjBRVm.png")),
   servesCuisine: ["Indian", "South Indian", "Indo-Chinese"],
   priceRange: "$$",
   menu: absoluteUrl("/menu"),
@@ -155,7 +155,7 @@ export default function Home() {
       <SplitSection
         tone="ink"
         imageSide="left"
-        image={{ src: "/images/catering-buffet.jpg", alt: "Chef serving at a catering buffet" }}
+        image={{ src: publicFile("/images/catering-buffet.jpg"), alt: "Chef serving at a catering buffet" }}
         eyebrow="Weddings & Events"
         title={
           <>

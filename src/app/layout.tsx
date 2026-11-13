@@ -51,7 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main>{children}</main>
         <Footer />
         {/* Visitor counts in the Vercel dashboard (turn on Web Analytics for the project there). */}
-        <Analytics />
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

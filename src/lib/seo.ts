@@ -13,9 +13,14 @@ export const siteUrl = (
     : "http://localhost:3000")
 ).replace(/\/+$/, "");
 
-/** "/menu" → "https://…/menu". Absolute URLs (e.g. images still on the old host) pass through. */
+/** A page on this site: "/menu" → "https://…/menu" (keeps any sub-folder in siteUrl). */
 export function absoluteUrl(path: string): string {
-  return new URL(path, `${siteUrl}/`).href;
+  return `${siteUrl}${path}`;
+}
+
+/** An image address from asset() or publicFile(), made absolute. */
+export function absoluteAssetUrl(src: string): string {
+  return new URL(src, siteUrl).href;
 }
 
 /** The picture shown when a page is shared (src/app/opengraph-image.png). */
