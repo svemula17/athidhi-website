@@ -21,6 +21,11 @@ const gallery = [
   { src: "/assets/AthidhiIndianFineDineRestaurant_VegManchurianNoodles-DsvsL3LU.jpg", alt: "Veg manchurian noodles" },
 ];
 
+const banquetPhotos = [
+  { src: "/assets/20260606_141209-jnSBWv0D.jpg", label: "The Banquet Hall" },
+  { src: "/assets/hero-4hOicPhT.jpg", label: "Event Décor" },
+];
+
 const heroWord = "ATHIDHI";
 
 const headingXL = "font-serif text-4xl leading-[1.05] tracking-tight text-maroon md:text-6xl";
@@ -140,8 +145,8 @@ export default function Home() {
         />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-ink via-ink/50 to-ink/10" />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-ink/75 via-ink/20 to-transparent" />
-        <div className="relative mx-auto flex min-h-[440px] max-w-7xl items-end px-4 py-16 sm:px-6 md:min-h-[500px] lg:px-8">
-          <div className="max-w-xl">
+        <div className="relative mx-auto grid min-h-[440px] max-w-7xl items-end gap-10 px-4 py-16 sm:px-6 md:min-h-[500px] lg:grid-cols-[minmax(0,1fr)_auto] lg:px-8">
+          <div className="max-w-lg xl:max-w-xl">
             <Eyebrow>Host Your</Eyebrow>
             <h2 className="mt-4 font-serif text-4xl leading-[1.05] text-cream md:text-5xl">Grand Celebrations</h2>
             <p className="mt-6 text-lg font-light leading-relaxed text-cream/80">
@@ -159,6 +164,30 @@ export default function Home() {
                 See the Banquet Hall
               </Link>
             </div>
+          </div>
+          {/* Photo cards that open the banquet page */}
+          <div className="grid grid-cols-2 gap-4 lg:flex lg:items-end">
+            {banquetPhotos.map((photo, i) => (
+              <Link
+                key={photo.src}
+                href="/banquet"
+                className={`group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-white/20 shadow-2xl shadow-ink/50 transition hover:border-gold lg:w-48 xl:w-60 ${
+                  i === 1 ? "lg:-translate-y-10" : ""
+                }`}
+              >
+                <Image
+                  src={asset(photo.src)}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1280px) 240px, (min-width: 1024px) 192px, 50vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-linear-to-t from-ink/90 to-transparent px-3 pb-2.5 pt-8 text-sm font-medium text-cream">
+                  {photo.label}
+                  <ArrowRight className="h-3.5 w-3.5 text-gold transition group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
