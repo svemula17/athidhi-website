@@ -124,7 +124,8 @@ export default function Home() {
           </Link>
         </div>
         <div className="relative min-h-[360px]">
-          <Image src={asset("/assets/catering-C2zfkD8C.jpg")} alt="Athidhi catering" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          {/* Self-hosted in /public (not on the old site). */}
+          <Image src="/images/catering-buffet.jpg" alt="Chef serving at a catering buffet" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
       </section>
 
@@ -139,10 +140,10 @@ export default function Home() {
         />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-ink via-ink/50 to-ink/10" />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-ink/75 via-ink/20 to-transparent" />
-        <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-end px-4 py-20 sm:px-6 md:min-h-[720px] lg:px-8">
+        <div className="relative mx-auto flex min-h-[440px] max-w-7xl items-end px-4 py-16 sm:px-6 md:min-h-[500px] lg:px-8">
           <div className="max-w-xl">
             <Eyebrow>Host Your</Eyebrow>
-            <h2 className="mt-5 font-serif text-5xl leading-[1.05] text-cream md:text-7xl">Grand Celebrations</h2>
+            <h2 className="mt-4 font-serif text-4xl leading-[1.05] text-cream md:text-5xl">Grand Celebrations</h2>
             <p className="mt-6 text-lg font-light leading-relaxed text-cream/80">
               Whether you are planning an intimate birthday party, a romantic anniversary, a magnificent wedding reception,
               or corporate events, Athidhi provides the ultimate setting for memorable festivities.

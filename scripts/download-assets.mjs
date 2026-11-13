@@ -6,6 +6,7 @@
 //
 // Afterwards set ASSET_BASE = "" in src/lib/assets.ts.
 
+import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -42,16 +43,24 @@ if (dryRun) {
   process.exit(0);
 }
 
+let saved = 0;
+let present = 0;
 let failed = 0;
 for (const assetPath of paths) {
+  const dest = path.join(root, "public", decodeURIComponent(assetPath));
+  // Files already in public/ (downloaded before, or added to the project directly) are left alone.
+  if (existsSync(dest)) {
+    present += 1;
+    continue;
+  }
   try {
     const res = await fetch(ORIGIN + assetPath);
     const type = res.headers.get("content-type") ?? "";
     // A missing file comes back as the old site's HTML page, so treat HTML as a failure too.
     if (!res.ok || type.includes("text/html")) throw new Error(`HTTP ${res.status} ${type}`);
-    const dest = path.join(root, "public", decodeURIComponent(assetPath));
     await mkdir(path.dirname(dest), { recursive: true });
     await writeFile(dest, Buffer.from(await res.arrayBuffer()));
+    saved += 1;
     console.log(`✓ ${assetPath}`);
   } catch (err) {
     failed += 1;
@@ -59,6 +68,6 @@ for (const assetPath of paths) {
   }
 }
 
-console.log(`\nSaved ${paths.length - failed} of ${paths.length} files to public/.`);
+console.log(`\nSaved ${saved} new files to public/ (${present} already there, ${failed} failed).`);
 if (failed) process.exitCode = 1;
 else console.log('Next: set ASSET_BASE = "" in src/lib/assets.ts.');
