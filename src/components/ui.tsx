@@ -5,20 +5,32 @@ export function Eyebrow({
   children,
   center = false,
   tone = "gold",
+  animate = false,
   className = "",
 }: {
   children: ReactNode;
   center?: boolean;
   tone?: "gold" | "maroon";
+  /** Play the entrance animation: text rises in, then the rules grow out from it. */
+  animate?: boolean;
   className?: string;
 }) {
   const text = tone === "gold" ? "text-gold" : "text-maroon";
   const rule = tone === "gold" ? "bg-gold/70" : "bg-maroon/40";
+  const ruleAnimation = animate ? "motion-safe:animate-rule" : "";
+  const ruleDelay = animate ? { animationDelay: "0.35s" } : undefined;
   return (
     <div className={`flex items-center gap-3 sm:gap-4 ${center ? "justify-center" : ""} ${className}`}>
-      <span aria-hidden="true" className={`h-px w-6 shrink-0 sm:w-8 ${rule}`} />
-      <span className={`text-[11.5px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.35em] ${text}`}>{children}</span>
-      {center && <span aria-hidden="true" className={`h-px w-6 shrink-0 sm:w-8 ${rule}`} />}
+      <span aria-hidden="true" style={ruleDelay} className={`h-px w-6 shrink-0 origin-right sm:w-8 ${rule} ${ruleAnimation}`} />
+      <span
+        style={animate ? { animationDelay: "0.1s" } : undefined}
+        className={`text-[11.5px] font-semibold uppercase tracking-[0.25em] sm:tracking-[0.35em] ${text} ${animate ? "motion-safe:animate-rise" : ""}`}
+      >
+        {children}
+      </span>
+      {center && (
+        <span aria-hidden="true" style={ruleDelay} className={`h-px w-6 shrink-0 origin-left sm:w-8 ${rule} ${ruleAnimation}`} />
+      )}
     </div>
   );
 }

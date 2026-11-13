@@ -21,6 +21,8 @@ const gallery = [
   { src: "/assets/AthidhiIndianFineDineRestaurant_VegManchurianNoodles-DsvsL3LU.jpg", alt: "Veg manchurian noodles" },
 ];
 
+const heroWord = "ATHIDHI";
+
 const headingXL = "font-serif text-4xl leading-[1.05] tracking-tight text-maroon md:text-6xl";
 const bodyText = "text-[17px] font-light leading-relaxed text-ink/70";
 
@@ -32,13 +34,38 @@ export default function Home() {
         <HeroSlideshow images={heroSlides} />
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/50 to-ink/75" />
         <div className="relative z-10 px-4 pb-24 pt-36 text-center md:pt-44">
-          <Eyebrow center>Established with Reverence</Eyebrow>
-          <h1 className="mt-6 font-serif text-7xl leading-none tracking-[-0.025em] text-cream sm:text-8xl lg:text-[9rem]">
-            ATHIDHI
+          <Eyebrow center animate>
+            Established with Reverence
+          </Eyebrow>
+          {/* Each letter rises into place in turn; the heading itself is read as one word. */}
+          <h1
+            aria-label="Athidhi"
+            className="mt-6 font-serif text-7xl leading-none tracking-[-0.025em] text-cream [perspective:800px] sm:text-8xl lg:text-[9rem]"
+          >
+            {[...heroWord].map((letter, i) => (
+              <span
+                key={i}
+                aria-hidden="true"
+                className="inline-block motion-safe:animate-letter"
+                style={{ animationDelay: `${0.25 + i * 0.08}s` }}
+              >
+                {letter}
+              </span>
+            ))}
           </h1>
-          <p className="mt-6 font-serif text-2xl italic text-gold-light md:text-3xl">An Experience Beyond Dining</p>
-          <p className="mt-4 text-lg text-cream/70">Where every meal turns into a memorable moment.</p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <p
+            className="mt-6 font-serif text-2xl italic text-gold-light motion-safe:animate-rise md:text-3xl"
+            style={{ animationDelay: "0.95s" }}
+          >
+            An Experience Beyond Dining
+          </p>
+          <p className="mt-4 text-lg text-cream/70 motion-safe:animate-rise" style={{ animationDelay: "1.15s" }}>
+            Where every meal turns into a memorable moment.
+          </p>
+          <div
+            className="mt-10 flex flex-col items-center justify-center gap-4 motion-safe:animate-rise sm:flex-row"
+            style={{ animationDelay: "1.35s" }}
+          >
             <Link href="/menu" className={button.maroon}>
               View Menu
             </Link>
