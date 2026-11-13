@@ -169,19 +169,13 @@ function OrderBanner() {
   return (
     <div className="mt-8 flex flex-col gap-5 rounded-3xl bg-maroon px-6 py-6 text-cream sm:flex-row sm:items-center sm:justify-between sm:px-8">
       <div>
-        <p className="font-serif text-2xl">{online ? "Order online for pickup" : "Takeout & pickup"}</p>
+        <p className="font-serif text-2xl">{online ? "Order online" : "Takeout & pickup"}</p>
         <p className="mt-1 text-sm text-cream/80">
-          {online ? (
-            "Place your order online and we’ll have it ready."
-          ) : (
-            <>
-              Call{" "}
-              <a href={site.phoneHref} className="font-semibold text-gold underline-offset-4 hover:underline">
-                {site.phone}
-              </a>{" "}
-              to place your order.
-            </>
-          )}
+          {online ? "Order for pickup or delivery, or call " : "Call "}
+          <a href={site.phoneHref} className="font-semibold text-gold underline-offset-4 hover:underline">
+            {site.phone}
+          </a>
+          {online ? "." : " to place your order."}
         </p>
       </div>
       <OrderButton className={`${button.gold} shrink-0 shadow-lg shadow-ink/20`} />

@@ -37,10 +37,10 @@ export const site = {
   whatsapp: "16097218960",
   email: "athidhinj@gmail.com",
   /**
-   * Online ordering link (Toast, Square, ChowNow, DoorDash Storefront, …).
-   * While this is empty, every "Order" button on the site asks guests to call instead.
+   * Online ordering link: the restaurant's Toast online ordering (pickup and delivery).
+   * If this is ever emptied, every "Order" button on the site asks guests to call instead.
    */
-  orderOnlineUrl: "" as string,
+  orderOnlineUrl: "https://order.toasttab.com/online/athidhi-660-plainsboro-rd" as string,
   hours,
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `Athidhi, ${address.street}, ${address.city}`,
