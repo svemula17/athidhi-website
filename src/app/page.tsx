@@ -111,7 +111,7 @@ export default function Home() {
 
       <SplitSection
         tone="ink"
-        imageSide="right"
+        imageSide="left"
         image={{ src: "/images/catering-buffet.jpg", alt: "Chef serving at a catering buffet" }}
         eyebrow="Weddings & Events"
         title={
@@ -136,7 +136,7 @@ export default function Home() {
 
       <SplitSection
         tone="sand"
-        imageSide="left"
+        imageSide="right"
         image={{ src: asset("/assets/20260613_172248-FPsryS_P.jpg"), alt: "Athidhi's banquet hall dressed for a celebration" }}
         imageClassName="motion-safe:animate-kenburns"
         eyebrow="Host Your"
@@ -183,7 +183,7 @@ export default function Home() {
 
       <SplitSection
         tone="cream"
-        imageSide="right"
+        imageSide="left"
         image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_PunjabiHariyaliKabab-sl2f_csU.jpg"), alt: "The Kabab" }}
         eyebrow="The Kabab"
         title={
@@ -207,7 +207,7 @@ export default function Home() {
 
       <SplitSection
         tone="cream"
-        imageSide="left"
+        imageSide="right"
         image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_ChickenTikkaMasala-Dtm2br8I.jpg"), alt: "The Butter Chicken" }}
         eyebrow="The Butter Chicken"
         title={
