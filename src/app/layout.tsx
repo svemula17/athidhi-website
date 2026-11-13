@@ -15,6 +15,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Without JavaScript the scroll-reveal never fires, so show that content straight away. */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: "<style>.reveal,.reveal-zoom,.reveal-stagger>*{opacity:1!important;transform:none!important}</style>",
+          }}
+        />
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- this is the root layout, so the fonts load on every page */}
         <link
           rel="stylesheet"

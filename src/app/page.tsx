@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import Mandala from "@/components/Mandala";
+import Reveal from "@/components/Reveal";
 import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, button } from "@/components/ui";
 import { site } from "@/data/site";
@@ -134,7 +135,7 @@ export default function Home() {
       </SplitSection>
 
       <SplitSection
-        tone="cream"
+        tone="sand"
         imageSide="left"
         image={{ src: asset("/assets/20260613_172248-FPsryS_P.jpg"), alt: "Athidhi's banquet hall dressed for a celebration" }}
         imageClassName="motion-safe:animate-kenburns"
@@ -180,20 +181,9 @@ export default function Home() {
         </p>
       </SplitSection>
 
-      {/* Featured offerings */}
-      <section className="relative overflow-hidden bg-sand">
-        <Mandala className="pointer-events-none absolute -left-28 top-1/2 h-[420px] w-[420px] -translate-y-1/2 text-gold/20" />
-        <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-20 sm:flex-row sm:items-center sm:px-6 lg:px-8">
-          <h2 className="font-serif text-4xl tracking-tight text-maroon md:text-5xl lg:text-6xl">Featured Offerings</h2>
-          <Link href="/menu" className={outlineMaroon}>
-            View menu <ArrowRight />
-          </Link>
-        </div>
-      </section>
-
       <SplitSection
         tone="cream"
-        imageSide="left"
+        imageSide="right"
         image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_PunjabiHariyaliKabab-sl2f_csU.jpg"), alt: "The Kabab" }}
         eyebrow="The Kabab"
         title={
@@ -217,7 +207,7 @@ export default function Home() {
 
       <SplitSection
         tone="cream"
-        imageSide="right"
+        imageSide="left"
         image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_ChickenTikkaMasala-Dtm2br8I.jpg"), alt: "The Butter Chicken" }}
         eyebrow="The Butter Chicken"
         title={
@@ -242,13 +232,14 @@ export default function Home() {
       {/* Gallery */}
       <section id="gallery" className="scroll-mt-24 bg-ink py-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <Reveal stagger className="text-center">
             <Eyebrow center>A Feast for the Eyes</Eyebrow>
             <h2 className="mt-5 font-serif text-4xl tracking-tight text-white md:text-5xl lg:text-6xl">
               From the Tandoor and Skillet.
             </h2>
-          </div>
-          <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
+          </Reveal>
+          {/* Tiles ripple in one after another */}
+          <Reveal stagger className="mt-14 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
             {gallery.map((photo) => (
               <div key={photo.src} className="group relative aspect-[4/5] overflow-hidden rounded-3xl">
                 <Image
@@ -260,7 +251,7 @@ export default function Home() {
                 />
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 

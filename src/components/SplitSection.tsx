@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import Reveal from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui";
 
 const tones = {
@@ -10,7 +11,7 @@ const tones = {
 
 /**
  * The homepage's standard section: a full-height photo on one half; eyebrow, heading, text and
- * actions on the other. On phones the photo sits on top.
+ * actions on the other. On phones the photo sits on top. Both halves animate in on scroll.
  */
 export default function SplitSection({
   id,
@@ -42,7 +43,9 @@ export default function SplitSection({
   return (
     <section id={id} className={`grid scroll-mt-24 md:scroll-mt-32 md:grid-cols-2 ${t.bg}`}>
       <div className={`relative min-h-[320px] overflow-hidden md:min-h-[560px] ${imageFirst ? "md:order-1" : "md:order-2"}`}>
-        <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover ${imageClassName}`} />
+        <Reveal zoom className="absolute inset-0">
+          <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover ${imageClassName}`} />
+        </Reveal>
       </div>
       <div
         className={`relative flex flex-col justify-center overflow-hidden px-6 py-16 sm:px-12 lg:px-20 ${
@@ -50,13 +53,13 @@ export default function SplitSection({
         }`}
       >
         {decoration}
-        <div className="relative">
+        <Reveal stagger className="relative">
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h2 className={`mt-5 font-serif text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-6xl ${t.title}`}>{title}</h2>
           {children && <div className={`mt-6 max-w-md space-y-4 text-[17px] font-light leading-relaxed ${t.body}`}>{children}</div>}
           {actions && <div className="mt-10 flex flex-wrap gap-4">{actions}</div>}
           {footer && <div className="mt-10">{footer}</div>}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
