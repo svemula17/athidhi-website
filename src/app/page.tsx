@@ -27,11 +27,11 @@ const bodyText = "text-[17px] font-light leading-relaxed text-ink/70";
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative isolate flex min-h-[calc(100svh-5rem)] items-center justify-center overflow-hidden bg-ink md:min-h-[calc(100svh-7rem)]">
+      {/* Hero — pulled up under the sticky header so the photo fills the screen behind it */}
+      <section className="relative isolate -mt-20 flex min-h-svh items-center justify-center overflow-hidden bg-ink md:-mt-28">
         <HeroSlideshow images={heroSlides} />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/70 via-ink/55 to-ink/75" />
-        <div className="relative z-10 px-4 py-24 text-center">
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/50 to-ink/75" />
+        <div className="relative z-10 px-4 pb-24 pt-36 text-center md:pt-44">
           <Eyebrow center>Established with Reverence</Eyebrow>
           <h1 className="mt-6 font-serif text-7xl leading-none tracking-[-0.025em] text-cream sm:text-8xl lg:text-[9rem]">
             ATHIDHI

@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { asset } from "@/lib/assets";
 
 const mainLinks = [
@@ -16,6 +17,13 @@ const moreLinks = [
   { href: "/#gallery", label: "Gallery" },
   { href: "/#visit", label: "Contact" },
 ];
+
+function subscribeToScroll(onChange: () => void) {
+  window.addEventListener("scroll", onChange, { passive: true });
+  return () => window.removeEventListener("scroll", onChange);
+}
+const isScrolled = () => window.scrollY > 24;
+const isScrolledOnServer = () => false;
 
 function CartIcon() {
   return (
@@ -31,6 +39,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const isHome = usePathname() === "/";
+  const scrolled = useSyncExternalStore(subscribeToScroll, isScrolled, isScrolledOnServer);
+
+  // On the homepage the header sits transparently on top of the hero photo until you scroll.
+  const overlay = isHome && !scrolled && !mobileOpen;
 
   useEffect(() => {
     if (!moreOpen) return;
@@ -54,7 +67,11 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-maroon/10 bg-cream/95 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-50 transition-colors duration-300 ${
+        overlay ? "bg-transparent" : "bg-cream/95 shadow-[0_1px_0_0_rgb(91_11_19/0.1)] backdrop-blur-md"
+      }`}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 md:h-28 lg:px-8">
         <Link href="/" onClick={closeMenus} className="shrink-0">
           <Image
@@ -63,13 +80,15 @@ export default function Navbar() {
             width={577}
             height={433}
             priority
-            className="h-14 w-auto md:h-24"
+            className={`h-14 w-auto transition duration-300 md:h-24 ${overlay ? "brightness-0 invert" : ""}`}
           />
         </Link>
 
         <nav
           aria-label="Main"
-          className="hidden items-center rounded-full border border-white/10 bg-ink/80 px-2 py-1.5 shadow-lg shadow-ink/10 lg:flex"
+          className={`hidden items-center rounded-full border px-2 py-1.5 transition-colors duration-300 lg:flex ${
+            overlay ? "border-white/15 bg-white/5 backdrop-blur-sm" : "border-white/10 bg-ink/80 shadow-lg shadow-ink/10"
+          }`}
         >
           {mainLinks.map((link) => (
             <Link
@@ -119,13 +138,17 @@ export default function Navbar() {
             href="/cart"
             onClick={closeMenus}
             aria-label="Cart"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-ink/5 text-ink transition hover:bg-ink/10"
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition ${
+              overlay ? "bg-white/10 text-cream hover:bg-white/20" : "bg-ink/5 text-ink hover:bg-ink/10"
+            }`}
           >
             <CartIcon />
           </Link>
           <Link
             href="/auth"
-            className="hidden rounded-full border border-ink px-6 py-2.5 text-sm font-bold text-ink transition hover:bg-ink hover:text-cream md:inline-flex"
+            className={`hidden rounded-full border px-6 py-2.5 text-sm font-bold transition md:inline-flex ${
+              overlay ? "border-cream/70 text-cream hover:bg-cream hover:text-ink" : "border-ink text-ink hover:bg-ink hover:text-cream"
+            }`}
           >
             Sign In
           </Link>
@@ -141,7 +164,9 @@ export default function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileOpen((open) => !open)}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-ink transition hover:bg-ink/5 lg:hidden"
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition lg:hidden ${
+              overlay ? "text-cream hover:bg-white/10" : "text-ink hover:bg-ink/5"
+            }`}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-6 w-6" aria-hidden="true">
               {mobileOpen ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
