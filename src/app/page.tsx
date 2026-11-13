@@ -181,54 +181,6 @@ export default function Home() {
         </p>
       </SplitSection>
 
-      <SplitSection
-        tone="cream"
-        imageSide="left"
-        image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_PunjabiHariyaliKabab-sl2f_csU.jpg"), alt: "The Kabab" }}
-        eyebrow="The Kabab"
-        title={
-          <>
-            Mastered by Fire.
-            <br />
-            Reserved for You.
-          </>
-        }
-        actions={
-          <Link href="/menu" className={button.maroon}>
-            View the Menu <ArrowRight />
-          </Link>
-        }
-      >
-        <p>
-          Hand-ground spices marinated overnight. Cooked flawlessly inside traditional tandoor clay creating a smokey,
-          melt-in-your-mouth perfection unlike anything else.
-        </p>
-      </SplitSection>
-
-      <SplitSection
-        tone="cream"
-        imageSide="right"
-        image={{ src: asset("/assets/AthidhiIndianFineDineRestaurant_ChickenTikkaMasala-Dtm2br8I.jpg"), alt: "The Butter Chicken" }}
-        eyebrow="The Butter Chicken"
-        title={
-          <>
-            Rich, Velvety,
-            <br />
-            Unforgettable.
-          </>
-        }
-        actions={
-          <Link href="/menu" className={button.gold}>
-            Order Now <ArrowRight />
-          </Link>
-        }
-      >
-        <p>
-          Simmered in a luxuriously slow-cooked tomato reduction enriched with pure Kashmiri saffron, organic cashews, and
-          golden butter.
-        </p>
-      </SplitSection>
-
       {/* Gallery */}
       <section id="gallery" className="scroll-mt-24 bg-ink py-24 md:scroll-mt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
