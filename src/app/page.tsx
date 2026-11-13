@@ -76,6 +76,92 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Our story */}
+      <section className="bg-cream py-20 md:py-28">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 md:grid-cols-2 lg:gap-20 lg:px-8">
+          <div>
+            <Eyebrow>Our Story</Eyebrow>
+            <h2 className={`mt-5 ${headingXL}`}>
+              The Guest is <em className="text-gold">Divine</em>
+            </h2>
+            <p className={`mt-6 max-w-md ${bodyText}`}>
+              In the ancient Sanskrit teachings of the Taittiriya Upanishad, a single verse became the foundation of Indian
+              hospitality: <strong className="font-serif font-normal italic text-maroon">Athidhi Devo Bhava</strong>. It
+              proclaims that every guest who crosses our threshold should be treated with the same reverence given to the
+              divine.
+            </p>
+            <Link href="/about" className={`${button.maroon} mt-10`}>
+              Read Our Story <ArrowRight />
+            </Link>
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl shadow-ink/10">
+            <Image
+              src={asset("/assets/Hero-u8a6ujtO.jpg")}
+              alt="A spread of Athidhi's signature dishes"
+              fill
+              sizes="(min-width: 768px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Catering */}
+      <section className="grid md:grid-cols-2">
+        <div className="relative flex flex-col justify-center overflow-hidden bg-ink px-6 py-20 sm:px-12 lg:px-20">
+          <Mandala className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] text-gold/10" />
+          <h2 className="relative font-serif text-4xl leading-tight text-gold md:text-5xl">
+            Catering for
+            <br />
+            Every Occasion.
+          </h2>
+          <p className="relative mt-6 max-w-md text-lg font-light leading-relaxed text-white/60">
+            From lavish weddings to corporate events, we bring the authentic taste of Athidhi straight to your guests,
+            served with the identical perfection of dining in.
+          </p>
+          <Link href="/catering" className={`${button.gold} relative mt-10 self-start shadow-lg shadow-gold/20`}>
+            Request Catering <ArrowRight />
+          </Link>
+        </div>
+        <div className="relative min-h-[360px]">
+          <Image src={asset("/assets/catering-C2zfkD8C.jpg")} alt="Athidhi catering" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+        </div>
+      </section>
+
+      {/* Banquet — full-width photo of the hall dressed for a party */}
+      <section className="relative isolate overflow-hidden bg-ink">
+        <Image
+          src={asset("/assets/20260613_172248-FPsryS_P.jpg")}
+          alt="Athidhi's banquet hall dressed for a celebration"
+          fill
+          sizes="100vw"
+          className="object-cover motion-safe:animate-kenburns"
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-ink via-ink/50 to-ink/10" />
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-ink/75 via-ink/20 to-transparent" />
+        <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-end px-4 py-20 sm:px-6 md:min-h-[720px] lg:px-8">
+          <div className="max-w-xl">
+            <Eyebrow>Host Your</Eyebrow>
+            <h2 className="mt-5 font-serif text-5xl leading-[1.05] text-cream md:text-7xl">Grand Celebrations</h2>
+            <p className="mt-6 text-lg font-light leading-relaxed text-cream/80">
+              Whether you are planning an intimate birthday party, a romantic anniversary, a magnificent wedding reception,
+              or corporate events, Athidhi provides the ultimate setting for memorable festivities.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/banquet#request" className={button.gold}>
+                Request a Banquet <ArrowRight />
+              </Link>
+              <Link
+                href="/banquet"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/60 px-8 py-3.5 font-semibold tracking-wide text-cream transition hover:bg-cream hover:text-ink"
+              >
+                See the Banquet Hall
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured offerings */}
       <section className="relative overflow-hidden bg-sand">
         <Mandala className="pointer-events-none absolute -left-28 top-1/2 h-[420px] w-[420px] -translate-y-1/2 text-gold/20" />
@@ -186,28 +272,6 @@ export default function Home() {
               className="object-cover"
             />
           </div>
-        </div>
-      </section>
-
-      {/* Catering */}
-      <section className="grid md:grid-cols-2">
-        <div className="relative flex flex-col justify-center overflow-hidden bg-ink px-6 py-20 sm:px-12 lg:px-20">
-          <Mandala className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] text-gold/10" />
-          <h2 className="relative font-serif text-4xl leading-tight text-gold md:text-5xl">
-            Catering for
-            <br />
-            Every Occasion.
-          </h2>
-          <p className="relative mt-6 max-w-md text-lg font-light leading-relaxed text-white/60">
-            From lavish weddings to corporate events, we bring the authentic taste of Athidhi straight to your guests,
-            served with the identical perfection of dining in.
-          </p>
-          <Link href="/catering" className={`${button.gold} relative mt-10 self-start shadow-lg shadow-gold/20`}>
-            Request Catering <ArrowRight />
-          </Link>
-        </div>
-        <div className="relative min-h-[360px]">
-          <Image src={asset("/assets/catering-C2zfkD8C.jpg")} alt="Athidhi catering" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
       </section>
 
