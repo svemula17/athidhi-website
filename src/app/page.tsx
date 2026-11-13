@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import Mandala from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
@@ -29,19 +28,7 @@ const banquetPhotos = [
   { src: "/assets/hero-4hOicPhT.jpg", label: "Event Décor" },
 ];
 
-// Hero headline: two lines, the second in gold. Words rise in one after another.
-const heroLines = [
-  { words: ["An", "Experience"], color: "text-cream" },
-  { words: ["Beyond", "Dining."], color: "text-gold-light" },
-];
-
-// Quick facts under the hero's divider.
-const heroHighlights = [
-  { title: "Plainsboro, NJ", text: "660 Plainsboro Rd", href: "/#visit" },
-  { title: "Open Daily", text: "Lunch & dinner", href: "/#visit" },
-  { title: "Banquets & Catering", text: "For every occasion", href: "/banquet" },
-  { title: "Explore Athidhi", href: "/about" },
-];
+const heroWord = "ATHIDHI";
 
 const outlineMaroon =
   "inline-flex items-center justify-center gap-2 rounded-full border border-maroon/40 px-8 py-3.5 font-semibold tracking-wide text-maroon transition hover:bg-maroon hover:text-cream";
@@ -52,64 +39,47 @@ export default function Home() {
       {/* Hero — pulled up under the sticky header so the photo fills the screen behind it */}
       <section className="relative isolate -mt-20 flex min-h-svh items-center justify-center overflow-hidden bg-ink md:-mt-28">
         <HeroSlideshow images={heroSlides} />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/85 via-ink/60 to-ink/85" />
-        <div className="relative z-10 w-full max-w-5xl px-4 pb-16 pt-36 text-center md:pt-44">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.4em] text-gold motion-safe:animate-rise sm:text-sm"
-            style={{ animationDelay: "0.1s" }}
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/50 to-ink/75" />
+        <div className="relative z-10 px-4 pb-24 pt-36 text-center md:pt-44">
+          <Eyebrow center animate>
+            Established with Reverence
+          </Eyebrow>
+          {/* Each letter rises into place in turn; the heading itself is read as one word. */}
+          <h1
+            aria-label="Athidhi"
+            className="mt-6 font-serif text-7xl leading-none tracking-[-0.025em] text-cream [perspective:800px] sm:text-8xl lg:text-[9rem]"
           >
-            Athidhi Devo Bhava
-          </p>
-          <h1 className="mt-8 font-sans text-4xl font-extrabold uppercase leading-[0.95] tracking-tight [perspective:800px] sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
-            {heroLines.map((line, li) => (
-              <span key={li} className={`block ${line.color}`}>
-                {line.words.map((word, wi) => (
-                  <Fragment key={word}>
-                    {wi > 0 && " "}
-                    <span
-                      className="inline-block motion-safe:animate-letter"
-                      style={{ animationDelay: `${0.25 + (li * 2 + wi) * 0.12}s` }}
-                    >
-                      {word}
-                    </span>
-                  </Fragment>
-                ))}
+            {[...heroWord].map((letter, i) => (
+              <span
+                key={i}
+                aria-hidden="true"
+                className="inline-block motion-safe:animate-letter"
+                style={{ animationDelay: `${0.25 + i * 0.08}s` }}
+              >
+                {letter}
               </span>
             ))}
           </h1>
           <p
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-cream/80 motion-safe:animate-rise sm:text-lg"
-            style={{ animationDelay: "0.85s" }}
+            className="mt-6 font-serif text-2xl italic text-gold-light motion-safe:animate-rise md:text-3xl"
+            style={{ animationDelay: "0.95s" }}
           >
-            Heritage recipes from Hyderabad, Chettinad and Old Delhi — where every meal turns into a memorable moment.
+            An Experience Beyond Dining
           </p>
-          <div className="mt-10 motion-safe:animate-rise" style={{ animationDelay: "1s" }}>
-            <Link
-              href="/menu"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-maroon px-10 py-4 font-semibold tracking-wide text-cream shadow-lg shadow-ink/40 transition hover:bg-maroon/90"
-            >
+          <p className="mt-4 text-lg text-cream/70 motion-safe:animate-rise" style={{ animationDelay: "1.15s" }}>
+            Where every meal turns into a memorable moment.
+          </p>
+          <div
+            className="mt-10 flex flex-col items-center justify-center gap-4 motion-safe:animate-rise sm:flex-row"
+            style={{ animationDelay: "1.35s" }}
+          >
+            <Link href="/menu" className={button.maroon}>
+              View Menu
+            </Link>
+            <Link href="/menu" className={button.goldOutline}>
               Order Online
             </Link>
           </div>
-          <ul
-            className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-6 border-t border-white/15 pt-8 motion-safe:animate-rise sm:grid-cols-4"
-            style={{ animationDelay: "1.15s" }}
-          >
-            {heroHighlights.map((item) => (
-              <li key={item.title}>
-                <Link href={item.href} className="group inline-block">
-                  <span
-                    className={`block text-[15px] font-semibold text-cream transition group-hover:text-gold ${
-                      item.text ? "" : "underline decoration-gold decoration-2 underline-offset-[6px]"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                  {item.text && <span className="mt-1 block text-sm text-cream/60">{item.text}</span>}
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
