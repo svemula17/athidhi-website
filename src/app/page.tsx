@@ -134,60 +134,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banquet — full-width photo of the hall dressed for a party */}
-      <section className="relative isolate overflow-hidden bg-ink">
-        <Image
-          src={asset("/assets/20260613_172248-FPsryS_P.jpg")}
-          alt="Athidhi's banquet hall dressed for a celebration"
-          fill
-          sizes="100vw"
-          className="object-cover motion-safe:animate-kenburns"
-        />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-ink via-ink/50 to-ink/10" />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-ink/75 via-ink/20 to-transparent" />
-        <div className="relative mx-auto grid min-h-[440px] max-w-7xl items-end gap-10 px-4 py-16 sm:px-6 md:min-h-[500px] lg:grid-cols-[minmax(0,1fr)_auto] lg:px-8">
-          <div className="max-w-lg xl:max-w-xl">
-            <Eyebrow>Host Your</Eyebrow>
-            <h2 className="mt-4 font-serif text-4xl leading-[1.05] text-cream md:text-5xl">Grand Celebrations</h2>
-            <p className="mt-6 text-lg font-light leading-relaxed text-cream/80">
-              Whether you are planning an intimate birthday party, a romantic anniversary, a magnificent wedding reception,
-              or corporate events, Athidhi provides the ultimate setting for memorable festivities.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="/banquet#request" className={button.gold}>
-                Request a Banquet <ArrowRight />
-              </Link>
-              <Link
-                href="/banquet"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/60 px-8 py-3.5 font-semibold tracking-wide text-cream transition hover:bg-cream hover:text-ink"
-              >
-                See the Banquet Hall
-              </Link>
+      {/* Banquet — a framed panel (set apart from catering) on a photo of the hall dressed for a party */}
+      <section className="bg-cream px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-ink shadow-2xl shadow-ink/20">
+          <Image
+            src={asset("/assets/20260613_172248-FPsryS_P.jpg")}
+            alt="Athidhi's banquet hall dressed for a celebration"
+            fill
+            sizes="(min-width: 1280px) 1216px, 100vw"
+            className="object-cover motion-safe:animate-kenburns"
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-ink/90 via-ink/60 to-ink/30" />
+          <div className="relative grid min-h-[560px] items-center gap-10 px-6 py-14 sm:px-10 md:min-h-[640px] lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16 lg:px-14">
+            <div className="max-w-xl">
+              <Eyebrow>Host Your</Eyebrow>
+              <h2 className="mt-5 font-serif text-5xl leading-[1.05] text-cream md:text-6xl">Grand Celebrations</h2>
+              <p className="mt-6 text-lg font-light leading-relaxed text-cream/80">
+                Whether you are planning an intimate birthday party, a romantic anniversary, a magnificent wedding
+                reception, or corporate events, Athidhi provides the ultimate setting for memorable festivities.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Link href="/banquet#request" className={button.gold}>
+                  Request a Banquet <ArrowRight />
+                </Link>
+                <Link
+                  href="/banquet"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/60 px-8 py-3.5 font-semibold tracking-wide text-cream transition hover:bg-cream hover:text-ink"
+                >
+                  See the Banquet Hall
+                </Link>
+              </div>
             </div>
-          </div>
-          {/* Photo cards that open the banquet page */}
-          <div className="grid grid-cols-2 gap-4 lg:flex lg:items-end">
-            {banquetPhotos.map((photo, i) => (
-              <Link
-                key={photo.src}
-                href="/banquet"
-                className={`group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-white/20 shadow-2xl shadow-ink/50 transition hover:border-gold lg:w-48 xl:w-60 ${
-                  i === 1 ? "lg:-translate-y-10" : ""
-                }`}
-              >
-                <Image
-                  src={asset(photo.src)}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1280px) 240px, (min-width: 1024px) 192px, 50vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-                <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-linear-to-t from-ink/90 to-transparent px-3 pb-2.5 pt-8 text-sm font-medium text-cream">
-                  {photo.label}
-                  <ArrowRight className="h-3.5 w-3.5 text-gold transition group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            ))}
+            {/* Photo cards that open the banquet page: a row on phones, a neat stack on wide screens */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-1 lg:gap-6">
+              {banquetPhotos.map((photo) => (
+                <Link
+                  key={photo.src}
+                  href="/banquet"
+                  className="group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-white/25 shadow-2xl shadow-ink/60 transition hover:-translate-y-1 hover:border-gold lg:w-64 xl:w-72"
+                >
+                  <Image
+                    src={asset(photo.src)}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1280px) 288px, (min-width: 1024px) 256px, 50vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-linear-to-t from-ink/90 to-transparent px-4 pb-3 pt-10 text-sm font-medium text-cream">
+                    {photo.label}
+                    <ArrowRight className="h-3.5 w-3.5 text-gold transition group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
