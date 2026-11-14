@@ -1,14 +1,21 @@
-// Menu copied from the live site (athidi.vercel.app/menu), November 2026.
-// Edit dishes and prices here; the menu page and the "Most Loved" row read from this file.
+// The menu page's dishes. They come from Toast (src/data/toast-menu.json, refreshed by
+// scripts/sync-toast-menu.mjs) once that sync has run; until then, from the list below, which was
+// copied from the old site (athidi.vercel.app/menu) in November 2026.
+
+import toastMenuFile from "./toast-menu.json";
+import type { ToastMenuFile } from "./toast";
 
 export type MenuItem = {
   name: string;
   description: string;
-  price: number;
+  /** Left off when Toast prices the dish by size or option. */
+  price?: number;
   /** Struck-through "was" price, shown when a dish is on offer. */
   originalPrice?: number;
   /** Path on the asset host, e.g. "/assets/biryani-DciHh55y.png". */
   image: string;
+  /** The dish's own photo from Toast (a full URL); shown instead of `image` when present. */
+  photo?: string;
   /**
    * Vegetarian or not, shown as the green / brown mark next to the dish. "both" = comes either way
    * (e.g. veg or chicken). Left off where it depends on the kitchen's recipe (egg in naan or brownies).
@@ -43,7 +50,7 @@ const img = {
   beverage: "/assets/beverage-C8ieDr6v.png",
 };
 
-export const menuCategories: MenuCategory[] = [
+const staticCategories: MenuCategory[] = [
   {
     id: "dosa-uttapam",
     name: "Dosa & Uttapam",
@@ -190,10 +197,92 @@ const mostLovedNames = [
   "Hyderabadi Goat Dum Biryani",
 ];
 
+// ---------------------------------------------------------------------------------------------
+// Toast → menu sections
+
+const toastMenu = toastMenuFile as ToastMenuFile;
+
+const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+const staticItems = new Map(staticCategories.flatMap((c) => c.items).map((item) => [normalize(item.name), item]));
+
+/** Placeholder photo for a section, matched on its name (first match wins). */
+const sectionImages: [RegExp, string][] = [
+  [/dosa|uttapam/, img.dosa],
+  [/idl[iy]|vada/, img.idli],
+  [/soup/, img.soup],
+  [/non veg/, img.nonVegAppetizer],
+  [/starter|appetizer|chaat|tandoor/, img.vegAppetizer],
+  [/sea ?food|fish|shrimp/, img.seafood],
+  [/indo|chinese|noodle/, img.indoChinese],
+  [/bread|naan|roti/, img.bread],
+  [/biryani|rice|pulav/, img.biryani],
+  [/dessert|sweet/, img.dessert],
+  [/beverage|drink|lassi/, img.beverage],
+];
+
+const MEAT = /\b(chicken|mutton|goat|lamb|fish|shrimps?|prawns?|crab|eggs?|meat|murgh?|kodi|natukodi|chepala|royyala|keema|kheema|apollo|haleem)\b/;
+const VEG_DISH =
+  /\b(veg|vegetables?|paneer|gobi|mushroom|aloo|dal|daal|chana|chole|babycorn|bhindi|okra|sambar|idli|idly|dosa|uttapam|vada|bonda|bajji|mirchi|samosa|punugulu|chaat|lassi|soda|tea|chai|coffee|halwa|jamun|rasmalai|custard|kulfi|kheer|payasam|tomato|corn|curd|jeera)\b/;
+
+/**
+ * Veg / non-veg mark for a Toast dish: Toast item tags first, then the hand-checked list above,
+ * then the dish and section names. Unclear dishes stay unmarked (the marks are a guide).
+ */
+function dietFor(name: string, section: string, tags: string[]): Diet | undefined {
+  const tagText = normalize(tags.join(" "));
+  if (/\bnon veg/.test(tagText)) return "nonveg";
+  if (/\b(vegetarian|vegan)\b/.test(tagText)) return "veg";
+  const known = staticItems.get(normalize(name));
+  if (known) return known.diet;
+  const dish = normalize(name);
+  const group = normalize(section);
+  if (/\bveg (or )?(chicken|egg|shrimp|mutton|goat|fish)\b/.test(dish)) return "both";
+  if (/^(veg|vegetable)\b/.test(dish)) return "veg"; // e.g. Veg Keema Biryani
+  if (MEAT.test(dish) || /\bnon veg|sea ?food|fish/.test(group)) return "nonveg";
+  if (/^veg\b|dosa|uttapam|idl[iy]|vada|chaat/.test(group) || VEG_DISH.test(dish)) return "veg";
+  return undefined;
+}
+
+const slug = (name: string) => normalize(name).replace(/ /g, "-") || "menu";
+
+/** Sections from Toast, merging same-named sections across menus. Catering trays have their own page. */
+function toastCategories(): MenuCategory[] {
+  const sections = new Map<string, MenuCategory>();
+  for (const menu of toastMenu.menus) {
+    if (/catering/i.test(menu.name)) continue;
+    for (const group of menu.groups) {
+      if (/catering/i.test(group.name)) continue;
+      const id = slug(group.name);
+      const section = sections.get(id) ?? { id, name: group.name, items: [] };
+      const fallbackImage = sectionImages.find(([pattern]) => pattern.test(normalize(group.name)))?.[1] ?? img.vegEntree;
+      for (const item of group.items) {
+        if (section.items.some((existing) => normalize(existing.name) === normalize(item.name))) continue;
+        const known = staticItems.get(normalize(item.name));
+        section.items.push({
+          name: item.name,
+          description: item.description || known?.description || "",
+          price: item.price ?? undefined,
+          image: known?.image ?? fallbackImage,
+          photo: item.image ?? undefined,
+          diet: dietFor(item.name, group.name, item.tags),
+        });
+      }
+      sections.set(id, section);
+    }
+  }
+  return [...sections.values()].filter((section) => section.items.length);
+}
+
+const fromToast = toastCategories();
+
+/** Toast's menu once it has been synced; the list above until then. */
+export const menuCategories: MenuCategory[] = fromToast.length ? fromToast : staticCategories;
+
 const allItems = menuCategories.flatMap((c) => c.items);
 
-export const mostLoved: MenuItem[] = mostLovedNames.map((name) => {
-  const item = allItems.find((i) => i.name === name);
-  if (!item) throw new Error(`"Most Loved" dish is missing from the menu: ${name}`);
-  return item;
+/** Dishes from the "Most Loved" list that are on the current menu. */
+export const mostLoved: MenuItem[] = mostLovedNames.flatMap((name) => {
+  const item = allItems.find((i) => normalize(i.name) === normalize(name));
+  return item ? [item] : [];
 });

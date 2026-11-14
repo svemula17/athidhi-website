@@ -13,6 +13,7 @@ type View = "grid" | "list";
 const formatPrice = (n: number) => `$${n.toFixed(2)}`;
 
 function Price({ item, className = "mt-4" }: { item: MenuItem; className?: string }) {
+  if (item.price === undefined) return null;
   return (
     <p className={`flex items-baseline gap-2 ${className}`}>
       <span className="font-serif text-xl text-gold-deep">{formatPrice(item.price)}</span>
@@ -62,6 +63,16 @@ function DishName({ item, className }: { item: MenuItem; className: string }) {
   );
 }
 
+/** The dish's own photo from Toast when there is one, otherwise the section's photo. */
+function DishPhoto({ item, sizes }: { item: MenuItem; sizes: string }) {
+  return item.photo ? (
+    // Toast photos load straight from Toast's image host.
+    <Image src={item.photo} alt="" fill sizes={sizes} unoptimized className="object-cover" />
+  ) : (
+    <Image src={asset(item.image)} alt="" fill sizes={sizes} className="object-cover" />
+  );
+}
+
 // Cards are `relative` so the screen-reader-only "was" price stays inside the scrolling row
 // (otherwise it widens the page on phones).
 function DishCard({ item, view, className = "" }: { item: MenuItem; view: View; className?: string }) {
@@ -69,7 +80,7 @@ function DishCard({ item, view, className = "" }: { item: MenuItem; view: View; 
     return (
       <article className="relative flex items-center gap-4 rounded-2xl border border-maroon/10 bg-white p-3 shadow-sm">
         <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-24">
-          <Image src={asset(item.image)} alt="" fill sizes="96px" className="object-cover" />
+          <DishPhoto item={item} sizes="96px" />
         </div>
         <div className="min-w-0 flex-1">
           <DishName item={item} className="text-lg" />
@@ -82,7 +93,7 @@ function DishCard({ item, view, className = "" }: { item: MenuItem; view: View; 
   return (
     <article className={`relative flex flex-col overflow-hidden rounded-3xl border border-maroon/10 bg-white shadow-sm transition hover:shadow-lg ${className}`}>
       <div className="relative h-48">
-        <Image src={asset(item.image)} alt="" fill sizes="320px" className="object-cover" />
+        <DishPhoto item={item} sizes="320px" />
       </div>
       <div className="flex flex-1 flex-col p-5">
         <DishName item={item} className="text-xl" />
@@ -324,7 +335,7 @@ export default function MenuBrowser() {
           )
         ) : (
           <>
-            <DishSection id="most-loved" title="Most Loved" items={mostLoved} view={view} />
+            {mostLoved.length > 0 && <DishSection id="most-loved" title="Most Loved" items={mostLoved} view={view} />}
             {menuCategories.map((category) => (
               <DishSection key={category.id} id={category.id} title={category.name} items={category.items} view={view} />
             ))}
