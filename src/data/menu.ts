@@ -7,6 +7,8 @@ import toastMenuFile from "./toast-menu.json";
 import type { ToastMenuFile } from "./toast";
 
 export type MenuItem = {
+  /** Toast's id for the dish (dishes from Toast only). */
+  id?: string;
   name: string;
   description: string;
   /** Left off when Toast prices the dish by size or option. */
@@ -269,6 +271,7 @@ function toastCategories(): MenuCategory[] {
         if (section.items.some((existing) => normalize(existing.name) === normalize(item.name))) continue;
         const known = staticItems.get(normalize(item.name));
         section.items.push({
+          id: item.guid,
           name: item.name,
           description: item.description || known?.description || "",
           price: item.price ?? undefined,
@@ -290,6 +293,12 @@ const fromToast = toastCategories();
 export const menuCategories: MenuCategory[] = fromToast.length ? fromToast : staticCategories;
 
 const allItems = menuCategories.flatMap((c) => c.items);
+
+/** A dish's lasting key: Toast's id, or its name on the fallback menu. */
+export const dishKey = (item: MenuItem) => item.id ?? item.name;
+
+/** Every dish on the menu by its key. */
+export const dishesByKey = new Map(allItems.map((item) => [dishKey(item), item]));
 
 /** Dishes from the "Most Loved" list that are on the current menu. */
 export const mostLoved: MenuItem[] = mostLovedNames.flatMap((name) => {

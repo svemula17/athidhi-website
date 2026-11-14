@@ -14,6 +14,7 @@ npm run build   # production build
 | --- | --- |
 | Phone, email, address, hours, social links | `src/data/site.ts` |
 | Online ordering link (empty = "Call to Order" buttons) | `orderOnlineUrl` in `src/data/site.ts` |
+| Dish pop-up and dine-in list on the menu page | `src/components/DineIn.tsx`, `src/lib/dine-in-list.ts` |
 | Restaurant menu | Comes from Toast every hour (`scripts/sync-toast-menu.mjs` → `src/data/toast-menu.json`); change dishes, prices and photos in Toast |
 | Veg / non-veg marks, "Most Loved" dishes, fallback menu | `src/data/menu.ts` |
 | Catering menu (keep the PDF in step) | `src/data/catering.ts` |
@@ -28,6 +29,13 @@ npm run build   # production build
    `https://www.example.com`) in the Vercel project settings. It's used for canonical links, share
    previews, the sitemap and Google's restaurant data. Without it, Vercel's production domain is used.
 3. **Turn on Web Analytics** in the Vercel project (Analytics tab) to see visitor numbers.
+
+## Ordering
+
+Every "Order Online" button opens Athidhi's Toast online ordering, where guests build the whole
+pickup or delivery order and pay. On the menu page, tapping a dish opens a pop-up where guests can
+add it to their **dine-in list** (to show their server at the table) or open it on Toast. The list
+is kept only in the guest's browser; nothing is sent to the restaurant.
 
 ## Toast menu sync
 

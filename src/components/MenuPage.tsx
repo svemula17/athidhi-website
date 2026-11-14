@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { DineInBar, DineInDrawer, DishDialog, type DineInEntry } from "@/components/DineIn";
+import { DietMark, DietSymbol, formatPrice } from "@/components/MenuBits";
 import { Icon } from "@/components/ui";
-import { menuCategories, mostLoved, type Diet, type MenuCategory, type MenuItem } from "@/data/menu";
+import { dishKey, dishesByKey, menuCategories, mostLoved, type MenuCategory, type MenuItem } from "@/data/menu";
 import { formatTime, hoursLabel, site } from "@/data/site";
+import { addToDineInList, clearDineInList, setDineInQty, useDineInList } from "@/lib/dine-in-list";
 
 type Filter = "all" | "veg" | "nonveg";
-
-const formatPrice = (n: number) => `$${n.toFixed(2)}`;
 
 // ---------------------------------------------------------------------------------------------
 // Open / closed, in the restaurant's time zone (computed in the browser, refreshed every minute)
@@ -59,48 +60,26 @@ function OpenStatus() {
   );
 }
 
-// ---------------------------------------------------------------------------------------------
-// Veg / non-veg marks
-
-const dietLabels: Record<Diet, string> = {
-  veg: "Vegetarian",
-  nonveg: "Non-vegetarian",
-  both: "Vegetarian or non-vegetarian",
-};
-
-function DietSymbol({ type }: { type: "veg" | "nonveg" }) {
-  // The familiar Indian food marks: a green dot (vegetarian) or brown triangle (non-vegetarian) in a square.
-  const color = type === "veg" ? "text-green-700" : "text-orange-800";
-  return (
-    <svg viewBox="0 0 16 16" className={`h-4 w-4 shrink-0 ${color}`} aria-hidden="true">
-      <rect x="1" y="1" width="14" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      {type === "veg" ? <circle cx="8" cy="8" r="3.5" fill="currentColor" /> : <path d="M8 4.2 12 11.3H4Z" fill="currentColor" />}
-    </svg>
-  );
-}
-
-function DietMark({ diet }: { diet?: Diet }) {
-  if (!diet) return null;
-  return (
-    <span role="img" aria-label={dietLabels[diet]} title={dietLabels[diet]} className="inline-flex shrink-0 gap-1">
-      {diet !== "nonveg" && <DietSymbol type="veg" />}
-      {diet !== "veg" && <DietSymbol type="nonveg" />}
-    </span>
-  );
-}
-
 const matchesFilter = (item: MenuItem, filter: Filter) =>
   filter === "all" || item.diet === filter || item.diet === "both";
 
 // ---------------------------------------------------------------------------------------------
-// Dish card: text on the left, the dish's own photo on the right. The whole card opens the dish on Toast.
+// Dish card: text on the left, the dish's own photo on the right. The whole card opens the dish
+// pop-up (the dish name is the button; its ::after stretches over the card).
 
-function DishCard({ item }: { item: MenuItem }) {
-  const href = item.orderUrl ?? site.orderOnlineUrl;
-  const content = (
-    <>
+function DishCard({ item, onList, onOpen }: { item: MenuItem; onList: number; onOpen: () => void }) {
+  return (
+    <article className="group relative flex min-h-40 gap-4 rounded-2xl border border-maroon/10 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-maroon/25 hover:shadow-lg sm:p-5">
       <div className="flex min-w-0 flex-1 flex-col">
-        <h3 className="line-clamp-2 text-[13.5px] font-bold uppercase leading-snug tracking-[0.08em] text-ink">{item.name}</h3>
+        <h3 className="text-[13.5px] font-bold uppercase leading-snug tracking-[0.08em] text-ink">
+          <button
+            type="button"
+            onClick={onOpen}
+            className="block w-full cursor-pointer text-left uppercase after:absolute after:inset-0 after:z-10 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-gold focus-visible:after:ring-offset-2"
+          >
+            <span className="line-clamp-2">{item.name}</span>
+          </button>
+        </h3>
         {item.description && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink/65">{item.description}</p>}
         <div className="mt-auto flex items-center gap-3 pt-4">
           {item.price !== undefined && <span className="font-semibold text-ink">{formatPrice(item.price)}</span>}
@@ -113,15 +92,13 @@ function DishCard({ item }: { item: MenuItem }) {
           <Image src={item.photo} alt="" fill sizes="128px" unoptimized className="object-cover transition duration-500 group-hover:scale-105" />
         </div>
       )}
-    </>
-  );
-  const card = "group flex min-h-40 gap-4 rounded-2xl border border-maroon/10 bg-white p-4 shadow-sm transition sm:p-5";
-  return href ? (
-    <a href={href} className={`${card} hover:-translate-y-0.5 hover:border-maroon/25 hover:shadow-lg`}>
-      {content}
-    </a>
-  ) : (
-    <article className={card}>{content}</article>
+      {onList > 0 && (
+        <span className="pointer-events-none absolute -right-2 -top-2 z-20 flex h-7 min-w-7 items-center justify-center rounded-full bg-maroon px-2 text-xs font-bold text-cream shadow-md ring-2 ring-white">
+          {onList}
+          <span className="sr-only"> on your dine-in list</span>
+        </span>
+      )}
+    </article>
   );
 }
 
@@ -133,8 +110,24 @@ export default function MenuPage() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [listOpen, setListOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const [dish, setDish] = useState<MenuItem | null>(null);
+  const [dineInOpen, setDineInOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
 
   const tabsRef = useRef<HTMLDivElement>(null);
+
+  // The dine-in list, matched to today's menu (dishes taken off the menu drop out).
+  const dineInLines = useDineInList();
+  const dineIn: DineInEntry[] = useMemo(
+    () =>
+      dineInLines.flatMap((line) => {
+        const item = dishesByKey.get(line.id);
+        return item ? [{ ...line, item }] : [];
+      }),
+    [dineInLines],
+  );
+  const onList = useMemo(() => new Map(dineIn.map((entry) => [entry.id, entry.qty])), [dineIn]);
+  const dineInCount = dineIn.reduce((n, entry) => n + entry.qty, 0);
 
   const sections: MenuCategory[] = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -227,27 +220,29 @@ export default function MenuPage() {
             <Icon name="mapPin" className="h-4 w-4 text-maroon" />
             {site.address.street}, {site.address.city}
           </a>
-          {site.orderOnlineUrl && (
-            <div className="flex gap-3">
+          <div className="flex gap-3">
+            {site.orderOnlineUrl && (
               <a
                 href={site.orderOnlineUrl}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-maroon/40 px-5 py-2.5 text-sm font-semibold text-maroon transition hover:bg-maroon hover:text-cream sm:flex-none"
               >
                 Pickup / Delivery
               </a>
-              <a
-                href={site.orderOnlineUrl}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-maroon px-5 py-2.5 text-sm font-semibold text-cream transition hover:bg-maroon/90 sm:flex-none"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
-                  <circle cx="8" cy="21" r="1" />
-                  <circle cx="19" cy="21" r="1" />
-                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                </svg>
-                Cart
-              </a>
-            </div>
-          )}
+            )}
+            <button
+              type="button"
+              onClick={() => setDineInOpen(true)}
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-maroon px-5 py-2.5 text-sm font-semibold text-cream transition hover:bg-maroon/90 sm:flex-none"
+            >
+              <Icon name="list" className="h-4 w-4" />
+              Dine-in list
+              {dineInCount > 0 && (
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-cream px-1.5 text-xs font-bold text-maroon">
+                  {dineInCount}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -358,7 +353,7 @@ export default function MenuPage() {
               Search
             </button>
           )}
-          {site.orderOnlineUrl && <p className="w-full text-sm text-ink/65 sm:ml-auto sm:w-auto">Tap a dish to order it for pickup or delivery.</p>}
+          <p className="w-full text-sm text-ink/65 sm:ml-auto sm:w-auto">Dining in? Tap dishes to build your list, then show it to your server.</p>
         </div>
 
         <div role="group" aria-label="Filter dishes" className="mt-6 flex flex-wrap gap-2 rounded-2xl bg-sand px-4 py-3">
@@ -395,13 +390,38 @@ export default function MenuPage() {
               </div>
               <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {section.items.map((item) => (
-                  <DishCard key={`${section.id}-${item.name}`} item={item} />
+                  <DishCard
+                    key={`${section.id}-${item.name}`}
+                    item={item}
+                    onList={onList.get(dishKey(item)) ?? 0}
+                    onOpen={() => setDish(item)}
+                  />
                 ))}
               </div>
             </section>
           ))
         )}
       </div>
+
+      {dish && (
+        <DishDialog
+          key={dishKey(dish)}
+          item={dish}
+          onList={onList.get(dishKey(dish)) ?? 0}
+          onAdd={(qty) => {
+            addToDineInList(dishKey(dish), qty);
+            setAnnouncement(`Added ${qty} ${dish.name} to your dine-in list.`);
+          }}
+          onClosed={() => setDish(null)}
+        />
+      )}
+      {dineInOpen && (
+        <DineInDrawer entries={dineIn} onQty={setDineInQty} onClear={clearDineInList} onClosed={() => setDineInOpen(false)} />
+      )}
+      {dineInCount > 0 && !dish && !dineInOpen && <DineInBar entries={dineIn} onOpen={() => setDineInOpen(true)} />}
+      <p aria-live="polite" className="sr-only">
+        {announcement}
+      </p>
     </div>
   );
 }

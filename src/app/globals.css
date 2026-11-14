@@ -17,6 +17,31 @@
   --animate-letter: letter 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-rule: rule 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
   --animate-kenburns: kenburns 24s ease-in-out infinite alternate;
+  /* Menu pop-ups: rise from below (dish pop-up, phones), slide in from the right (dine-in list). */
+  --animate-sheet: sheet 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-drawer: drawer 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes sheet {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes drawer {
+    from {
+      opacity: 0;
+      transform: translateX(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
   @keyframes kenburns {
     from {
@@ -74,6 +99,13 @@
     html {
       scroll-behavior: smooth;
     }
+  }
+
+  /* The page stays put behind an open pop-up. The padding stands in for the hidden scrollbar so
+     nothing shifts (--scrollbar-width is measured when a pop-up opens; 0 where scrollbars overlay). */
+  html:has(dialog[open]) {
+    overflow: hidden;
+    padding-right: var(--scrollbar-width, 0px);
   }
 
   body {
