@@ -216,14 +216,14 @@ const sectionImages: [RegExp, string][] = [
   [/sea ?food|fish|shrimp/, img.seafood],
   [/indo|chinese|noodle/, img.indoChinese],
   [/bread|naan|roti/, img.bread],
-  [/biryani|rice|pulav/, img.biryani],
+  [/biryani|rice|pula/, img.biryani],
   [/dessert|sweet/, img.dessert],
   [/beverage|drink|lassi/, img.beverage],
 ];
 
 const MEAT = /\b(chicken|mutton|goat|lamb|fish|shrimps?|prawns?|crab|eggs?|meat|murgh?|kodi|natukodi|chepala|royyala|keema|kheema|apollo|haleem)\b/;
 const VEG_DISH =
-  /\b(veg|vegetables?|paneer|gobi|mushroom|aloo|dal|daal|chana|chole|babycorn|bhindi|okra|sambar|idli|idly|dosa|uttapam|vada|bonda|bajji|mirchi|samosa|punugulu|chaat|lassi|soda|tea|chai|coffee|halwa|jamun|rasmalai|custard|kulfi|kheer|payasam|tomato|corn|curd|jeera)\b/;
+  /\b(veg|vegetables?|paneer|gobi|mushroom|aloo|dal|daal|pappu|chana|chole|babycorn|bhindi|okra|vankaya|sambar|panner|idli|idly|dosa|uttapam|vada|bonda|bajji|mirchi|samosa|punugulu|chaat|rice|annam|lassi|soda|tea|chai|coffee|halwa|jamun|rasmalai|custard|kulfi|kheer|payasam|tomato|corn|curd|jeera)\b/;
 
 /**
  * Veg / non-veg mark for a Toast dish: Toast item tags first, then the hand-checked list above,
@@ -239,20 +239,26 @@ function dietFor(name: string, section: string, tags: string[]): Diet | undefine
   const group = normalize(section);
   if (/\bveg (or )?(chicken|egg|shrimp|mutton|goat|fish)\b/.test(dish)) return "both";
   if (/^(veg|vegetable)\b/.test(dish)) return "veg"; // e.g. Veg Keema Biryani
-  if (MEAT.test(dish) || /\bnon veg|sea ?food|fish/.test(group)) return "nonveg";
+  if (MEAT.test(dish) || /\bnon veg/.test(dish) || /\bnon veg|sea ?food|fish/.test(group)) return "nonveg";
   if (/^veg\b|dosa|uttapam|idl[iy]|vada|chaat/.test(group) || VEG_DISH.test(dish)) return "veg";
   return undefined;
 }
 
 const slug = (name: string) => normalize(name).replace(/ /g, "-") || "menu";
 
-/** Sections from Toast, merging same-named sections across menus. Catering trays have their own page. */
+/**
+ * Sections from Toast, merging same-named sections across menus. Catering trays have their own
+ * page, and add-ons ("Extras") are left off. A menu whose groups each hold one dish (e.g. Lunch
+ * Combos) becomes a single section.
+ */
 function toastCategories(): MenuCategory[] {
   const sections = new Map<string, MenuCategory>();
   for (const menu of toastMenu.menus) {
     if (/catering/i.test(menu.name)) continue;
-    for (const group of menu.groups) {
-      if (/catering/i.test(group.name)) continue;
+    const oneDishGroups = menu.groups.length > 1 && menu.groups.every((group) => group.items.length === 1);
+    const groups = oneDishGroups ? [{ name: menu.name, items: menu.groups.flatMap((group) => group.items) }] : menu.groups;
+    for (const group of groups) {
+      if (/catering|^extras?$/i.test(group.name.trim())) continue;
       const id = slug(group.name);
       const section = sections.get(id) ?? { id, name: group.name, items: [] };
       const fallbackImage = sectionImages.find(([pattern]) => pattern.test(normalize(group.name)))?.[1] ?? img.vegEntree;
