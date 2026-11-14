@@ -1,5 +1,2003 @@
 {
   "version": 1,
-  "lastUpdated": null,
-  "menus": []
+  "lastUpdated": "2026-11-07T17:03:03.126+0000",
+  "menus": [
+    {
+      "name": "Traditional Items",
+      "groups": [
+        {
+          "name": "Veg Appetizers",
+          "items": [
+            {
+              "guid": "2f69b5b2-0881-442a-b3d7-6d4f601bda41",
+              "name": "Gobi 65",
+              "description": "Crispy cauliflower florets tossed in fiery South Indian spices.",
+              "price": 13.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/11efdabb-2e9f-4a4f-9b71-ea4a6b919ced.jpg",
+              "tags": []
+            },
+            {
+              "guid": "2486fca7-07cc-4af9-a475-a0dfe69dfc36",
+              "name": "Podi Gobi Fry",
+              "description": "Cauliflower coated in a traditional roasted lentil and spice powder.",
+              "price": 14.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "bbbadffd-3245-4afe-9762-e6ff73cb1758",
+              "name": "Gobi 555",
+              "description": "Crunchy cauliflower glazed in a tangy, garlic-infused sauce.",
+              "price": 14.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/34eb71e7-9e87-4603-adf1-d6be41514edb.jpg",
+              "tags": []
+            },
+            {
+              "guid": "8d099991-5a8c-445a-8ba8-21a3e9f08594",
+              "name": "Gobi Manchurian",
+              "description": "Indo-Chinese classic featuring cauliflower in a savory soy-garlic sauce.",
+              "price": 14.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/16420bce-3e34-4e71-a649-5bd7425f6aa1.jpg",
+              "tags": []
+            },
+            {
+              "guid": "885b92be-7b02-4552-96f7-64062c5600cd",
+              "name": "Veg Manchurian",
+              "description": "Vegetable dumplings tossed in a rich, dark soy and ginger glaze.",
+              "price": 14.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4e456517-5089-4258-b6f2-11e41e0d66be",
+              "name": "Babycorn Manchurian",
+              "description": "Crispy baby corn in a flavorful, tangy Indo-Chinese sauce.",
+              "price": 14.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "621c6dab-2b09-4fb2-80a5-1fdc4ee31d5a",
+              "name": "Chilli Babycorn",
+              "description": "Golden baby corn tossed with fiery green chilies and bell peppers.",
+              "price": 14.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6537791d-3475-4cce-96e3-47590fa0bb58",
+              "name": "Chilli Paneer",
+              "description": "Cubed paneer wok-tossed with peppers, onions, and spicy soy sauce.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "b5e2cd96-a92c-491f-adaa-d74438f9670d",
+              "name": "Cut Mirchi",
+              "description": "Double-fried chili fritters, dusted with special house chaat masala.",
+              "price": 11.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/df973b5d-4c46-4a2d-8e83-2ea868673e1d.jpg",
+              "tags": []
+            },
+            {
+              "guid": "d201c3a9-352b-4c49-9362-4efac927d154",
+              "name": "Stuffed Mirchi Bajji",
+              "description": "Long green chilies stuffed with tangy spices, batter-fried to perfection.",
+              "price": 11.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/340376b2-f6d2-4c51-ac57-a2b8fa1f1c13.jpg",
+              "tags": []
+            },
+            {
+              "guid": "8de72a83-d3fe-4788-9801-ef0a5a5a126f",
+              "name": "Punugulu",
+              "description": "Crispy, deep-fried savory rice and lentil dough bites.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5d0cfe0f-c999-433c-b259-32ef3bda40bc",
+              "name": "Onion Pakora",
+              "description": "Classic crispy onion fritters spiced with carom seeds and fresh herbs.",
+              "price": 10.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "06ecb62a-c73c-4aa8-89b0-bfcef61f4a1f",
+              "name": "Pani Puri",
+              "description": "Crispy hollow spheres filled with spiced potatoes and tangy tamarind-mint water.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8bd435db-80a9-45a7-9c73-d27675a15373",
+              "name": "Samosa",
+              "description": "Golden, crispy samosas stuffed with a savory blend of spiced potatoes and peas.",
+              "price": 10.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "207bede0-5465-4961-8c7d-7e54197f7b0b",
+              "name": "Peanut Masala",
+              "description": "",
+              "price": 10.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Appetizers",
+          "items": [
+            {
+              "guid": "6e1a3c6a-4664-404b-a8c8-9820421201d8",
+              "name": "Chicken 65",
+              "description": "Bite-sized chicken marinated in a fiery blend of regional spices.",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/1c6a3590-a194-40d1-9d0d-4272d665f494.jpg",
+              "tags": []
+            },
+            {
+              "guid": "6c505998-fee6-4708-b209-24bb4ec0df9d",
+              "name": "Miriyalu Chicken Fry",
+              "description": "Peppery, dry-roasted chicken bursting with bold South Indian flavors.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "81a5ca71-5552-4ec7-a785-3efdac8cded8",
+              "name": "Chicken 555",
+              "description": "Crispy chicken strips tossed in a tangy, garlicky, and spicy sauce.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "46f1a006-340a-4bd7-9e34-2f136284b604",
+              "name": "Street Style Chicken Pakora",
+              "description": "A nostalgic, spicy, and tangy chicken fry straight from Indian streets.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3953edce-975c-4100-afb9-8073b510e71d",
+              "name": "Karuveppaku Chicken Fry",
+              "description": "Chicken dry-roasted with an abundance of fresh, aromatic curry leaves.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0695f6f3-3c33-484e-9633-27f8a25ab84d",
+              "name": "Chicken Lollipop",
+              "description": "Frenched chicken winglets, batter-fried and served with a spicy dip.",
+              "price": 17.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/d7cc61fa-e340-4c7d-b391-bc5636026e81.jpg",
+              "tags": []
+            },
+            {
+              "guid": "e911af62-811b-4ed3-9fda-8d954888c1d3",
+              "name": "Cashew Curry Leaf Fish Fry",
+              "description": "North Indian style spiced and gram-flour coated crispy fried fish.",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "43c5511c-ea5e-40c3-935d-91a6ca0ede80",
+              "name": "Apollo Fish",
+              "description": "Boneless fish cubes tossed in a spicy, yogurt-based tempering.",
+              "price": 18.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/df10b7e4-fa9f-4ca2-a6f8-afc10c35fee2.jpg",
+              "tags": []
+            },
+            {
+              "guid": "b33ef87b-8cda-4701-96ac-22ea50b1d299",
+              "name": "Shrimp 555",
+              "description": "Succulent shrimp flash-fried and coated in a zesty garlic-chili sauce.",
+              "price": 19.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4c3f8564-9749-4086-9d2d-c59b5230d770",
+              "name": "Chilli Egg",
+              "description": "Boiled eggs wok-tossed with green chilies, onions, and spicy Indo-Chinese flavors.",
+              "price": 15.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/7c4fbd74-243d-4c6c-b779-098de745a37d.jpg",
+              "tags": []
+            },
+            {
+              "guid": "a21c9c96-03a7-49c3-8419-f685135d66a8",
+              "name": "Mutton Ghee Roast",
+              "description": "Mutton slow-cooked in pure clarified butter and fiery red spices.",
+              "price": 22.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/3d0e65dd-ee9b-4808-ba60-2abf0f8721ea.jpg",
+              "tags": []
+            },
+            {
+              "guid": "f705df84-f1ea-404d-86eb-1bd6acf7537c",
+              "name": "Coastal Spice Shrimp Fry",
+              "description": "",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "66ddad16-e60c-46ff-b329-d20dd66bfa6f",
+              "name": "Green Chilli Chicken Roast",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d701e344-f8c2-40ec-ba61-7fb400ed44c5",
+              "name": "Village Style Chicken Fry",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Soups",
+          "items": [
+            {
+              "guid": "2b7dd0a8-d320-4588-b896-fe5ec264393a",
+              "name": "Hot and Sour Soup",
+              "description": "A comforting, tangy, and spicy broth loaded with fresh ingredients.",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "761b2971-50ce-486b-a0b3-c0bb127b9cd2",
+              "name": "Tomato Basil Soup",
+              "description": "A creamy, classic tomato soup infused with fresh aromatic basil.",
+              "price": 6.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8fada021-1a50-4ba0-a2ff-b07f25e21eb6",
+              "name": "Milagu Chicken Rasam",
+              "description": "A peppery, soulful South Indian chicken broth to warm the senses.",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "70b1257e-7e11-447e-9894-3eca1a89fe8b",
+              "name": "Milagu Mutton Rasam",
+              "description": "A rich, spicy mutton broth steeped in traditional healing spices.",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Tandoor",
+          "items": [
+            {
+              "guid": "6a5f26d9-38c4-4454-afe1-98f46aa998db",
+              "name": "Murgh Tikka",
+              "description": "Classic yogurt-marinated chicken chunks, charred in the clay oven.",
+              "price": 17.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/9edde7b2-91c8-4fb1-badd-68c46cb0b9af.jpg",
+              "tags": []
+            },
+            {
+              "guid": "a3c1ce63-e83d-413d-98b3-bd7d6876bedb",
+              "name": "Murgh Malai Kabab",
+              "description": "Melt-in-your-mouth chicken marinated in rich cream and mild spices.",
+              "price": 18.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/cc84e062-4331-4909-8673-eb25da9979e7.jpg",
+              "tags": []
+            },
+            {
+              "guid": "67aecb57-fb15-4fec-9d61-c1fbbe802861",
+              "name": "Punjabi Hariyali Kabab",
+              "description": "Chicken marinated in a vibrant blend of fresh mint and cilantro.",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/786f2ee9-682e-47cf-8345-b68fcafbbbf9.jpg",
+              "tags": []
+            },
+            {
+              "guid": "a22f887d-832f-429a-8f96-b554a21ee87b",
+              "name": "Tandoori Murgh Half",
+              "description": "Half portion of bone-in chicken in bold tandoori spices.",
+              "price": 17.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/8e5b7ed6-b17c-4518-bed5-5d69682d1745.jpg",
+              "tags": []
+            },
+            {
+              "guid": "fae5053d-f4c1-45d1-a6da-27d8dbd56a88",
+              "name": "Tandoori Murgh Full",
+              "description": "Full portion of bone-in chicken roasted in bold tandoori spices.",
+              "price": 27.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "95269c6e-42c5-4fdc-82bd-2a7f25a426e6",
+              "name": "Paneer Tikka Kabab",
+              "description": "Spiced cottage cheese cubes and peppers grilled to smoky perfection.",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/268ede9f-b4e9-4a7e-8e5a-547934877414.jpg",
+              "tags": []
+            },
+            {
+              "guid": "792495e1-b37d-4906-b161-333232fbee7d",
+              "name": "Chicken Seekh Kabab",
+              "description": "Minced spiced chicken skewers, grilled traditionally in the tandoor.",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Idli / Vada",
+          "items": [
+            {
+              "guid": "bdf9f000-b4ab-4e23-b0d3-0e99f32e3bdb",
+              "name": "Plain Idli",
+              "description": "Soft, fluffy, steamed rice and lentil cakes, a South Indian staple.",
+              "price": 9.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5eacdbb9-6b10-44c6-9ff2-5f724775ceb2",
+              "name": "Podi Idli",
+              "description": "Steamed idlis tossed in our signature spicy lentil gunpowder.",
+              "price": 10.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/55412375-b1c3-4ea7-868e-f1ddb7ac113f.jpg",
+              "tags": []
+            },
+            {
+              "guid": "ca89ebdc-f1ab-42bb-a176-0bf3f75e96ce",
+              "name": "Ghee Idli",
+              "description": "Soft idlis generously drizzled with aromatic, pure clarified butter.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5685c02a-79bc-468c-bef5-b9951e167e0f",
+              "name": "Ghee Podi Idli",
+              "description": "The ultimate comfort combination of spicy lentil powder and rich ghee.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "df057e6d-f7d5-464b-baa3-ad93905b5063",
+              "name": "Sambar Idli",
+              "description": "Fluffy idlis submerged in a piping hot, tangy lentil and vegetable stew.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "03371330-550e-44a0-8c6f-7aec8fc44ac4",
+              "name": "Idli Vada Combo",
+              "description": "The classic pairing of soft steamed idli and crispy lentil vada.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "82a364f8-ba59-4751-b0e6-8e57973ddf10",
+              "name": "Medhu Vada",
+              "description": "Crispy, golden, deep-fried savory lentil donuts with a fluffy center.",
+              "price": 10.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/a7339264-0a41-4e2e-89ac-88bccab78db5.jpg",
+              "tags": []
+            },
+            {
+              "guid": "a7196ac2-4993-410d-847c-a2cdf6990d60",
+              "name": "Sambar Vada",
+              "description": "Crispy vadas soaked in flavorful, aromatic South Indian lentil stew.",
+              "price": 11.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Veg Entrees",
+          "items": [
+            {
+              "guid": "0bcc7d36-51e0-4635-ac83-4a4f78fbb11e",
+              "name": "Paneer Tikka Masala",
+              "description": "Grilled cottage cheese cubes simmered in a rich, creamy tomato gravy.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e426b2a3-6886-46fb-95d4-dbd7abb1a65b",
+              "name": "Paneer Makhni",
+              "description": "Soft paneer bathed in a luscious, buttery, and mildly spiced tomato sauce.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3004a88b-db44-4ef3-99e1-0568a27a145d",
+              "name": "Palak Paneer",
+              "description": "A healthy, flavorful curry of pureed spinach and fresh cottage cheese.",
+              "price": 15.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/b9bd4f52-9a4e-49e7-af3f-9ca410a34a64.jpg",
+              "tags": []
+            },
+            {
+              "guid": "8ed636fb-2ec3-47c6-aaec-33e1eedbc12c",
+              "name": "Kadai Paneer",
+              "description": "Paneer wok-tossed with bell peppers, onions, and freshly ground spices.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "cc76b7f8-53fb-4406-8a09-46f069859434",
+              "name": "Nawabi Shahi Paneer",
+              "description": "A royal, rich, and creamy cashew-based curry with paneer.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "1e773a88-6136-420d-8ce4-72003d8c7695",
+              "name": "Dal Tadka",
+              "description": "Yellow lentils tempered with garlic, cumin, and dried red chilies in ghee.",
+              "price": 14.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a5b70f22-dc77-42cb-ac86-301b777a43f8",
+              "name": "Punjabi Chole Masala",
+              "description": "A robust, spicy, and tangy North Indian chickpea curry.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "fe5bc19c-6801-47be-9c16-09b101c91f8f",
+              "name": "Dal Makhni",
+              "description": "Slow-cooked black lentils simmered overnight with butter and cream.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "75596c07-6049-4412-8482-031908de357b",
+              "name": "Mix Veg Kadai",
+              "description": "Seasonal vegetables stir-fried with crushed spices in a traditional wok.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "b01a091c-89d4-4f4e-8eab-6bf459e1ccfa",
+              "name": "Mushroom Cashew Curry",
+              "description": "Earthy mushrooms and crunchy cashews in a rich, spiced gravy.",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/484e846e-bee3-47c3-90f6-5fa478105d65.jpg",
+              "tags": []
+            },
+            {
+              "guid": "417e58a9-e6d9-4c86-bede-1da794cf73b6",
+              "name": "Bhindi Masala",
+              "description": "Okra pan-fried with onions, tomatoes, and tangy dry mango powder.",
+              "price": 14.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/bb283316-51b4-46b6-bee1-690501d7e3b9.jpg",
+              "tags": []
+            },
+            {
+              "guid": "0e0c161e-d758-4815-9312-e67ba20a21b2",
+              "name": "Gutti Vankaya Curry",
+              "description": "Stuffed baby eggplants slow-cooked in a rich peanut and sesame gravy.",
+              "price": 15.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/f23800d1-005e-484e-ad16-09a0d4e59c19.jpg",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Entrees",
+          "items": [
+            {
+              "guid": "ac4bd709-4563-4b6e-9535-2d5302e2ddae",
+              "name": "Chicken Tikka Masala",
+              "description": "The global favorite: smoky grilled chicken in a creamy tomato sauce.",
+              "price": 18.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/efe4eac4-8102-4c13-a8f6-f69686567954.jpg",
+              "tags": []
+            },
+            {
+              "guid": "a115fd78-3ee0-47a0-896c-dc8982ad1fa3",
+              "name": "Butter Chicken",
+              "description": "Tender chicken pieces simmered in a velvety, buttery tomato gravy.",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4c233fa1-df1b-4a40-bb39-34add54886fd",
+              "name": "Kadai Chicken",
+              "description": "Chicken wok-tossed with vibrant bell peppers, onions, and crushed spices.",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "bd1b2513-d357-490a-a92c-19c13b9ebf86",
+              "name": "Chicken Chettinad",
+              "description": "A fiery, aromatic chicken curry from the spice capital of South India.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "79c763e8-a5b3-45d0-92bc-80f9299abda4",
+              "name": "Hyderabadi Dum Ka Murgh",
+              "description": "Slow-cooked royal chicken curry enriched with nuts and whole spices.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0b6af611-a5f4-4e5f-b786-2b71db0ae19a",
+              "name": "Gongura Chicken Curry",
+              "description": "A tangy, regional delicacy made with flavorful Andhra sorrel leaves.",
+              "price": 18.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/f5969d34-1884-4dae-9c96-858cfe8a3f54.jpg",
+              "tags": []
+            },
+            {
+              "guid": "42967882-6a32-4f11-ae25-0e5b4830eb7f",
+              "name": "Goan Chicken Vindaloo",
+              "description": "A bold, spicy, and tangy chicken curry with Portuguese influences.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "b452e2db-b87b-4a3d-a7c8-67a3b741f92f",
+              "name": "Chicken Korma",
+              "description": "A mild, fragrant chicken curry slow-cooked in a creamy nut-based sauce.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8982c337-b3bb-4e4b-8015-c663f1bf5cca",
+              "name": "Home Style Chicken Curry",
+              "description": "A fiercely spicy and deeply flavorful homestyle chicken curry.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "aab9ebe9-28d1-4ea5-b71d-84d91fbb6eec",
+              "name": "Kanda Egg Fry",
+              "description": "Boiled eggs simmered in a bold, peppery Chettinad spice gravy.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5bfe7773-00d3-45ba-9df6-64d9fcac1c8c",
+              "name": "Goat Korma",
+              "description": "Tender goat meat braised in a luxurious, mildly spiced yogurt and nut gravy.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4c973498-c894-4366-b3df-2c870a0f26f6",
+              "name": "Goan Goat Vindaloo",
+              "description": "A fiery, vinegar-laced Goan goat curry for lovers of intense spice.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "f4a5385a-9549-47f2-95a6-e72ca10785e0",
+              "name": "Gongura Goat Curry",
+              "description": "Goat meat slow-cooked with sour and tangy sorrel leaves from Andhra.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "40e78670-9296-4081-bf41-69bd6ada0f02",
+              "name": "Goat Rogan Josh",
+              "description": "A classic Kashmiri goat curry famous for its deep red hue and aromatic spices.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8698b398-424d-4a8c-87f6-4810dc949d3b",
+              "name": "Goat Chettinad",
+              "description": "Boldly spiced goat curry featuring toasted coconut and star anise.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "c7f0fccc-722e-411f-89f4-6c242f21c768",
+              "name": "Telangana Goat Curry",
+              "description": "",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "79a58315-74a7-49b8-aecf-d31f7e8fc1d2",
+              "name": "Coastal Mango Fish Curry",
+              "description": "",
+              "price": 19.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0730db4a-a02c-45c3-9866-ea933dba6836",
+              "name": "Rayalaseema Natu Kodi Curry",
+              "description": "",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Indo Chinese",
+          "items": [
+            {
+              "guid": "60d1115d-5426-402c-89b9-a8984cea19d0",
+              "name": "Veg Noodles",
+              "description": "Classic wok-tossed noodles or rice with fresh, crisp vegetables.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d92f9153-be22-4265-bc2f-8838712845b5",
+              "name": "Chicken Noodles",
+              "description": "Savory soy-tossed noodles or rice loaded with tender chicken bits.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ec3698a2-f708-4f05-8c0a-107d78ff637a",
+              "name": "Egg Noodles",
+              "description": "Comforting street-style noodles or rice wok-fried with scrambled eggs.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "36f680e5-4e72-4132-900f-f2dc78aa3063",
+              "name": "Shrimp Noodles",
+              "description": "Flavorful wok-tossed noodles or rice with juicy, seasoned shrimp.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a6006276-787f-4e4c-bca4-d305edfe8eb5",
+              "name": "Schezwan Chicken Noodles",
+              "description": "Flavorful noodles or rice tossed with tender chicken in a fiery Schezwan sauce.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d32859d7-49c3-426d-ba84-82cf888ee98c",
+              "name": "Schezwan Egg Noodles",
+              "description": "Wok-fried noodles or rice with eggs in a bold, spicy Schezwan sauce.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0d50c7f9-1caa-4fd3-8ca9-29c305350013",
+              "name": "Schezwan Shrimp Noodles",
+              "description": "Juicy shrimp tossed with noodles or rice in a spicy, garlicky Schezwan sauce.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "518c8727-0523-4e57-b216-b4c1e707cf3f",
+              "name": "Veg Manchurian Noodles",
+              "description": "Noodles or rice tossed with crispy Manchurian balls in a rich Indo-Chinese sauce.",
+              "price": 17.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/cc638bee-38f3-4bac-9a89-b3e9d99e774f.jpg",
+              "tags": []
+            },
+            {
+              "guid": "19d99fb8-5f7a-4d77-8e54-7861f265637a",
+              "name": "Schezwan Veg Noodles",
+              "description": "",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3c2eed11-5f0c-4eee-89bf-4e3b8655aa6a",
+              "name": "Schezwan Chicken Fried Rice",
+              "description": "",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "95655cb7-d83a-4774-a1e3-3b4b6efc43aa",
+              "name": "Schezwan Egg Fried Rice",
+              "description": "",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "2344706b-9266-46c9-900a-744a692e2260",
+              "name": "Schezwan Shrimp Fried Rice",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "be0c927a-e136-472a-877e-2539d88752d4",
+              "name": "Schezwan Veg Fried Rice",
+              "description": "Wok-tossed noodles or rice with crisp vegetables in a spicy Schezwan sauce.",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6439a1a6-c663-4ef2-bd96-c476257b9407",
+              "name": "Veg Fried Rice",
+              "description": "",
+              "price": 15.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8b8e52b7-daec-4921-92d7-fb4fe0522ac2",
+              "name": "Chicken Fried Rice",
+              "description": "",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "bae40c5a-5622-480e-90f2-98a02e608022",
+              "name": "Egg Fried Rice",
+              "description": "",
+              "price": 15.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/4a4c0ec0-dde0-4712-8e96-2e802d1dae67.jpg",
+              "tags": []
+            },
+            {
+              "guid": "df1c82dd-49e7-4c33-b1f6-557fdfc10ec7",
+              "name": "Shrimp Fried Rice",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4400e4fd-412a-4d5c-888e-5f9e9cae836b",
+              "name": "Veg Manchurian Fried Rice",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Breads",
+          "items": [
+            {
+              "guid": "560a687c-9a52-42db-853a-114aa258cfda",
+              "name": "Plain Naan",
+              "description": "Soft, pillowy, traditional Indian flatbread baked fresh in the tandoor.",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0ac4d672-089c-43cd-bb04-0af649265b63",
+              "name": "Butter Naan",
+              "description": "Classic tandoor-baked naan brushed generously with melted butter.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e83de2ba-9a80-4ef6-8ab7-e6a449cd948f",
+              "name": "Garlic Naan",
+              "description": "Flavorful naan topped with minced garlic and fresh cilantro.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "7888a355-e6e8-4d23-aebd-a334847a7c0f",
+              "name": "Bullet Naan",
+              "description": "A spicy naan variation loaded with fiery chopped green chilies.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8039463c-3c7a-4446-8d07-be9dd2cbdee9",
+              "name": "Onion Kulcha",
+              "description": "Soft, leavened flatbread stuffed with finely chopped, spiced onions.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "dd4deb29-1cb8-4ec6-bc89-f64fceaea049",
+              "name": "Cheese Kulcha",
+              "description": "Decadent tandoori bread stuffed with a rich, melty cheese filling.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "42dde2dc-1b1a-4251-b354-b6a6057d46b9",
+              "name": "Lachha Paratha",
+              "description": "A flaky, multi-layered, buttery whole wheat flatbread.",
+              "price": 5.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/5ad35866-adac-4296-ae8d-207e58c65634.jpg",
+              "tags": []
+            },
+            {
+              "guid": "e0634814-57c7-41c0-b147-09370d53830d",
+              "name": "Malabar Paratha",
+              "description": "Soft, flaky layered flatbread from the Malabar coast.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "fd1e2476-cab4-47bd-985e-257750b03647",
+              "name": "Tandoori Roti",
+              "description": "A wholesome, rustic whole wheat bread baked in the clay oven.",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "bfbe38e1-4358-4c20-897a-ee4987e3f5a8",
+              "name": "Bread Basket",
+              "description": "An assortment of freshly baked Indian breads served warm.",
+              "price": 13.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Biryani",
+          "items": [
+            {
+              "guid": "1a36f40e-24a4-404a-a5d5-548283a0fe50",
+              "name": "Hyderabadi Chicken Dum Biryani",
+              "description": "Classic slow-cooked basmati rice with marinated bone-in chicken.",
+              "price": 17.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/d663145c-c2ed-4a93-97d1-6e4755aeeaec.jpg",
+              "tags": []
+            },
+            {
+              "guid": "34dd376c-85d4-4734-976b-cdccd6aa0e73",
+              "name": "Hyderabadi Goat Dum Biryani",
+              "description": "Fragrant basmati rice slow-cooked with tender spiced goat.",
+              "price": 21.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8fae8114-70bf-4610-aa86-3ffadcb0b2ca",
+              "name": "Veg Biryani",
+              "description": "Aromatic basmati rice cooked with fresh seasonal vegetables.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "02c7c622-d552-4ea7-85d6-906a1f82ff5f",
+              "name": "Paneer Biryani",
+              "description": "Spiced paneer cubes layered with fragrant saffron rice.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "50cc2121-4a1e-4938-964b-fdebc75b64fd",
+              "name": "Egg Biryani",
+              "description": "Flavorful spiced rice topped with pan-roasted boiled eggs.",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "18feb16a-b041-4626-801f-8b69f6fe80d5",
+              "name": "Vijayawada Chicken Biryani",
+              "description": "Spicy boneless chicken and rice in signature Andhra spices.",
+              "price": 18.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/476cdea3-199f-4d80-bd54-6b1f12a296f5.jpg",
+              "tags": []
+            },
+            {
+              "guid": "e4fa459d-4daf-4b5c-9a0d-aafd70215dd6",
+              "name": "Veg Kheema Biryani",
+              "description": "Spiced minced vegetables layered with premium basmati rice.",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e980ec80-84c7-4ae3-a8ac-b7fd3f69715d",
+              "name": "Bagara Rice",
+              "description": "Traditional mildly spiced Hyderabadi rice with aromatic herbs.",
+              "price": 9.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Desserts",
+          "items": [
+            {
+              "guid": "81f02b00-e52a-4c90-ac3f-40163a9f204e",
+              "name": "Apricot Delight",
+              "description": "A rich, royal dessert made from slow-cooked apricots and cream.",
+              "price": 9.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "f3c7e488-a6f7-4bfc-9a98-505689d91b1a",
+              "name": "Carrot Halwa",
+              "description": "Slow-cooked grated carrots simmered in rich milk, pure ghee, and roasted nuts.",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "9ac7db88-4856-40ec-a4aa-8abe218314ff",
+              "name": "Brownie with Ice Cream",
+              "description": "A decadent, warm chocolate brownie served with a velvety scoop of vanilla ice cream.",
+              "price": 8.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "317aa336-9464-451c-80f6-bfd19b455d62",
+              "name": "Gulab Jamun",
+              "description": "Soft, deep-fried milk dumplings soaked in a warm, fragrant sugar syrup.",
+              "price": 6.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d38e2cb1-eda4-4326-8d1f-5181482609e6",
+              "name": "Rasmalai",
+              "description": "Delicate cheese discs immersed in a sweet, saffron-infused chilled milk.",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "96ebd6e1-7b75-459f-a4a0-d026f3fe6f0e",
+              "name": "Double Ka Meetha",
+              "description": "A royal Hyderabadi bread pudding soaked in rich saffron milk and garnished with nuts.",
+              "price": 8.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "78fe42f0-8ed3-4e6c-974a-6aba275f09d7",
+              "name": "Junnu",
+              "description": "Delicate milk pudding infused with sweet cardamom and pepper.",
+              "price": 9.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "04182282-861c-4b10-b5b0-5d2ab9bc4cf7",
+              "name": "Vanilla Ice Cream (2 Scoops)",
+              "description": "",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "9013ec84-de27-494d-9224-e3ec22a5a938",
+              "name": "Cham Cham Box Special",
+              "description": "",
+              "price": 7,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Beverages",
+          "items": [
+            {
+              "guid": "17862b55-eeed-489d-9e3b-5776278733f9",
+              "name": "Mango Lassi",
+              "description": "A cooling, creamy yogurt drink blended with sweet Alphonso mangoes.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3c00ce73-89df-4a03-a16e-dcb2331c0c75",
+              "name": "Sweet or Salt Lassi",
+              "description": "A classic, refreshing chilled yogurt drink, served sweet or savory.",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "c5740471-25f0-4d00-a32e-fde272f86ba4",
+              "name": "Fresh Lime Soda",
+              "description": "A zesty, refreshing sparkling lime beverage, available sweet or salted.",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "9f7c6dbd-af74-452d-bfda-9361f6fb0622",
+              "name": "Falooda Maharaja with Nuts",
+              "description": "A royal, layered rose-milk dessert drink topped with ice cream and nuts.",
+              "price": 8.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "039a1fd3-969d-4b77-9485-b9abfb50be6a",
+              "name": "Chickoo Shake",
+              "description": "A naturally sweet, creamy milkshake blended with fresh sapota fruit.",
+              "price": 6.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "607a0a84-0da1-4519-8cc6-f53700c76798",
+              "name": "Kitkat Shake",
+              "description": "A rich, creamy milkshake blended with crunchy KitKat chocolate.",
+              "price": 6.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "c24749f5-9446-4d7f-814e-007021c93646",
+              "name": "Vanilla Shake",
+              "description": "A classic, velvety smooth milkshake made with rich vanilla bean.",
+              "price": 5.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "928cf910-0dd4-49c5-bdcf-685a883e1129",
+              "name": "Masala Tea",
+              "description": "",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4f38ddd7-8e56-4b81-aa77-2b761f728128",
+              "name": "Filter Coffee",
+              "description": "",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d4b284f0-c252-4e00-90ba-1d53a572ac75",
+              "name": "Cola Soda",
+              "description": "",
+              "price": 3.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ddfd97fb-498e-4fc6-bb48-dd538e126655",
+              "name": "Water Bottle",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a464c08d-d873-40b4-b82e-2de332fd642a",
+              "name": "Club Soda Can",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "56ba7c0b-2a9a-4fe5-8a1e-749dadc4695d",
+              "name": "Oreo Milkshake",
+              "description": "",
+              "price": 7.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "b8e79015-60c0-425f-9261-f433391dd7a8",
+              "name": "Club Soda 1L",
+              "description": "",
+              "price": 4.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Extras",
+          "items": [
+            {
+              "guid": "5d4eb967-0661-4741-82e0-02db0fd98407",
+              "name": "Extra Rice",
+              "description": "",
+              "price": 3.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4cc2016d-055d-431e-9b21-8ca16ac46942",
+              "name": "Onions & Lemons",
+              "description": "",
+              "price": 2.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "bbf82fa7-3e9a-4eda-a7f2-24d749908c62",
+              "name": "Onions & Lemons & Chilli",
+              "description": "",
+              "price": 3.49,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "30ac9953-ace0-4d6d-9cc3-b6fcc574241d",
+              "name": "Extra Raita",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3d73058f-6b66-4282-994e-f6dadc59b37b",
+              "name": "Extra Salan",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ab82c65e-1c77-413a-98e6-51a4d5103cc5",
+              "name": "Extra Mint Chutney",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "1c70a873-697b-4363-b3d3-c209e415a5da",
+              "name": "Chilies",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "65286e9a-dccc-4052-9427-1fde2c9f4d97",
+              "name": "Salad",
+              "description": "",
+              "price": 3.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a115bbc7-9ff6-40d4-b984-a101cbbd6ba4",
+              "name": "Extra Sambar",
+              "description": "",
+              "price": 2.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a7fdd2cd-1c85-4533-8a36-51fb54e5eaf2",
+              "name": "Extra Peanut Chutney",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "c6178ce9-9d26-4edb-bc95-025bc057d351",
+              "name": "Extra Tomato Chutney",
+              "description": "",
+              "price": 1.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Authentic Pulaos",
+          "items": [
+            {
+              "guid": "3491ee1b-9b6e-4de3-ad90-bafbef2633e3",
+              "name": "Chicken Fry Piece Pulao",
+              "description": "",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ebb741d1-f933-4414-8ff8-6426bc178c0c",
+              "name": "Goat Ghee Roast Pulao",
+              "description": "",
+              "price": 22.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "fc8f3f7f-e10d-472f-9cef-c99802125939",
+              "name": "Godavari Gutti Vankaya Pulao",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "f4fb24c7-1cd8-46d9-ba7b-8a4e8d8da952",
+              "name": "Konaseema Shrimp Pulav",
+              "description": "",
+              "price": 22.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "988e70f5-3c98-4b6c-b434-44d5eebefaa9",
+              "name": "Pachimirchi Kodi Pulao",
+              "description": "",
+              "price": 18.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e1b9fc57-fb8a-4ff8-84a1-cfb6599c322d",
+              "name": "Pachimirchi Panner Pulao",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8cb19e3f-51bf-492e-8618-644e9e5d0834",
+              "name": "Rayalaseema Kodi Guddu Pulao",
+              "description": "",
+              "price": 17.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Telugu Delicacies",
+          "items": [
+            {
+              "guid": "1c83ac3b-7101-4995-abe3-cdd834e52ba5",
+              "name": "Aavakai Mudda Pappu Annam",
+              "description": "",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "7b344d49-fc16-4153-a16e-8d2b44de380d",
+              "name": "Ghee Sambar Rice",
+              "description": "",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "dae0560b-806c-4425-8aac-09ab70f37d06",
+              "name": "Special Curd Rice",
+              "description": "",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Catering Trays",
+      "groups": [
+        {
+          "name": "Veg Aptz",
+          "items": [
+            {
+              "guid": "87488fa2-fc5e-479e-a2e8-cb3421d84c9e",
+              "name": "Veg Pakora",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "b7755da1-a2ec-47b3-ba8b-372f39e2044a",
+              "name": "Gobi 65",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6f3625ba-44c3-48ae-b524-254c635dbbf8",
+              "name": "Gobi Manchurian",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0d6a1c92-2120-4441-84ea-d7cc3e3eb904",
+              "name": "Veg Manchurian",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6ba4e653-91c3-473b-a44b-82d1e9a49a88",
+              "name": "Cut Mirchi",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "9cfa7db1-61b4-4ecb-8a92-8f48dc0e6e52",
+              "name": "Chilli Paneer",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "29ba3ceb-1c9d-4e54-b06d-f9dfef233e2a",
+              "name": "Podi Gobi Fry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "24a31056-989c-49a2-8329-ca63833090d3",
+              "name": "Paneer 555",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a8b3eb9f-00e3-4d2f-b5c1-87e9d3bb8fb3",
+              "name": "Punugulu",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5228c06a-c033-4203-852a-758574f79411",
+              "name": "Mysore Boonda",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Aptz",
+          "items": [
+            {
+              "guid": "93860ec2-89ff-4bdf-a1d9-8cf19bdc8f74",
+              "name": "Chicken 65",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "7db77cca-5f3d-442c-a925-e2969504f703",
+              "name": "Chilli Chicken",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "939e25db-07a2-439b-9b8e-e4d6d3f2b6c7",
+              "name": "Chicken Lollipop",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "a1dbb0fd-ff92-4940-b217-c645419782ca",
+              "name": "Miriyalu Chicken Fry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "97a24221-0a43-4a87-8580-722525977fab",
+              "name": "Chicken 555",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "243016d2-7c69-4bd5-9451-1aac9df1d030",
+              "name": "Karupeppaku Chicken Fry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "247bc1d5-c06b-4e63-afde-074c54c9b07c",
+              "name": "Street Style Chicken",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "0882c2b4-a67a-4246-8a91-579433e1288d",
+              "name": "Amritsari Fish",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e8c799b0-67fb-4ffe-82a8-a506501180bb",
+              "name": "Apollo Fish",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "be1e82ba-af9a-4400-9a8d-cbe0859bcd6d",
+              "name": "Mutton Ghee Roast",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Tandoor",
+          "items": [
+            {
+              "guid": "140c3b30-c6e3-43bb-b9b0-4afb4df02efb",
+              "name": "Murgh Tikka",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "91891852-6696-4a90-88b9-5c0ea56e6e08",
+              "name": "Murgh Malai Kabab",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "81d1b856-e661-4180-a660-a348269ca93c",
+              "name": "Hariyali Kabab",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "5c97bae1-5a11-4391-b2ef-d0071d733e6a",
+              "name": "Chicken Sheekh Kabab",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "03bbda8b-73c1-4589-bb4e-a8f35b8971b8",
+              "name": "Lamb Sheekh Kabab",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "f141a031-c9e7-4223-b596-f95cd880cfbd",
+              "name": "Paneer Tikka Kabab",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Veg Entrees",
+          "items": [
+            {
+              "guid": "6651d56b-6628-44b9-8f8e-ac7b2bd9b1df",
+              "name": "Yellow Dal Tadka",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "21540f46-5247-4cdb-9398-35892df2af2d",
+              "name": "Dal Makhani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d4ac4230-260d-4ad7-8993-0873fe5ce204",
+              "name": "Chole Masala",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ac0efe01-dbfc-4a57-af5d-c06f1c77ed94",
+              "name": "Palak Paneer",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "4f04ec79-69e5-439b-b8b5-b4b8b167ded1",
+              "name": "Nawabi Shahi Paneer",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "04bc84ed-2200-4a7c-92b3-1c288d81704b",
+              "name": "Veg Kadhai",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "7a9a9c3c-3b03-4f0d-bdc0-8e679cddef22",
+              "name": "Aleppy Veg Curry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6a51fa69-e5d7-463c-a350-f9c47b5f1cc4",
+              "name": "Gutti Vankaya Curry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Entrees",
+          "items": [
+            {
+              "guid": "d3ab1006-7ac9-459f-bc10-0e6874b818b8",
+              "name": "Butter Chicken",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "88176e35-069f-46d7-b692-44a5380955ce",
+              "name": "Chicken Tikka Masala",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "dd25a1f1-7ea7-4fe8-a3ae-f1a4e48c048e",
+              "name": "Chicken Chettinad",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "e049f760-4b15-4bd4-a0d9-9a1d2f0da11c",
+              "name": "Saag Chicken",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "51da578a-39be-479f-aec3-b9142f34fc85",
+              "name": "Gongura Chicken",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "f870f7c1-97e7-4951-ab23-7970bcd4a74b",
+              "name": "Andhra Chicken Curry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6a07e5e6-4a33-4161-b64f-0c894dbd44e0",
+              "name": "Goat Rogan Josh",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "941ae49d-c7df-4f23-9f2a-c1d42e1d4bed",
+              "name": "Goat Chettinad",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "d41b894e-23d2-4c29-a763-2a6b9e9c9f9b",
+              "name": "Madras Fish Curry",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Indo-Chinese",
+          "items": [
+            {
+              "guid": "88784f88-40ae-4608-8c3c-3d3fa9cb51e5",
+              "name": "Veg Noodles",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "392b31c7-f891-4948-ba45-3d505a9c6a53",
+              "name": "Veg Fried Rice",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "25dbe074-f608-41e0-a5d2-b049bc349856",
+              "name": "Veg Manchurian Noodles",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "693c069f-ae68-4d78-b97a-1193c073675c",
+              "name": "Veg Manchurian Fried Rice",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "228d0cd5-a6bf-41d1-84e9-477de9191fc7",
+              "name": "Schezwan Chicken Noodles",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "3405ef9d-2229-4a20-818f-a43c48f28c02",
+              "name": "Schezwan Chicken Fried Rice",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Veg Biryani",
+          "items": [
+            {
+              "guid": "0bff4055-07aa-48ea-bb2e-f81e4edf6478",
+              "name": "Veg Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "aa7855e2-928b-4655-b7ff-b60d30902fd3",
+              "name": "Veg Keema Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ace12547-13bd-4bf7-9d15-e551330e7f0b",
+              "name": "Paneer Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Desserts",
+          "items": [
+            {
+              "guid": "e3079d03-0d8c-464c-b7b4-a06065c9baad",
+              "name": "Apricot Delight",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "ee469bbe-7870-4268-9a16-a18368b7dd22",
+              "name": "Gulab Jamun",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "55d226b0-d4d6-46f0-8d05-1630afab13c8",
+              "name": "Gajar Halwa",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "680fa9b3-ad49-480a-bcb3-48eacbcf7e0e",
+              "name": "Rasmalai",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "26a27371-06d7-43cf-a211-41099486229b",
+              "name": "Double Ka Meetha",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Beverages",
+          "items": [
+            {
+              "guid": "8e0ad03a-a591-4dcb-88d9-558b08696393",
+              "name": "Mango Lassi (gallon)",
+              "description": "",
+              "price": 35,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "79c8466d-3f58-40b5-9ea8-986a8355be87",
+              "name": "Sweet Lassi (gallon)",
+              "description": "",
+              "price": 35,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6be5558f-40de-46ea-ad89-06b6d8bee1d4",
+              "name": "Salty Lassi (gallon)",
+              "description": "",
+              "price": 35,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Biryani",
+          "items": [
+            {
+              "guid": "f75dfcfb-b217-48fc-a8d8-a15d139018ef",
+              "name": "Hyderabadi Chicken Dum Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8dd76165-23d6-44e0-aa12-ae3648e650ec",
+              "name": "Hyderabadi Goat Dum Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "92a8d75b-a95f-4efc-be3f-6049e54b1ccb",
+              "name": "Vijaywada Chicken Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "1e2ab0d7-2708-4269-a8c5-aa5b9c61683f",
+              "name": "Egg Biryani",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Chaats",
+          "items": [
+            {
+              "guid": "d5555b88-da4f-4dc3-9dca-66518759680c",
+              "name": "Lucknow Ki Chaat",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "6a6d5c3e-8c1f-4368-9f45-9f8a7b1ac7de",
+              "name": "Palak Chaat",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8184dcc4-800a-458a-bae4-e5ece2e48d4a",
+              "name": "Samosa Chaat",
+              "description": "",
+              "price": null,
+              "image": null,
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lunch Combos",
+      "groups": [
+        {
+          "name": "Veg Combo",
+          "items": [
+            {
+              "guid": "74e7d3e3-8920-41e4-b11d-4a71a091d83a",
+              "name": "Veg Combo",
+              "description": "Days Special Appetizer . Curry . Dal . Dessert . \nServed with Naan . Rice . Raita",
+              "price": 14.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/699d31f9-0ac1-4397-b1a4-8c8c5630c434.jpg",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Chicken Biryani Combo",
+          "items": [
+            {
+              "guid": "e4d7eca8-e519-4361-8aff-bce4b13ca425",
+              "name": "Chicken Biryani Combo",
+              "description": "Chicken Biryani . Days Special Appetizer . Curry . Dessert . \nServed with Naan . Raita . Salan .",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/6d14b83a-510e-4b7c-9c18-a1b5b81a586f.jpg",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Non-Veg Combo",
+          "items": [
+            {
+              "guid": "a98fc5a7-dec7-4c63-98cc-770d56d80fe9",
+              "name": "Non-Veg Combo",
+              "description": "Days Special Appetizer . Curry . Dal . Dessert . \nServed with Naan . Rice . Raita",
+              "price": 16.99,
+              "image": "https://s3.amazonaws.com/toasttab/menu_service/restaurants/909c13be-cd24-4dbc-a157-fc86c566a34a/MenuItem/ce6aad18-5a4a-4f4f-8794-1a4df9452ef2.jpg",
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Veg Biryani Combo",
+          "items": [
+            {
+              "guid": "3e2b641b-6a24-4901-a921-b8d10d77977d",
+              "name": "Veg Biryani Combo",
+              "description": "Veg Biryani . Days Special Appetizer . Curry . Dessert . \nServed with Naan . Raita . Salan .",
+              "price": 16.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
