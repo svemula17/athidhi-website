@@ -54,7 +54,7 @@ export const site = {
 } as const;
 
 /** "22:00" → "10:00 PM" */
-function formatTime(time: string): string {
+export function formatTime(time: string): string {
   const [hour, minute] = time.split(":").map(Number);
   return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${hour >= 12 ? "PM" : "AM"}`;
 }

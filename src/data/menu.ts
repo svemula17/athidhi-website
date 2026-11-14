@@ -2,6 +2,7 @@
 // scripts/sync-toast-menu.mjs) once that sync has run; until then, from the list below, which was
 // copied from the old site (athidi.vercel.app/menu) in November 2026.
 
+import { site } from "./site";
 import toastMenuFile from "./toast-menu.json";
 import type { ToastMenuFile } from "./toast";
 
@@ -16,6 +17,8 @@ export type MenuItem = {
   image: string;
   /** The dish's own photo from Toast (a full URL); shown instead of `image` when present. */
   photo?: string;
+  /** This dish on Toast online ordering, where guests add it to their order. */
+  orderUrl?: string;
   /**
    * Vegetarian or not, shown as the green / brown mark next to the dish. "both" = comes either way
    * (e.g. veg or chicken). Left off where it depends on the kitchen's recipe (egg in naan or brownies).
@@ -271,6 +274,7 @@ function toastCategories(): MenuCategory[] {
           price: item.price ?? undefined,
           image: known?.image ?? fallbackImage,
           photo: item.image ?? undefined,
+          orderUrl: site.orderOnlineUrl ? `${site.orderOnlineUrl}/item-${slug(item.name)}_${item.guid}` : undefined,
           diet: dietFor(item.name, group.name, item.tags),
         });
       }

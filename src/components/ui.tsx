@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { site } from "@/data/site";
 
@@ -98,15 +99,15 @@ export const button = {
 } as const;
 
 /**
- * The site's one ordering action. With an online ordering link (site.orderOnlineUrl) it opens that;
- * until there is one, it calls the restaurant instead of pointing at a page that can't take orders.
+ * The site's one ordering action. With online ordering (site.orderOnlineUrl) it opens the menu page,
+ * where each dish links to Toast; without it, it calls the restaurant instead.
  */
 export function OrderButton({ className, onClick }: { className: string; onClick?: () => void }) {
   if (site.orderOnlineUrl) {
     return (
-      <a href={site.orderOnlineUrl} target="_blank" rel="noopener noreferrer" onClick={onClick} className={className}>
+      <Link href="/menu" onClick={onClick} className={className}>
         Order Online
-      </a>
+      </Link>
     );
   }
   return (
