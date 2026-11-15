@@ -59,10 +59,13 @@ jobs:
         uses: actions/configure-pages@v6
       - if: steps.decide.outputs.deploy == 'true'
         run: npm ci
-      # A github.io project site can't use robots.txt or a sitemap (crawlers only read them at the
-      # domain root), and the static export can't build them, so they're left out of this build.
+      # The static export only writes robots.txt and sitemap.xml when they're marked static, a
+      # setting the normal build (Cache Components) refuses, so it's added for this build only.
       - if: steps.decide.outputs.deploy == 'true'
-        run: rm src/app/robots.ts src/app/sitemap.ts
+        run: |
+          for file in src/app/robots.ts src/app/sitemap.ts; do
+            printf '\nexport const dynamic = "force-static";\n' >> "$file"
+          done
       - if: steps.decide.outputs.deploy == 'true'
         run: npm run build
         env:

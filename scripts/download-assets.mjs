@@ -47,8 +47,9 @@ let present = 0;
 let failed = 0;
 for (const assetPath of paths) {
   const dest = path.join(root, "public", decodeURIComponent(assetPath));
-  // Files already in public/ (downloaded before, or added to the project directly) are left alone.
-  if (existsSync(dest)) {
+  // Files already in public/ (downloaded before, or added to the project directly) are left alone,
+  // and so are files the site serves from src/app itself (like the share image).
+  if (existsSync(dest) || existsSync(path.join(root, "src", "app", decodeURIComponent(assetPath)))) {
     present += 1;
     continue;
   }
