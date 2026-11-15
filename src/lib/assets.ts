@@ -1,10 +1,6 @@
 /**
- * Every image (and the catering PDF) still loads from the old deployment at athidi.vercel.app.
- * If that deployment is ever removed, the site loses its pictures — so self-host them by running
- *
- *   node scripts/download-assets.mjs
- *
- * It copies every file into /public at the same path, then sets ASSET_BASE = "" below.
+ * The photos and the catering PDF were copied from the old site (athidi.vercel.app) into /public
+ * by scripts/download-assets.mjs, so ASSET_BASE is empty and they're served from this site.
  */
 export const ASSET_BASE = "";
 

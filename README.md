@@ -22,13 +22,15 @@ npm run build   # production build
 
 ## Before going live
 
-1. **Self-host the photos.** They still load from the old deployment (athidi.vercel.app). Run
-   `node scripts/download-assets.mjs` — it copies every file into `public/` and switches the site
-   over. Commit `public/` and `src/lib/assets.ts`.
-2. **Set the site address.** With a custom domain, add `NEXT_PUBLIC_SITE_URL` (e.g.
-   `https://www.example.com`) in the Vercel project settings. It's used for canonical links, share
-   previews, the sitemap and Google's restaurant data. Without it, Vercel's production domain is used.
-3. **Turn on Web Analytics** in the Vercel project (Analytics tab) to see visitor numbers.
+1. **Move hosting.** GitHub Pages' terms don't allow business websites, so host the official site
+   somewhere that does (Cloudflare Pages is free and allows it) and point the domain at it.
+2. **Set the site address.** Build with `NEXT_PUBLIC_SITE_URL` set to the official address (e.g.
+   `https://www.example.com`). It's used for canonical links, share previews, the sitemap and
+   Google's restaurant data.
+3. **Update the website link** on Google Business Profile and Toast.
+
+The photos and catering PDF are already in `public/` (copied from the old site, resized to at most
+2400px), and the build writes `robots.txt` and `sitemap.xml`.
 
 ## Ordering
 

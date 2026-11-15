@@ -16,7 +16,7 @@ const contentSecurityPolicy = [
   `script-src 'self' 'unsafe-inline'${preview("https://vercel.live")}`,
   `style-src 'self' 'unsafe-inline'${preview("https://vercel.live")}`,
   // Dish photos uploaded in Toast load from Toast's storage.
-  `img-src 'self' blob: data: https://athidi.vercel.app https://s3.amazonaws.com/toasttab/${preview("https://vercel.live https://vercel.com")}`,
+  `img-src 'self' blob: data: https://s3.amazonaws.com/toasttab/${preview("https://vercel.live https://vercel.com")}`,
   `font-src 'self'${preview("https://vercel.live https://assets.vercel.com")}`,
   `connect-src 'self'${preview("https://vercel.live wss://ws-us3.pusher.com")}`,
   `frame-src ${isPreview ? "https://vercel.live" : "'none'"}`,
@@ -51,16 +51,9 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    // GitHub Pages has no image optimizer, so there photos load as they are.
+    // GitHub Pages has no image optimizer, so there photos load as they are (they're resized to at
+    // most 2400px in public/assets for that reason).
     unoptimized: isGitHubPages,
-    // Images are served from the old deployment until they're self-hosted (see src/lib/assets.ts).
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "athidi.vercel.app",
-        pathname: "/**",
-      },
-    ],
   },
   // Static hosts like GitHub Pages can't send headers; Vercel can.
   ...(isGitHubPages
