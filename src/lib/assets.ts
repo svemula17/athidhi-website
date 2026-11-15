@@ -6,7 +6,7 @@
  *
  * It copies every file into /public at the same path, then sets ASSET_BASE = "" below.
  */
-export const ASSET_BASE = "https://athidi.vercel.app";
+export const ASSET_BASE = "";
 
 /** Set when the site is served from a sub-folder, e.g. "/athidhi-website" on GitHub Pages. */
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
