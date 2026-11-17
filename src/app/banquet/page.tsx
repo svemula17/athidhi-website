@@ -15,14 +15,30 @@ export const metadata = pageMetadata({
   path: "/banquet",
 });
 
+// The hall dressed for different events. The last photo sits bottom right, as the client asked.
+const events: { src: string; label: string; alt: string; position?: string }[] = [
+  { src: "/assets/event-sweet-sixteen.jpg", label: "Sweet sixteens", alt: "Sweet sixteen backdrop with a balloon arch" },
+  {
+    src: "/assets/event-milestone-birthday.jpg",
+    label: "Milestone birthdays",
+    alt: "Balloon arch and light-up 40 for a birthday",
+    // Keep the "40" in the crop.
+    position: "object-[26%_50%]",
+  },
+  { src: "/assets/event-corporate.jpg", label: "Corporate events", alt: "Hall set for a corporate event facing three screens" },
+  { src: "/assets/event-floral-stage.jpg", label: "Floral stage décor", alt: "Floral stage with tables in pink and white" },
+  { src: "/assets/event-screens-sound.jpg", label: "Screens & sound", alt: "Hall with screens on the walls and a lit stage" },
+  { src: "/assets/event-flexible-layout.jpg", label: "Flexible layouts", alt: "Round tables arranged around an open floor" },
+];
+
 export default function BanquetPage() {
   return (
     <>
       <section className="grid md:grid-cols-2">
         <div className="relative min-h-[380px] md:min-h-[640px]">
           <Image
-            src={asset("/assets/hero-4hOicPhT.jpg")}
-            alt="Sweet sixteen celebration set up at Athidhi"
+            src={asset("/assets/banquet-hall-stage.jpg")}
+            alt="The Athidhi banquet hall set with round tables in front of the stage"
             fill
             priority
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -62,7 +78,8 @@ export default function BanquetPage() {
       <SplitSection
         tone="cream"
         imageSide="right"
-        image={{ src: asset("/assets/20260606_141209-jnSBWv0D.jpg"), alt: "Banquet hall set for an event" }}
+        image={{ src: asset("/assets/banquet-venue-poster.jpg"), alt: "The banquet hall set for an event" }}
+        video={asset("/assets/banquet-venue.mp4")}
         eyebrow="Layout & Ambience"
         title="The Perfect Venue"
       >
@@ -76,10 +93,38 @@ export default function BanquetPage() {
         </p>
       </SplitSection>
 
+      <section className="bg-sand px-4 py-24 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <Reveal stagger className="text-center">
+            <Eyebrow center>Events We Host</Eyebrow>
+            <h2 className="mt-5 font-serif text-4xl text-maroon md:text-5xl">Celebrate in Style</h2>
+            <p className="mx-auto mt-4 max-w-xl text-ink/75">
+              From balloon arches and floral stages to screens for speeches and slideshows, the hall is set up around your event.
+            </p>
+          </Reveal>
+          <Reveal stagger className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+            {events.map((event) => (
+              <figure key={event.src} className="group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg shadow-ink/10 ring-1 ring-maroon/10">
+                <Image
+                  src={asset(event.src)}
+                  alt={event.alt}
+                  fill
+                  sizes="(min-width: 1024px) 384px, 50vw"
+                  className={`object-cover transition duration-700 group-hover:scale-105 ${event.position ?? ""}`}
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent px-4 pb-3 pt-10 text-sm font-medium text-cream sm:text-base">
+                  {event.label}
+                </figcaption>
+              </figure>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
       <SplitSection
         tone="ink"
         imageSide="left"
-        image={{ src: asset("/assets/20260613_172248-FPsryS_P.jpg"), alt: "Sweet sixteen party in the Athidhi banquet room" }}
+        image={{ src: asset("/assets/banquet-table-setting.jpg"), alt: "A banquet table set with red napkins and a floral centerpiece" }}
         eyebrow="Exclusive"
         title="Tailored Menus"
         decoration={<Mandala className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] text-gold/10" />}

@@ -24,7 +24,11 @@ const restaurantJsonLd = {
   url: absoluteUrl("/"),
   telephone: site.phoneHref.replace("tel:", ""),
   email: site.email,
-  image: [absoluteAssetUrl(asset("/assets/Hero-u8a6ujtO.jpg")), absoluteAssetUrl(asset("/assets/IAML3728-IDPyBwOE.JPG"))],
+  image: [
+    absoluteAssetUrl(asset("/assets/Hero-u8a6ujtO.jpg")),
+    absoluteAssetUrl(asset("/assets/dining-room-wall-art.jpg")),
+    absoluteAssetUrl(asset("/assets/banquet-hall-stage.jpg")),
+  ],
   logo: absoluteAssetUrl(asset("/assets/logo-BgkjBRVm.png")),
   servesCuisine: ["Indian", "South Indian", "North Indian", "Hyderabadi", "Indo-Chinese"],
   priceRange: "$$",
@@ -77,9 +81,9 @@ const gallery = [
   { src: "/assets/AthidhiIndianFineDineRestaurant_VegManchurianNoodles-DsvsL3LU.jpg", alt: "Veg manchurian noodles" },
 ];
 
-const banquetPhotos = [
-  { src: "/assets/20260606_141209-jnSBWv0D.jpg", label: "The Banquet Hall" },
-  { src: "/assets/hero-4hOicPhT.jpg", label: "Event Décor" },
+const banquetPhotos: { src: string; label: string; position?: string }[] = [
+  { src: "/assets/banquet-hall-wide.jpg", label: "The Banquet Hall" },
+  { src: "/assets/event-milestone-birthday.jpg", label: "Event Décor", position: "object-[26%_50%]" },
 ];
 
 const heroWord = "ATHIDHI";
@@ -193,7 +197,7 @@ export default function Home() {
       <SplitSection
         tone="sand"
         imageSide="right"
-        image={{ src: asset("/assets/20260613_172248-FPsryS_P.jpg"), alt: "Athidhi's banquet hall dressed for a celebration" }}
+        image={{ src: asset("/assets/banquet-hall-table.jpg"), alt: "Athidhi's banquet hall set for a celebration" }}
         imageClassName="motion-safe:animate-kenburns"
         eyebrow="Host Your"
         title="Grand Celebrations"
@@ -220,7 +224,7 @@ export default function Home() {
                   alt=""
                   fill
                   sizes="(min-width: 768px) 192px, 45vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  className={`object-cover transition duration-500 group-hover:scale-105 ${photo.position ?? ""}`}
                 />
                 <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-linear-to-t from-ink/85 to-transparent px-3 pb-2 pt-8 text-xs font-medium text-cream sm:text-sm">
                   {photo.label}
@@ -266,7 +270,7 @@ export default function Home() {
       <SplitSection
         tone="sand"
         imageSide="left"
-        image={{ src: asset("/assets/IAML3728-IDPyBwOE.JPG"), alt: "The Dining Room" }}
+        image={{ src: asset("/assets/dining-room-wall-art.jpg"), alt: "The dining room at Athidhi, with lit wall art and a crystal chandelier" }}
         eyebrow="Ambience"
         title="The Dining Room"
       >

@@ -122,7 +122,7 @@ export default function AboutPage() {
 
       <section className="relative isolate overflow-hidden bg-ink px-4 py-28">
         <Image
-          src={asset("/assets/Photo%20from%20Athidhi%20Indian%20Restaurant-CKB1Q4MU.jpg")}
+          src={asset("/assets/dining-booths.jpg")}
           alt=""
           fill
           sizes="100vw"

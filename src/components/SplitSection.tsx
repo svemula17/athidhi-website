@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import LoopVideo from "@/components/LoopVideo";
 import Reveal from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui";
 
@@ -12,12 +13,14 @@ const tones = {
 /**
  * The site's standard section: a full-height photo on one half; eyebrow, heading, text and
  * actions on the other. On phones the photo sits on top. Both halves animate in on scroll.
+ * With `video`, a silent looping clip plays in place of the photo, which becomes its still frame.
  */
 export default function SplitSection({
   id,
   tone = "cream",
   imageSide = "right",
   image,
+  video,
   imageClassName = "",
   imageOverlay,
   eyebrow,
@@ -31,6 +34,8 @@ export default function SplitSection({
   tone?: keyof typeof tones;
   imageSide?: "left" | "right";
   image: { src: string; alt: string };
+  /** A short clip to loop instead of the photo (the photo should be its first frame). */
+  video?: string;
   imageClassName?: string;
   /** Laid over the photo without zooming with it, e.g. a small caption card. */
   imageOverlay?: ReactNode;
@@ -47,7 +52,11 @@ export default function SplitSection({
     <section id={id} className={`grid scroll-mt-24 md:scroll-mt-32 md:grid-cols-2 ${t.bg}`}>
       <div className={`relative min-h-[320px] overflow-hidden md:min-h-[560px] ${imageFirst ? "md:order-1" : "md:order-2"}`}>
         <Reveal zoom className="absolute inset-0">
-          <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover ${imageClassName}`} />
+          {video ? (
+            <LoopVideo src={video} poster={image.src} className={`h-full w-full object-cover ${imageClassName}`} />
+          ) : (
+            <Image src={image.src} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className={`object-cover ${imageClassName}`} />
+          )}
         </Reveal>
         {imageOverlay}
       </div>
