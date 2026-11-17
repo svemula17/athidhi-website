@@ -4,6 +4,7 @@ import Link from "next/link";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import Mandala from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
+import Reviews from "@/components/Reviews";
 import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
 import { hoursLabel, site, whatsappChatUrl } from "@/data/site";
@@ -283,6 +284,8 @@ export default function Home() {
           perfectly complements your dining experience. A place purposely built for celebration.
         </p>
       </SplitSection>
+
+      <Reviews />
 
       <SplitSection
         id="visit"
