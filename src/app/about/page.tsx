@@ -29,7 +29,7 @@ const pillars = [
     text: "Whole spices hand-picked from small-batch heritage spice merchants and freshly ground daily.",
   },
   {
-    image: "/assets/IAML3728-IDPyBwOE.JPG",
+    image: "/assets/dining-room-wall-art.jpg",
     alt: "The dining room at Athidhi",
     label: "Athidhi Devo Bhava",
     title: "Royal Hospitality",

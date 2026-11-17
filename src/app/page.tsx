@@ -272,7 +272,9 @@ export default function Home() {
       <SplitSection
         tone="sand"
         imageSide="left"
-        image={{ src: asset("/assets/dining-room-wall-art.jpg"), alt: "The dining room at Athidhi, with lit wall art and a crystal chandelier" }}
+        image={{ src: asset("/assets/dining-room-chandelier.jpg"), alt: "Crystal chandelier, fountain and lit wall art in the Athidhi dining room" }}
+        // A tall photo: keep the chandelier, fountain and wall art in the crop.
+        imageClassName="object-[50%_30%]"
         eyebrow="Ambience"
         title="The Dining Room"
       >
