@@ -45,6 +45,8 @@ export const site = {
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `Athidhi, ${address.street}, ${address.city}`,
   )}`,
+  /** The restaurant on Google Maps (used in Google's restaurant data). */
+  mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Athidhi, ${address.street}, ${address.city}`)}`,
   social: {
     instagram: "https://www.instagram.com/athidhinj/",
     facebook: "https://www.facebook.com/profile.php?id=61583672301199",

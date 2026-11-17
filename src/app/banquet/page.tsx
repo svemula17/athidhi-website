@@ -9,8 +9,9 @@ import { asset } from "@/lib/assets";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Banquets & Catering — Athidhi",
-  description: "Host birthdays, anniversaries, weddings and corporate events at Athidhi in Plainsboro, NJ.",
+  title: "Banquet Hall in Plainsboro, NJ | Athidhi",
+  description:
+    "Host birthdays, anniversaries, weddings and corporate events at Athidhi's banquet hall in Plainsboro, NJ, near Princeton, with Indian catering for every guest.",
   path: "/banquet",
 });
 
@@ -47,7 +48,7 @@ export default function BanquetPage() {
               style={{ animationDelay: "0.5s" }}
             >
               Whether you are planning an intimate birthday party, a romantic anniversary, a magnificent wedding reception,
-              or corporate events, Athidhi provides the ultimate setting for memorable festivities.
+              or corporate events, Athidhi&rsquo;s banquet hall in Plainsboro provides the ultimate setting for memorable festivities.
             </p>
             <div className="mt-10 motion-safe:animate-rise" style={{ animationDelay: "0.7s" }}>
               <Link href="#request" className={button.gold}>

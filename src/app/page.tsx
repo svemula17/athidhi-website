@@ -8,13 +8,9 @@ import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
 import { hoursLabel, site, whatsappChatUrl } from "@/data/site";
 import { asset, publicFile } from "@/lib/assets";
-import { absoluteAssetUrl, absoluteUrl, pageMetadata } from "@/lib/seo";
+import { absoluteAssetUrl, absoluteUrl, homeDescription, homeTitle, pageMetadata, pageUrl } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Athidhi — Athidhi Devo Bhava | Luxury Indian Fine Dining, Plainsboro NJ",
-  description: `${site.description} ${site.address.street}, ${site.address.city}.`,
-  path: "/",
-});
+export const metadata: Metadata = pageMetadata({ title: homeTitle, description: homeDescription, path: "/" });
 
 // What Google shows for the restaurant: address, phone, hours, menu (schema.org Restaurant).
 const restaurantJsonLd = {
@@ -22,16 +18,21 @@ const restaurantJsonLd = {
   "@type": "Restaurant",
   "@id": absoluteUrl("/#restaurant"),
   name: site.name,
-  description: site.description,
+  alternateName: "Athidhi Indian Restaurant",
+  description: homeDescription,
+  slogan: site.motto,
   url: absoluteUrl("/"),
   telephone: site.phoneHref.replace("tel:", ""),
   email: site.email,
   image: [absoluteAssetUrl(asset("/assets/Hero-u8a6ujtO.jpg")), absoluteAssetUrl(asset("/assets/IAML3728-IDPyBwOE.JPG"))],
   logo: absoluteAssetUrl(asset("/assets/logo-BgkjBRVm.png")),
-  servesCuisine: ["Indian", "South Indian", "Indo-Chinese"],
+  servesCuisine: ["Indian", "South Indian", "North Indian", "Hyderabadi", "Indo-Chinese"],
   priceRange: "$$",
-  menu: absoluteUrl("/menu"),
+  menu: pageUrl("/menu"),
+  // The full menu with dishes and prices is on the menu page (src/app/menu/page.tsx).
+  hasMenu: { "@id": `${pageUrl("/menu")}#menu` },
   acceptsReservations: true,
+  hasMap: site.mapUrl,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,
@@ -47,6 +48,18 @@ const restaurantJsonLd = {
     closes: row.closes,
   })),
   sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
+  ...(site.orderOnlineUrl
+    ? {
+        potentialAction: {
+          "@type": "OrderAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: site.orderOnlineUrl,
+            actionPlatform: ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"],
+          },
+        },
+      }
+    : {}),
 };
 
 const heroSlides = [
@@ -87,7 +100,7 @@ export default function Home() {
         <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-ink/80 via-ink/50 to-ink/75" />
         <div className="relative z-10 px-4 pb-24 pt-36 text-center md:pt-44">
           <Eyebrow center animate tone="gold">
-            Established with Reverence
+            Indian Fine Dining<span className="hidden sm:inline"> · Plainsboro, NJ</span>
           </Eyebrow>
           {/* Each letter rises into place in turn; the heading itself is read as one word. */}
           <h1
@@ -295,6 +308,7 @@ export default function Home() {
               <br />
               {site.address.city}
             </p>
+            <p className="mt-2 text-ink/70">Minutes from Princeton, West Windsor and Cranbury.</p>
           </div>
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-deep">Reservations &amp; Info</h3>

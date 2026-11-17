@@ -5,7 +5,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { site } from "@/data/site";
-import { siteUrl } from "@/lib/seo";
+import { homeDescription, homeTitle, noIndex, siteUrl } from "@/lib/seo";
 
 // Fonts are served with the site (src/fonts) rather than fetched from Google on every visit.
 const inter = localFont({
@@ -28,9 +28,11 @@ const playfair = localFont({
 // Defaults for every page; each page sets its own title, description and canonical link (src/lib/seo.ts).
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Athidhi — Athidhi Devo Bhava | Luxury Indian Fine Dining, Plainsboro NJ",
-  description: `${site.description} ${site.address.street}, ${site.address.city}.`,
+  title: homeTitle,
+  description: homeDescription,
   applicationName: site.name,
+  // The github.io preview stays out of search results (see noIndex).
+  ...(noIndex ? { robots: { index: false, follow: false } } : {}),
   openGraph: { type: "website", siteName: site.name, locale: "en_US" },
   twitter: { card: "summary_large_image" },
 };

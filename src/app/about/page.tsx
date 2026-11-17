@@ -7,8 +7,9 @@ import { asset } from "@/lib/assets";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "About Us — Athidhi Indian Restaurant",
-  description: "The story and philosophy behind Athidhi — Athidhi Devo Bhava, the guest is divine.",
+  title: "Our Story | Athidhi Indian Restaurant, Plainsboro NJ",
+  description:
+    "The story behind Athidhi, an Indian fine dining restaurant in Plainsboro, NJ, guided by Athidhi Devo Bhava: the guest is divine.",
   path: "/about",
 });
 

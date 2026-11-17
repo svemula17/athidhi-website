@@ -7,8 +7,9 @@ import { asset } from "@/lib/assets";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Catering Menu — Athidhi",
-  description: "Athidhi's full banquet and catering menu for weddings, corporate events and celebrations.",
+  title: "Indian Catering Menu | Athidhi, Plainsboro NJ",
+  description:
+    "Athidhi's full banquet and catering menu: Indian food for weddings, parties and corporate events, from our restaurant in Plainsboro, NJ.",
   path: "/catering",
 });
 

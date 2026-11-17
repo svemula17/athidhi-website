@@ -211,15 +211,18 @@ export default function MenuPage() {
       {/* Where and how to order */}
       <div className="border-b border-maroon/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <a
-            href={site.directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-ink/75 transition hover:text-maroon"
-          >
-            <Icon name="mapPin" className="h-4 w-4 text-maroon" />
-            {site.address.street}, {site.address.city}
-          </a>
+          <div>
+            <h1 className="font-serif text-3xl text-maroon">Our Menu</h1>
+            <a
+              href={site.directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-flex items-center gap-2 text-sm text-ink/75 transition hover:text-maroon"
+            >
+              <Icon name="mapPin" className="h-4 w-4 text-maroon" />
+              {site.address.street}, {site.address.city}
+            </a>
+          </div>
           <div className="flex gap-3">
             {site.orderOnlineUrl && (
               <a
