@@ -59,7 +59,7 @@ export default function Footer() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
           {/* The logo artwork is maroon; turned white so it reads on the dark footer. */}
-          <Image src={asset("/assets/logo-BgkjBRVm.png")} alt="Athidhi" width={577} height={433} className="h-24 w-auto brightness-0 invert" />
+          <Image src={asset("/assets/logo-BgkjBRVm.png")} alt="Athidhi" width={577} height={433} sizes="128px" className="h-24 w-auto brightness-0 invert" />
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">{site.description}</p>
           <ul className="mt-8 flex gap-3">
             {socials.map((social) => (

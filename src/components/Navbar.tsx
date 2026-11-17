@@ -72,6 +72,7 @@ export default function Navbar() {
             alt="Athidhi — Athidhi Devo Bhava"
             width={577}
             height={433}
+            sizes="(min-width: 768px) 128px, 75px"
             priority
             className={`h-14 w-auto transition duration-300 md:h-24 ${overlay ? "brightness-0 invert" : ""}`}
           />

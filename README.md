@@ -22,15 +22,22 @@ npm run build   # production build
 
 ## Before going live
 
-1. **Move hosting.** GitHub Pages' terms don't allow business websites, so host the official site
-   somewhere that does (Cloudflare Pages is free and allows it) and point the domain at it.
-2. **Set the site address.** Build with `NEXT_PUBLIC_SITE_URL` set to the official address (e.g.
-   `https://www.example.com`). It's used for canonical links, share previews, the sitemap and
-   Google's restaurant data.
-3. **Update the website link** on Google Business Profile and Toast.
+The official site (athidhinj.com) is hosted on Cloudflare Pages, because GitHub Pages' terms don't
+allow business websites. The github.io preview stays, marked so search engines skip it.
 
-The photos and catering PDF are already in `public/` (copied from the old site, resized to at most
-2400px), and the build writes `robots.txt` and `sitemap.xml`.
+1. **Connect Cloudflare.** In a free Cloudflare account, create an API token with the
+   *Account → Cloudflare Pages → Edit* permission. Add it to this repository's Actions secrets as
+   `CLOUDFLARE_API_TOKEN`, and the account ID (Cloudflare dashboard) as `CLOUDFLARE_ACCOUNT_ID`.
+   The next deploy builds the official site and publishes it to the Cloudflare Pages project
+   `athidhi` (repository variable `CLOUDFLARE_PROJECT` to change it).
+2. **Point the domain.** Add athidhinj.com to Cloudflare (it copies the existing DNS records,
+   including email), switch the domain's name servers at IONOS to Cloudflare's, then add
+   athidhinj.com and www.athidhinj.com as custom domains of the Pages project.
+3. **Update the website link** on Google Business Profile and Toast, and add the site to Google
+   Search Console with its sitemap (`/sitemap.xml`).
+
+The site address used in canonical links, share previews, the sitemap and Google's restaurant data
+is `https://athidhinj.com` (repository variable `SITE_URL` to change it).
 
 ## Ordering
 

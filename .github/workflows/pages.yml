@@ -1,6 +1,7 @@
-# Publishes the site to GitHub Pages: https://svemula17.github.io/athidhi-website/
-# Runs on every push to main, and every hour to pick up menu changes from Toast
-# (hourly runs only redeploy when the menu actually changed).
+# Publishes the site: the preview on GitHub Pages (https://svemula17.github.io/athidhi-website/,
+# kept out of search results) and, once the Cloudflare secrets are added, the official site on
+# Cloudflare Pages (athidhinj.com). Runs on every push to main, and every hour to pick up menu
+# changes from Toast (hourly runs only redeploy when the menu actually changed).
 name: Deploy to GitHub Pages
 
 on:
@@ -23,6 +24,9 @@ jobs:
       pages: write
     outputs:
       deploy: ${{ steps.decide.outputs.deploy }}
+    env:
+      # The official site deploys to Cloudflare Pages once both secrets exist (README: "Before going live").
+      HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -66,8 +70,11 @@ jobs:
           for file in src/app/robots.ts src/app/sitemap.ts; do
             printf '\nexport const dynamic = "force-static";\n' >> "$file"
           done
-      - if: steps.decide.outputs.deploy == 'true'
-        run: npm run build
+      - name: Build the preview
+        if: steps.decide.outputs.deploy == 'true'
+        run: |
+          npm run build
+          node scripts/image-variants.mjs
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
@@ -78,6 +85,28 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: out
+
+      # The official site: the same static build at the domain's root, open to search engines,
+      # with security and cache headers for Cloudflare (scripts/cloudflare-headers.mjs).
+      - name: Build the official site
+        if: steps.decide.outputs.deploy == 'true' && env.HAS_CLOUDFLARE == 'true'
+        run: |
+          npm run build
+          node scripts/image-variants.mjs
+          node scripts/cloudflare-headers.mjs
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://athidhinj.com' }}
+      - name: Deploy the official site to Cloudflare Pages
+        if: steps.decide.outputs.deploy == 'true' && env.HAS_CLOUDFLARE == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT: ${{ vars.CLOUDFLARE_PROJECT || 'athidhi' }}
+        run: |
+          # Creates the Cloudflare Pages project on the first run; afterwards it already exists.
+          npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main || true
+          npx --yes wrangler@4 pages deploy out --project-name="$PROJECT" --branch=main --commit-dirty=true
 
   deploy:
     needs: build

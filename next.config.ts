@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import imageWidths from "./src/lib/image-widths.json";
 
 const isProduction = process.env.NODE_ENV === "production";
 // Vercel preview deployments load a feedback toolbar from vercel.live; production doesn't.
@@ -50,11 +51,9 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  images: {
-    // GitHub Pages has no image optimizer, so there photos load as they are (they're resized to at
-    // most 2400px in public/assets for that reason).
-    unoptimized: isGitHubPages,
-  },
+  // Static hosts have no image optimizer: the static build points photos at WebP copies sized for
+  // each screen (src/lib/image-loader.ts), made after the build by scripts/image-variants.mjs.
+  images: isGitHubPages ? { loader: "custom", loaderFile: "./src/lib/image-loader.ts", ...imageWidths } : {},
   // Static hosts like GitHub Pages can't send headers; Vercel can.
   ...(isGitHubPages
     ? {}
