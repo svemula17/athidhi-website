@@ -66,10 +66,12 @@ const restaurantJsonLd = {
     : {}),
 };
 
+// The first slide loads first (it's the page's main image); venue and food alternate.
 const heroSlides = [
-  "/assets/IAML3711-CiZrVyWb.JPG",
-  "/assets/Panner%20Tikka-CxhZEie8.JPG",
+  "/assets/hero-dining-room.jpg",
   "/assets/Hero-u8a6ujtO.jpg",
+  "/assets/hero-banquet-hall.jpg",
+  "/assets/Panner%20Tikka-CxhZEie8.JPG",
 ].map((path) => asset(path));
 
 const gallery = [
