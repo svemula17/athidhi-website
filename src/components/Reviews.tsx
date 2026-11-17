@@ -5,21 +5,65 @@
 // and doesn't move by itself for visitors who prefer reduced motion. Reviews: src/data/reviews.ts.
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Eyebrow } from "@/components/ui";
+import { Eyebrow, button } from "@/components/ui";
 import { reviewSummary, reviews, type Review } from "@/data/reviews";
 import { site } from "@/data/site";
 
 const ADVANCE_EVERY_MS = 4500;
 
+const STAR = "M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z";
+
+/** Five stars filled to the rating, partly filled for halves (4.5 → four and a half). */
 function Stars({ rating, className = "h-4 w-4" }: { rating: number; className?: string }) {
   return (
     <span role="img" aria-label={`${rating} out of 5 stars`} className="inline-flex gap-0.5 text-gold">
-      {[1, 2, 3, 4, 5].map((n) => (
-        <svg key={n} viewBox="0 0 20 20" aria-hidden="true" className={`${className} ${n <= Math.round(rating) ? "" : "opacity-25"}`}>
-          <path fill="currentColor" d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z" />
-        </svg>
-      ))}
+      {[1, 2, 3, 4, 5].map((n) => {
+        const fill = Math.max(0, Math.min(1, rating - (n - 1)));
+        return (
+          <span key={n} className="relative inline-block">
+            <svg viewBox="0 0 20 20" aria-hidden="true" className={`block opacity-25 ${className}`}>
+              <path fill="currentColor" d={STAR} />
+            </svg>
+            {fill > 0 && (
+              <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                <svg viewBox="0 0 20 20" aria-hidden="true" className={`block max-w-none ${className}`}>
+                  <path fill="currentColor" d={STAR} />
+                </svg>
+              </span>
+            )}
+          </span>
+        );
+      })}
     </span>
+  );
+}
+
+/** The overall rating with its stars and review count, linking to the reviews on Google. */
+function RatingSummary({ rating, count, large = false }: { rating: number; count?: number; large?: boolean }) {
+  return (
+    <a href={site.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3">
+      <span className={`font-serif text-ink ${large ? "text-6xl" : "text-5xl"}`}>{rating.toFixed(1)}</span>
+      <span className="flex flex-col gap-1">
+        <Stars rating={rating} className={large ? "h-6 w-6" : "h-5 w-5"} />
+        <span className="text-sm text-ink/60 group-hover:text-maroon group-hover:underline">
+          {count ? `${count.toLocaleString("en-US")} reviews on Google` : "on Google"}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+/** "Read our reviews" and "Write a review" on Google. */
+function GoogleLinks() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      <a href={site.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className={button.maroon}>
+        Read Our Reviews
+      </a>
+      <a href={site.googleWriteReviewUrl} target="_blank" rel="noopener noreferrer" className={button.maroonOutline}>
+        Write a Review
+      </a>
+    </div>
   );
 }
 
@@ -134,7 +178,26 @@ export default function Reviews() {
     };
   }, [paused, held, reduceMotion, move]);
 
-  if (reviews.length === 0) return null;
+  if (reviews.length === 0) {
+    if (!reviewSummary) return null;
+    return (
+      <section aria-labelledby="reviews-title" className="bg-cream px-3 py-20 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 rounded-[2rem] bg-white px-6 py-10 shadow-sm ring-1 ring-maroon/10 sm:px-10 md:flex-row md:items-center md:justify-between lg:px-12">
+          <div>
+            <Eyebrow>Guest Stories</Eyebrow>
+            <h2 id="reviews-title" className="mt-5 font-serif text-4xl text-maroon md:text-5xl">
+              What Our Guests Say
+            </h2>
+            <p className="mt-3 max-w-md text-ink/65">Rated by our guests on Google. Read what they say, or tell us about your visit.</p>
+          </div>
+          <div className="flex flex-col gap-6 md:items-end">
+            <RatingSummary rating={reviewSummary.rating} count={reviewSummary.count} large />
+            <GoogleLinks />
+          </div>
+        </div>
+      </section>
+    );
+  }
   const moving = !paused && !reduceMotion;
 
   return (
@@ -159,17 +222,7 @@ export default function Reviews() {
             <p className="mt-3 text-ink/65">Real reviews from Athidhi guests on Google.</p>
           </div>
           <div className="flex flex-wrap items-center gap-6">
-            {reviewSummary && (
-              <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3">
-                <span className="font-serif text-5xl text-ink">{reviewSummary.rating.toFixed(1)}</span>
-                <span className="flex flex-col gap-1">
-                  <Stars rating={reviewSummary.rating} className="h-5 w-5" />
-                  <span className="text-sm text-ink/60 group-hover:text-maroon group-hover:underline">
-                    {reviewSummary.count ? `${reviewSummary.count.toLocaleString("en-US")} reviews on Google` : "on Google"}
-                  </span>
-                </span>
-              </a>
-            )}
+            {reviewSummary && <RatingSummary rating={reviewSummary.rating} count={reviewSummary.count} />}
             <div className="flex gap-3">
               <button type="button" onClick={() => move(-1)} aria-label="Previous review" className={arrow}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -223,7 +276,7 @@ export default function Reviews() {
               />
             ))}
           </div>
-          <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-maroon underline-offset-4 hover:underline">
+          <a href={site.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-maroon underline-offset-4 hover:underline">
             Read all reviews on Google →
           </a>
         </div>

@@ -45,6 +45,11 @@ export const site = {
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `Athidhi, ${address.street}, ${address.city}`,
   )}`,
+  /** Athidhi's own Google listing (its reviews and rating). */
+  googleReviewsUrl: "https://maps.google.com/?cid=13979431911327665623",
+  /** Opens Google's "rate and review" box for Athidhi (guests must be signed in to Google). */
+  googleWriteReviewUrl:
+    "https://www.google.com/search?q=Athidhi+Indian+Fine+Dine+%26+Banquet+Plainsboro#lrd=0x89c3dd007938ef2f:0xc200eb41d4720dd7,3",
   /** The restaurant on Google Maps (used in Google's restaurant data). */
   mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Athidhi, ${address.street}, ${address.city}`)}`,
   social: {
