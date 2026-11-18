@@ -176,7 +176,7 @@ export function DishDialog({
         </div>
       </div>
       <div className="border-t border-maroon/10 bg-white px-5 pb-5 pt-4 sm:px-6">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Stepper value={qty} onChange={setQty} name={item.name} />
           <button
             type="button"
@@ -184,7 +184,7 @@ export function DishDialog({
               onAdd(qty);
               closeSheet(event.currentTarget);
             }}
-            className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-maroon px-5 py-3 text-sm font-semibold text-cream transition hover:bg-maroon/90"
+            className="flex min-h-12 min-w-44 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-maroon px-5 py-3 text-sm font-semibold text-cream transition hover:bg-maroon/90"
           >
             <span className="sm:hidden">Add to list</span>
             <span className="hidden sm:inline">Add to dine-in list</span>

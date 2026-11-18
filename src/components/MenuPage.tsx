@@ -179,7 +179,10 @@ export default function MenuPage() {
   useEffect(() => {
     const strip = tabsRef.current?.querySelector<HTMLElement>("[data-strip]");
     const tab = strip?.querySelector<HTMLElement>(`[data-tab="${current}"]`);
-    if (strip && tab) strip.scrollTo({ left: tab.offsetLeft - strip.clientWidth / 2 + tab.clientWidth / 2, behavior: "smooth" });
+    if (!strip || !tab) return;
+    // Centre the current tab in the strip (measured on screen, so the menu button beside it doesn't throw it off).
+    const offset = tab.getBoundingClientRect().left - strip.getBoundingClientRect().left;
+    strip.scrollTo({ left: strip.scrollLeft + offset - (strip.clientWidth - tab.clientWidth) / 2, behavior: "smooth" });
   }, [current]);
 
   const goTo = (id: string) => {
