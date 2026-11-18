@@ -7,7 +7,7 @@ import Reveal from "@/components/Reveal";
 import Reviews from "@/components/Reviews";
 import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
-import { hoursLabel, site, whatsappChatUrl } from "@/data/site";
+import { hoursLines, site, whatsappChatUrl } from "@/data/site";
 import { asset, publicFile } from "@/lib/assets";
 import { absoluteAssetUrl, absoluteUrl, homeDescription, homeTitle, pageMetadata, pageUrl } from "@/lib/seo";
 
@@ -46,12 +46,14 @@ const restaurantJsonLd = {
     postalCode: site.address.postalCode,
     addressCountry: site.address.country,
   },
-  openingHoursSpecification: site.hours.map((row) => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: row.dayOfWeek,
-    opens: row.opens,
-    closes: row.closes,
-  })),
+  openingHoursSpecification: site.hours.flatMap((row) =>
+    row.periods.map((period) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: row.dayOfWeek,
+      opens: period.opens,
+      closes: period.closes,
+    })),
+  ),
   sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
   ...(site.orderOnlineUrl
     ? {
@@ -340,7 +342,13 @@ export default function Home() {
               {site.hours.map((row) => (
                 <div key={row.days} className="flex justify-between gap-6 border-b border-maroon/10 py-3">
                   <dt className="font-light text-ink/60">{row.days}</dt>
-                  <dd className="font-semibold text-maroon">{hoursLabel(row)}</dd>
+                  <dd className="text-right font-semibold text-maroon">
+                    {hoursLines(row).map((line) => (
+                      <span key={line} className="block whitespace-nowrap">
+                        {line}
+                      </span>
+                    ))}
+                  </dd>
                 </div>
               ))}
             </dl>

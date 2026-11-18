@@ -1,19 +1,31 @@
 // Contact details, hours and links — one place to edit them for the whole site.
 
-export type OpeningHours = {
-  /** As shown on the site. */
-  days: string;
-  /** The same days as schema.org day names (used for Google's opening-hours data). */
-  dayOfWeek: readonly string[];
+export type OpeningPeriod = {
   /** 24-hour clock, "HH:MM". */
   opens: string;
   closes: string;
 };
 
+export type OpeningHours = {
+  /** As shown on the site. */
+  days: string;
+  /** The same days as schema.org day names (used for Google's opening-hours data). */
+  dayOfWeek: readonly string[];
+  /** When the restaurant is open on those days, in order (lunch, then dinner); empty when closed. */
+  periods: readonly OpeningPeriod[];
+};
+
+const lunch: OpeningPeriod = { opens: "11:30", closes: "15:00" };
+
+// As confirmed by the restaurant, November 2026.
 const hours: readonly OpeningHours[] = [
-  { days: "Monday — Thursday", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"], opens: "11:30", closes: "22:00" },
-  { days: "Friday — Saturday", dayOfWeek: ["Friday", "Saturday"], opens: "11:30", closes: "23:00" },
-  { days: "Sunday", dayOfWeek: ["Sunday"], opens: "12:00", closes: "22:00" },
+  { days: "Monday", dayOfWeek: ["Monday"], periods: [] },
+  {
+    days: "Tuesday — Saturday",
+    dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    periods: [lunch, { opens: "17:00", closes: "22:00" }],
+  },
+  { days: "Sunday", dayOfWeek: ["Sunday"], periods: [lunch, { opens: "17:00", closes: "21:30" }] },
 ];
 
 const address = {
@@ -66,9 +78,14 @@ export function formatTime(time: string): string {
   return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${hour >= 12 ? "PM" : "AM"}`;
 }
 
-/** "11:30 AM — 10:00 PM" */
-export function hoursLabel(row: OpeningHours): string {
-  return `${formatTime(row.opens)} — ${formatTime(row.closes)}`;
+/** "5:00 PM — 10:00 PM" */
+export function periodLabel(period: OpeningPeriod): string {
+  return `${formatTime(period.opens)} — ${formatTime(period.closes)}`;
+}
+
+/** One line per opening period ("11:30 AM — 3:00 PM", "5:00 PM — 10:00 PM"), or "Closed". */
+export function hoursLines(row: OpeningHours): string[] {
+  return row.periods.length ? row.periods.map(periodLabel) : ["Closed"];
 }
 
 export const whatsappChatUrl = `https://wa.me/${site.whatsapp}`;

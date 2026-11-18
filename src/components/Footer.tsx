@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import Mandala from "@/components/Mandala";
 import { Icon } from "@/components/ui";
-import { hoursLabel, site } from "@/data/site";
+import { hoursLines, site } from "@/data/site";
 import { asset } from "@/lib/assets";
 
 const explore = [
@@ -131,7 +131,13 @@ export default function Footer() {
             {site.hours.map((row) => (
               <div key={row.days}>
                 <dt className="text-cream/60">{row.days}</dt>
-                <dd className="mt-0.5">{hoursLabel(row)}</dd>
+                <dd className="mt-0.5">
+                  {hoursLines(row).map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
               </div>
             ))}
           </dl>

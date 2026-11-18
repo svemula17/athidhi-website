@@ -51,7 +51,24 @@ const accessToken = login?.token?.accessToken;
 if (!accessToken) throw new Error("Toast sign-in didn't return an access token.");
 const headers = { Authorization: `Bearer ${accessToken}`, "Toast-Restaurant-External-ID": restaurantGuid };
 
-// 2. Skip the full download when Toast says the menu hasn't been republished.
+// 2. Log the restaurant's hours as set up in Toast (its services, such as lunch and dinner, for each
+//    weekday), to check them against the hours on the site (src/data/site.ts). Changes nothing.
+try {
+  const info = await toast(`/restaurants/v1/restaurants/${restaurantGuid}`, { headers });
+  const { daySchedules = {}, weekSchedule = {} } = info?.schedules ?? {};
+  const clock = (time) => (typeof time === "string" ? time.slice(0, 5) : "?");
+  for (const day of ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]) {
+    const services = (daySchedules[weekSchedule[day]]?.services ?? []).map(
+      (service) =>
+        `${(typeof service.name === "string" && service.name.trim()) || "Service"} ${clock(service.hours?.startTime)}-${clock(service.hours?.endTime)}${service.overnight ? " (overnight)" : ""}`,
+    );
+    console.log(`Toast hours, ${day}: ${services.length ? services.join(", ") : "closed"}`);
+  }
+} catch (error) {
+  console.log(`Couldn't read the restaurant's hours from Toast: ${error.message}`);
+}
+
+// 3. Skip the full download when Toast says the menu hasn't been republished.
 const current = await readFile(outFile, "utf8")
   .then(JSON.parse)
   .catch(() => null);
@@ -62,7 +79,7 @@ if (current?.version === FORMAT_VERSION && current?.lastUpdated === lastUpdated)
   process.exit(0);
 }
 
-// 3. Download and keep what guests can order online.
+// 4. Download and keep what guests can order online.
 const restaurant = await toast("/menus/v2/menus", { headers });
 const onlineVisible = (entity) => !Array.isArray(entity.visibility) || entity.visibility.includes("TOAST_ONLINE_ORDERING");
 const text = (value) => (typeof value === "string" ? value.trim() : "");
@@ -103,7 +120,7 @@ if (dishCount < 5) {
   throw new Error(`Toast returned only ${dishCount} online dishes; leaving the website menu unchanged.`);
 }
 
-// 4. Save, and say what came across.
+// 5. Save, and say what came across.
 // lastUpdated comes from the metadata call above, so step 2 compares like with like next time.
 const next = `${JSON.stringify({ version: FORMAT_VERSION, lastUpdated, menus }, null, 2)}\n`;
 const changed = next !== (await readFile(outFile, "utf8").catch(() => ""));

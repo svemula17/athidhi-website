@@ -6,7 +6,7 @@ import { DineInBar, DineInDrawer, DishDialog, type DineInEntry } from "@/compone
 import { DietMark, DietSymbol, formatPrice } from "@/components/MenuBits";
 import { Icon } from "@/components/ui";
 import { dishKey, dishesByKey, menuCategories, mostLoved, type MenuCategory, type MenuItem } from "@/data/menu";
-import { formatTime, hoursLabel, site } from "@/data/site";
+import { formatTime, site } from "@/data/site";
 import { addToDineInList, clearDineInList, setDineInQty, useDineInList } from "@/lib/dine-in-list";
 
 type Filter = "all" | "veg" | "nonveg";
@@ -31,11 +31,18 @@ function openStatus(): string {
   const part = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
   const day = part("weekday");
   const now = Number(part("hour")) * 60 + Number(part("minute"));
-  const today = site.hours.find((row) => row.dayOfWeek.includes(day));
-  if (today && now >= minutes(today.opens) && now < minutes(today.closes)) return `open|Open · ${hoursLabel(today)}`;
-  if (today && now < minutes(today.opens)) return `closed|Closed · Opens ${formatTime(today.opens)}`;
-  const tomorrow = site.hours.find((row) => row.dayOfWeek.includes(weekdays[(weekdays.indexOf(day) + 1) % 7]));
-  return `closed|Closed · Opens ${tomorrow ? `${formatTime(tomorrow.opens)} ` : ""}tomorrow`;
+  const periodsOn = (weekday: string) => site.hours.find((row) => row.dayOfWeek.includes(weekday))?.periods ?? [];
+
+  const current = periodsOn(day).find((period) => now >= minutes(period.opens) && now < minutes(period.closes));
+  if (current) return `open|Open · until ${formatTime(current.closes)}`;
+  const later = periodsOn(day).find((period) => now < minutes(period.opens));
+  if (later) return `closed|Closed · Opens ${formatTime(later.opens)}`;
+  for (let ahead = 1; ahead <= 7; ahead++) {
+    const next = weekdays[(weekdays.indexOf(day) + ahead) % 7];
+    const first = periodsOn(next)[0];
+    if (first) return `closed|Closed · Opens ${ahead === 1 ? "tomorrow" : next} ${formatTime(first.opens)}`;
+  }
+  return "";
 }
 
 const everyMinute = (callback: () => void) => {
