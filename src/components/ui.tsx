@@ -84,6 +84,12 @@ const iconPaths = {
     </>
   ),
   close: <path d="M6 6l12 12M18 6 6 18" />,
+  calendar: (
+    <>
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M16 2v4M8 2v4M3 10h18" />
+    </>
+  ),
 } as const;
 
 export function Icon({ name, className = "h-[18px] w-[18px]" }: { name: keyof typeof iconPaths; className?: string }) {
@@ -109,6 +115,24 @@ export const button = {
  * Toast online ordering, where guests build the whole pickup or delivery order and pay; without it,
  * it calls the restaurant instead.
  */
+/** "Reserve a Table": Athidhi's table booking on Yelp, in a new tab. */
+export function ReserveButton({
+  className,
+  onClick,
+  icon = false,
+}: {
+  className: string;
+  onClick?: () => void;
+  icon?: boolean;
+}) {
+  return (
+    <a href={site.reserveUrl} target="_blank" rel="noopener noreferrer" onClick={onClick} className={className}>
+      {icon && <Icon name="calendar" className="h-4 w-4" />}
+      Reserve a Table
+    </a>
+  );
+}
+
 export function OrderButton({ className, onClick }: { className: string; onClick?: () => void }) {
   if (site.orderOnlineUrl) {
     return (

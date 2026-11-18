@@ -6,7 +6,7 @@ import Mandala from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
 import Reviews from "@/components/Reviews";
 import SplitSection from "@/components/SplitSection";
-import { ArrowRight, Eyebrow, Icon, OrderButton, button } from "@/components/ui";
+import { ArrowRight, Eyebrow, Icon, OrderButton, ReserveButton, button } from "@/components/ui";
 import { hoursLines, site, whatsappChatUrl } from "@/data/site";
 import { asset, publicFile } from "@/lib/assets";
 import { absoluteAssetUrl, absoluteUrl, homeDescription, homeTitle, pageMetadata, pageUrl } from "@/lib/seo";
@@ -36,7 +36,7 @@ const restaurantJsonLd = {
   menu: pageUrl("/menu"),
   // The full menu with dishes and prices is on the menu page (src/app/menu/page.tsx).
   hasMenu: { "@id": `${pageUrl("/menu")}#menu` },
-  acceptsReservations: true,
+  acceptsReservations: site.reserveUrl,
   hasMap: site.mapUrl,
   address: {
     "@type": "PostalAddress",
@@ -143,6 +143,7 @@ export default function Home() {
             <Link href="/menu" className={button.maroon}>
               View Menu
             </Link>
+            <ReserveButton className={button.goldOutline} />
             <OrderButton className={button.goldOutline} />
           </div>
         </div>
@@ -298,13 +299,14 @@ export default function Home() {
         title="Visit Athidhi"
         actions={
           <>
-            <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer" className={compact(button.maroon)}>
+            <ReserveButton icon className={compact(button.maroon)} />
+            <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer" className={compact(button.maroonOutline)}>
               <Icon name="mapPin" className="h-4 w-4" />
               Get Directions
             </a>
             <a href={site.phoneHref} className={compact(button.maroonOutline)}>
               <Icon name="phone" className="h-4 w-4" />
-              Call to Book
+              Call Us
             </a>
             <a href={whatsappChatUrl} target="_blank" rel="noopener noreferrer" className={compact(button.maroonOutline)}>
               <Icon name="chat" className="h-4 w-4" />

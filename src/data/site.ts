@@ -53,6 +53,8 @@ export const site = {
    * If this is ever emptied, every "Order" button on the site asks guests to call instead.
    */
   orderOnlineUrl: "https://order.toasttab.com/online/athidhi-660-plainsboro-rd" as string,
+  /** Table reservations: Athidhi's booking page on Yelp. */
+  reserveUrl: "https://www.yelp.com/reservations/athidhi-plainsboro",
   hours,
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `Athidhi, ${address.street}, ${address.city}`,

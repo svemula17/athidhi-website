@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Icon, OrderButton } from "@/components/ui";
+import { Icon, OrderButton, ReserveButton } from "@/components/ui";
 import { site } from "@/data/site";
 import { asset } from "@/lib/assets";
 
@@ -138,6 +138,12 @@ export default function Navbar() {
           >
             <Icon name="phone" className="h-5 w-5" />
           </a>
+          <ReserveButton
+            onClick={closeMenus}
+            className={`hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-bold transition xl:inline-flex ${
+              overlay ? "border-cream/40 text-cream hover:bg-white/10" : "border-maroon/30 text-maroon hover:bg-maroon/5"
+            }`}
+          />
           <OrderButton
             onClick={closeMenus}
             className="hidden items-center gap-2 rounded-full bg-brass px-6 py-2.5 text-sm font-bold text-ink shadow-sm transition hover:bg-gold md:inline-flex"
@@ -172,10 +178,15 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-4 border-t border-maroon/10 pt-4 md:hidden">
+            <div className="mt-4 space-y-3 border-t border-maroon/10 pt-4">
+              <ReserveButton
+                icon
+                onClick={closeMenus}
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-maroon/30 py-3 text-sm font-bold text-maroon"
+              />
               <OrderButton
                 onClick={closeMenus}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-brass py-3 text-sm font-bold text-ink"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-brass py-3 text-sm font-bold text-ink md:hidden"
               />
             </div>
           </div>

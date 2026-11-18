@@ -120,6 +120,12 @@ export default function Footer() {
               </span>
             </li>
             <li className="flex gap-3">
+              <Icon name="calendar" className="mt-0.5 h-[18px] w-[18px] text-gold" />
+              <a href={site.reserveUrl} target="_blank" rel="noopener noreferrer" className="transition hover:text-gold">
+                Reserve a table
+              </a>
+            </li>
+            <li className="flex gap-3">
               <Icon name="mail" className="mt-0.5 h-[18px] w-[18px] text-gold" />
               <a href={`mailto:${site.email}`} className="transition hover:text-gold">
                 {site.email}
