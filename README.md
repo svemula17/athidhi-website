@@ -22,24 +22,28 @@ npm run build   # production build
 
 ## Before going live
 
-The official site (athidhinj.com) is hosted on Cloudflare Pages, because GitHub Pages' terms don't
-allow business websites. The github.io preview stays, marked so search engines skip it.
+The official site (athidhinj.com) is hosted on IONOS Web Hosting, where the domain is registered,
+because GitHub Pages' terms don't allow business websites. The github.io preview stays, marked so
+search engines skip it.
 
-1. **Connect Cloudflare.** In a free Cloudflare account, create an API token with the
-   *Account → Cloudflare Pages → Edit* and *Account → Workers Scripts → Edit* permissions. Add it
-   to this repository's Actions secrets as `CLOUDFLARE_API_TOKEN`, and the account ID (Cloudflare
-   dashboard) as `CLOUDFLARE_ACCOUNT_ID`. The next deploy builds the official site and publishes
-   it to the Cloudflare Pages project `athidhi` (repository variable `CLOUDFLARE_PROJECT` to
-   change it).
-2. **Make the menu sync hourly.** GitHub skips many scheduled runs, so a small Cloudflare Worker
-   (`workers/menu-sync`) starts the sync every hour instead. Create a fine-grained GitHub token
-   (Settings → Developer settings → Personal access tokens → Fine-grained tokens) for this
-   repository only, with *Actions: Read and write*, and add it as the Actions secret
-   `MENU_SYNC_TOKEN`. The next push or manual run sets up the Worker. When the token expires,
-   replace the secret and run the workflow again.
-3. **Point the domain.** Add athidhinj.com to Cloudflare (it copies the existing DNS records,
-   including email), switch the domain's name servers at IONOS to Cloudflare's, then add
-   athidhinj.com and www.athidhinj.com as custom domains of the Pages project.
+1. **Make an SFTP login.** In IONOS, under Hosting → SFTP & SSH, create an account of the type
+   *SFTP + SSH* with access to the whole webspace, and save its server, user name and password in
+   this repository's Actions secrets as `IONOS_SFTP_HOST`, `IONOS_SFTP_USER` and
+   `IONOS_SFTP_PASSWORD`. The next deploy builds the official site and uploads it to the webspace
+   folder `athidhinj` (repository variable `IONOS_SITE_DIR` to change it), with the web server
+   settings from `scripts/ionos-htaccess.mjs`. The first upload prints the server's key; save it
+   as the repository variable `IONOS_KNOWN_HOSTS` so later uploads only trust that key.
+2. **Make the menu sync hourly.** GitHub skips many scheduled runs, so a timer on IONOS
+   (`ionos/menu-sync.sh`, added to the webspace's crontab) starts the sync every hour instead.
+   Create a fine-grained GitHub token (Settings → Developer settings → Personal access tokens →
+   Fine-grained tokens) for this repository only, with *Actions: Read and write*, and add it as
+   the Actions secret `MENU_SYNC_TOKEN`. The next push or manual run puts it in the webspace folder
+   `athidhi-cron`, readable only by the hosting account, and sets up the timer. When the token
+   expires, replace the secret and run the workflow again.
+3. **Point the domain.** In IONOS, set athidhinj.com's destination to the webspace folder
+   `athidhinj`, turn on the SSL certificate included with the hosting for athidhinj.com and
+   www.athidhinj.com, and remove the old `_acme-challenge` record that pointed to Toast's website
+   service. Email records aren't affected.
 4. **Update the website link** on Google Business Profile and Toast, and add the site to Google
    Search Console with its sitemap (`/sitemap.xml`).
 
@@ -56,9 +60,9 @@ is kept only in the guest's browser; nothing is sent to the restaurant.
 ## Toast menu sync
 
 The deploy workflow (`.github/workflows/pages.yml`) copies the menu from Toast every hour and
-redeploys when it changes. The hourly runs are started by the Cloudflare timer in
-`workers/menu-sync` once it's set up ("Before going live", step 2); until then they rely on
-GitHub's own schedule, which skips many runs. It uses read-only Toast Standard API credentials stored as repository
+redeploys when it changes. The hourly runs are started by the timer on IONOS once it's set up
+("Before going live", step 2); until then they rely on GitHub's own schedule, which skips many
+runs. It uses read-only Toast Standard API credentials stored as repository
 secrets: `TOAST_CLIENT_ID`, `TOAST_CLIENT_SECRET`, `TOAST_RESTAURANT_GUID` (and optionally
 `TOAST_API_HOSTNAME`, default `https://ws-api.toasttab.com`). Only dishes visible on Toast online
 ordering are shown; catering trays are left off the menu page. To sync now, run the workflow from

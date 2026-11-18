@@ -1,7 +1,7 @@
 # Publishes the site: the preview on GitHub Pages (https://svemula17.github.io/athidhi-website/,
-# kept out of search results) and, once the Cloudflare secrets are added, the official site on
-# Cloudflare Pages (athidhinj.com). Runs on every push to main, and every hour to pick up menu
-# changes from Toast (hourly runs only redeploy when the menu actually changed).
+# kept out of search results) and, once the IONOS secrets are added, the official site on IONOS
+# web hosting (athidhinj.com). Runs on every push to main, and every hour to pick up menu changes
+# from Toast (hourly runs only redeploy when the menu actually changed).
 name: Deploy to GitHub Pages
 
 on:
@@ -13,8 +13,8 @@ on:
         description: Only redeploy if the menu on Toast changed
         type: boolean
         default: false
-  # GitHub skips many of these, so once it's set up, a Cloudflare timer (workers/menu-sync) also
-  # starts this workflow every hour, as a menu-only run.
+  # GitHub skips many of these, so once the site is on IONOS, a timer there (ionos/menu-sync.sh)
+  # also starts this workflow every hour, as a menu-only run.
   schedule:
     - cron: "17 * * * *"
 
@@ -32,9 +32,9 @@ jobs:
     outputs:
       deploy: ${{ steps.decide.outputs.deploy }}
     env:
-      # The official site deploys to Cloudflare Pages once both secrets exist (README: "Before going live").
-      HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
-      # The hourly menu sync timer on Cloudflare needs this GitHub token too (README).
+      # The official site is uploaded to IONOS once its SFTP login is saved (README: "Before going live").
+      HAS_IONOS: ${{ secrets.IONOS_SFTP_HOST != '' && secrets.IONOS_SFTP_USER != '' && secrets.IONOS_SFTP_PASSWORD != '' }}
+      # The hourly menu sync timer on IONOS needs this GitHub token too (README).
       HAS_MENU_SYNC_TOKEN: ${{ secrets.MENU_SYNC_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v7
@@ -103,41 +103,91 @@ jobs:
         with:
           path: out
 
-      # The official site: the same static build at the domain's root, open to search engines,
-      # with security and cache headers for Cloudflare (scripts/cloudflare-headers.mjs).
+      # The official site: the same static build at the domain's root, open to search engines, with
+      # the web server settings IONOS needs (scripts/ionos-htaccess.mjs). Files get times from their
+      # contents, so the upload only sends what changed (scripts/stable-file-times.mjs).
       - name: Build the official site
-        if: steps.decide.outputs.deploy == 'true' && env.HAS_CLOUDFLARE == 'true'
+        if: steps.decide.outputs.deploy == 'true' && env.HAS_IONOS == 'true'
         run: |
           npm run build
           node scripts/image-variants.mjs
-          node scripts/cloudflare-headers.mjs
+          node scripts/ionos-htaccess.mjs
+          node scripts/stable-file-times.mjs
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://athidhinj.com' }}
-      - name: Deploy the official site to Cloudflare Pages
-        if: steps.decide.outputs.deploy == 'true' && env.HAS_CLOUDFLARE == 'true'
+      # Without the repository variable IONOS_KNOWN_HOSTS, the server's key is trusted on first use
+      # and printed, so it can be saved there.
+      - name: Connect to IONOS
+        if: steps.decide.outputs.deploy == 'true' && env.HAS_IONOS == 'true'
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PROJECT: ${{ vars.CLOUDFLARE_PROJECT || 'athidhi' }}
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          KNOWN_HOSTS: ${{ vars.IONOS_KNOWN_HOSTS }}
         run: |
-          # Creates the Cloudflare Pages project on the first run; afterwards it already exists.
-          npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main || true
-          npx --yes wrangler@4 pages deploy out --project-name="$PROJECT" --branch=main --commit-dirty=true
-
-      # The hourly timer that starts this workflow as a menu-only run (workers/menu-sync). Set up on
-      # pushes and full manual runs; a problem here leaves a warning but doesn't hold back the site.
-      - name: Set up the hourly menu sync timer on Cloudflare
-        if: steps.decide.outputs.full == 'true' && env.HAS_CLOUDFLARE == 'true' && env.HAS_MENU_SYNC_TOKEN == 'true'
-        continue-on-error: true
-        working-directory: workers/menu-sync
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp sshpass > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -T 20 "$HOST" 2> /dev/null > ~/.ssh/known_hosts
+            echo "::notice::Trusted IONOS's server key on first use. To pin it, save the lines printed below as the repository variable IONOS_KNOWN_HOSTS."
+            cat ~/.ssh/known_hosts
+          fi
+      # Two passes, so a visitor never gets a page whose files aren't there yet: new and changed
+      # files first, then the pages and server settings, then files the site no longer has are removed.
+      - name: Upload the official site to IONOS
+        if: steps.decide.outputs.deploy == 'true' && env.HAS_IONOS == 'true'
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          SFTP_USER: ${{ secrets.IONOS_SFTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          # The webspace folder the domain points to (IONOS → Domains → athidhinj.com → Destination).
+          SITE_DIR: ${{ vars.IONOS_SITE_DIR || 'athidhinj' }}
+        run: |
+          cat > "$RUNNER_TEMP/upload.lftp" <<EOF
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 30
+          open --env-password -u "$SFTP_USER" "sftp://$HOST"
+          mkdir -p -f "$SITE_DIR"
+          mirror --reverse --overwrite --parallel=4 --verbose --exclude-glob '*.html' --exclude-glob '*.txt' --exclude-glob .htaccess out "$SITE_DIR"
+          mirror --reverse --overwrite --parallel=4 --verbose --delete --exclude-glob .well-known/ out "$SITE_DIR"
+          EOF
+          lftp -f "$RUNNER_TEMP/upload.lftp"
+
+      # The hourly timer on IONOS that starts this workflow as a menu-only run (ionos/menu-sync.sh),
+      # in a webspace folder no website points to. Set up on pushes and full manual runs; a problem
+      # here leaves a warning but doesn't hold back the site.
+      - name: Set up the hourly menu sync timer on IONOS
+        if: steps.decide.outputs.full == 'true' && env.HAS_IONOS == 'true' && env.HAS_MENU_SYNC_TOKEN == 'true'
+        continue-on-error: true
+        env:
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          SFTP_USER: ${{ secrets.IONOS_SFTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
           MENU_SYNC_TOKEN: ${{ secrets.MENU_SYNC_TOKEN }}
         run: |
-          npx --yes wrangler@4 deploy --var "REPOSITORY:$GITHUB_REPOSITORY"
-          printf '%s' "$MENU_SYNC_TOKEN" | npx --yes wrangler@4 secret put MENU_SYNC_TOKEN
+          umask 077
+          timer="$RUNNER_TEMP/athidhi-cron"
+          trap 'rm -rf "$timer"' EXIT
+          mkdir -p "$timer"
+          cp ionos/menu-sync.sh "$timer/"
+          printf '%s\n' "$GITHUB_REPOSITORY" > "$timer/repository"
+          printf 'Authorization: Bearer %s\n' "$MENU_SYNC_TOKEN" > "$timer/auth-header"
+          printf 'Require all denied\n' > "$timer/.htaccess"
+          cat > "$RUNNER_TEMP/timer.lftp" <<EOF
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          open --env-password -u "$SFTP_USER" "sftp://$HOST"
+          mirror --reverse --overwrite --verbose "$timer" athidhi-cron
+          chmod 700 athidhi-cron
+          chmod 600 athidhi-cron/menu-sync.sh athidhi-cron/repository athidhi-cron/auth-header athidhi-cron/.htaccess
+          EOF
+          lftp -f "$RUNNER_TEMP/timer.lftp"
+          sshpass -e ssh -o PubkeyAuthentication=no "$SFTP_USER@$HOST" 'sh -s' < ionos/install-timer.sh
 
   deploy:
     needs: build
