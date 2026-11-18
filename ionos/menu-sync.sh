@@ -1,7 +1,8 @@
 #!/bin/sh
-# Starts the website's Toast menu sync on GitHub. IONOS runs this every hour (install-timer.sh adds
-# the crontab line), because GitHub's own hourly schedule skips most runs. GitHub then runs the
-# deploy workflow as a menu-only run, which redeploys only if the menu changed.
+# Starts the website's Toast menu sync on GitHub. IONOS runs this every hour, because GitHub's own
+# hourly schedule skips most runs: a UnixCron job (IONOS → Hosting → Cron jobs) whose command is
+# this script's full path. GitHub then runs the deploy workflow as a menu-only run, which
+# redeploys only if the menu changed. Each run's result is written to last-run.log next to it.
 #
 # The deploy workflow puts these next to this script, readable only by the hosting account:
 #   repository   the GitHub repository, e.g. svemula17/athidhi-website
@@ -10,6 +11,7 @@
 set -eu
 
 dir=$(dirname "$0")
+exec > "$dir/last-run.log" 2>&1
 repository=$(cat "$dir/repository")
 api=${GITHUB_API:-https://api.github.com}
 

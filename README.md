@@ -26,19 +26,22 @@ The official site (athidhinj.com) is hosted on IONOS Web Hosting, where the doma
 because GitHub Pages' terms don't allow business websites. The github.io preview stays, marked so
 search engines skip it.
 
-1. **Make an SFTP login.** In IONOS, under Hosting → SFTP & SSH, create an account of the type
-   *SFTP + SSH* with access to the whole webspace, and save its server, user name and password in
-   this repository's Actions secrets as `IONOS_SFTP_HOST`, `IONOS_SFTP_USER` and
+1. **Make an SFTP login.** In IONOS, under Hosting → SFTP, create an account of the type *SFTP*
+   with access to the whole webspace, and save its server, user name and password in this
+   repository's Actions secrets as `IONOS_SFTP_HOST`, `IONOS_SFTP_USER` and
    `IONOS_SFTP_PASSWORD`. The next deploy builds the official site and uploads it to the webspace
    folder `athidhinj` (repository variable `IONOS_SITE_DIR` to change it), with the web server
    settings from `scripts/ionos-htaccess.mjs`. The first upload prints the server's key; save it
    as the repository variable `IONOS_KNOWN_HOSTS` so later uploads only trust that key.
 2. **Make the menu sync hourly.** GitHub skips many scheduled runs, so a timer on IONOS
-   (`ionos/menu-sync.sh`, added to the webspace's crontab) starts the sync every hour instead.
-   Create a fine-grained GitHub token (Settings → Developer settings → Personal access tokens →
-   Fine-grained tokens) for this repository only, with *Actions: Read and write*, and add it as
-   the Actions secret `MENU_SYNC_TOKEN`. The next push or manual run puts it in the webspace folder
-   `athidhi-cron`, readable only by the hosting account, and sets up the timer. When the token
+   (`ionos/menu-sync.sh`) starts the sync every hour instead. Create a fine-grained GitHub token
+   (Settings → Developer settings → Personal access tokens → Fine-grained tokens) for this
+   repository only, with *Actions: Read and write*, and add it as the Actions secret
+   `MENU_SYNC_TOKEN`. The next push or manual run puts the script and token in the webspace folder
+   `athidhi-cron`, readable only by the hosting account. Then, in IONOS under Hosting → Cron jobs,
+   create a *UnixCron* job whose command is the script's full path
+   (`/home/www/athidhi-cron/menu-sync.sh` on this contract), with the extended interval minute
+   17, every hour. Each run writes its result to `athidhi-cron/last-run.log`. When the token
    expires, replace the secret and run the workflow again.
 3. **Point the domain.** In IONOS, set athidhinj.com's destination to the webspace folder
    `athidhinj`, turn on the SSL certificate included with the hosting for athidhinj.com and

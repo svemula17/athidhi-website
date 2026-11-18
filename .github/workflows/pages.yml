@@ -125,7 +125,7 @@ jobs:
           KNOWN_HOSTS: ${{ vars.IONOS_KNOWN_HOSTS }}
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lftp sshpass > /dev/null
+          sudo apt-get install -y -qq lftp > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           if [ -n "$KNOWN_HOSTS" ]; then
@@ -157,17 +157,17 @@ jobs:
           EOF
           lftp -f "$RUNNER_TEMP/upload.lftp"
 
-      # The hourly timer on IONOS that starts this workflow as a menu-only run (ionos/menu-sync.sh),
-      # in a webspace folder no website points to. Set up on pushes and full manual runs; a problem
-      # here leaves a warning but doesn't hold back the site.
-      - name: Set up the hourly menu sync timer on IONOS
+      # The files for the hourly timer on IONOS that starts this workflow as a menu-only run
+      # (ionos/menu-sync.sh, run by a cron job in IONOS → Hosting → Cron jobs), in a webspace folder
+      # no website points to. Updated on pushes and full manual runs; a problem here leaves a
+      # warning but doesn't hold back the site.
+      - name: Put the hourly menu sync timer on IONOS
         if: steps.decide.outputs.full == 'true' && env.HAS_IONOS == 'true' && env.HAS_MENU_SYNC_TOKEN == 'true'
         continue-on-error: true
         env:
           HOST: ${{ secrets.IONOS_SFTP_HOST }}
           SFTP_USER: ${{ secrets.IONOS_SFTP_USER }}
           LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
-          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
           MENU_SYNC_TOKEN: ${{ secrets.MENU_SYNC_TOKEN }}
         run: |
           umask 077
@@ -184,10 +184,10 @@ jobs:
           open --env-password -u "$SFTP_USER" "sftp://$HOST"
           mirror --reverse --overwrite --verbose "$timer" athidhi-cron
           chmod 700 athidhi-cron
-          chmod 600 athidhi-cron/menu-sync.sh athidhi-cron/repository athidhi-cron/auth-header athidhi-cron/.htaccess
+          chmod 700 athidhi-cron/menu-sync.sh
+          chmod 600 athidhi-cron/repository athidhi-cron/auth-header athidhi-cron/.htaccess
           EOF
           lftp -f "$RUNNER_TEMP/timer.lftp"
-          sshpass -e ssh -o PubkeyAuthentication=no "$SFTP_USER@$HOST" 'sh -s' < ionos/install-timer.sh
 
   deploy:
     needs: build
