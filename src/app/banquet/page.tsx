@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import EnquiryForm from "@/components/EnquiryForm";
-import Mandala from "@/components/Mandala";
+import Mandala, { CornerWheel } from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
 import SplitSection from "@/components/SplitSection";
 import { ArrowRight, Eyebrow, button } from "@/components/ui";
@@ -93,7 +93,8 @@ export default function BanquetPage() {
         </p>
       </SplitSection>
 
-      <section className="bg-sand px-4 py-24 sm:px-6">
+      <section className="relative isolate overflow-clip bg-sand px-4 py-24 sm:px-6">
+        <CornerWheel corner="top-left" />
         <div className="mx-auto max-w-6xl">
           <Reveal stagger className="text-center">
             <Eyebrow center>Events We Host</Eyebrow>
@@ -144,7 +145,8 @@ export default function BanquetPage() {
         </p>
       </SplitSection>
 
-      <section id="request" className="scroll-mt-24 bg-sand py-24 md:scroll-mt-32">
+      <section id="request" className="relative isolate scroll-mt-24 overflow-clip bg-sand py-24 md:scroll-mt-32">
+        <CornerWheel corner="bottom-right" />
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Reveal stagger className="text-center">
             <Eyebrow center>Enquire Now</Eyebrow>

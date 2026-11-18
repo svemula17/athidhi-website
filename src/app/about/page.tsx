@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SplitSection from "@/components/SplitSection";
+import { CornerWheel } from "@/components/Mandala";
 import { ArrowRight, Eyebrow, button } from "@/components/ui";
 import { asset } from "@/lib/assets";
 import { pageMetadata } from "@/lib/seo";
@@ -97,7 +98,8 @@ export default function AboutPage() {
         </p>
       </SplitSection>
 
-      <section className="bg-sand py-24">
+      <section className="relative isolate overflow-clip bg-sand py-24">
+        <CornerWheel corner="top-right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal stagger className="text-center">
             <Eyebrow center>Our Culinary Foundation</Eyebrow>

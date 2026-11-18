@@ -55,7 +55,10 @@ const heading = "font-serif text-sm uppercase tracking-[0.3em] text-gold";
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-cream/80">
-      <Mandala className="pointer-events-none absolute -bottom-48 -right-40 h-[560px] w-[560px] text-gold/[0.07]" />
+      <div className="pointer-events-none absolute inset-0 text-gold opacity-[0.06]" aria-hidden="true">
+        <Mandala spin="slower" className="absolute -left-32 -top-32 h-[500px] w-[500px]" />
+        <Mandala className="absolute -bottom-40 -right-32 h-[600px] w-[600px]" />
+      </div>
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
           {/* The logo artwork is maroon; turned white so it reads on the dark footer. */}

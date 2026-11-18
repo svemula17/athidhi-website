@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import LoopVideo from "@/components/LoopVideo";
+import { CornerWheel } from "@/components/Mandala";
 import Reveal from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui";
 
@@ -14,6 +15,7 @@ const tones = {
  * The site's standard section: a full-height photo on one half; eyebrow, heading, text and
  * actions on the other. On phones the photo sits on top. Both halves animate in on scroll.
  * With `video`, a silent looping clip plays in place of the photo, which becomes its still frame.
+ * Light sections get a faint wheel in the text half's outer corner unless `decoration` replaces it.
  */
 export default function SplitSection({
   id,
@@ -61,11 +63,11 @@ export default function SplitSection({
         {imageOverlay}
       </div>
       <div
-        className={`relative flex flex-col justify-center overflow-hidden px-6 py-16 sm:px-12 lg:px-20 ${
+        className={`relative isolate flex flex-col justify-center overflow-hidden px-6 py-16 sm:px-12 lg:px-20 ${
           imageFirst ? "md:order-2" : "md:order-1"
         }`}
       >
-        {decoration}
+        {decoration ?? (tone !== "ink" && <CornerWheel corner={imageFirst ? "bottom-right" : "top-left"} />)}
         <Reveal stagger className="relative">
           {eyebrow && <Eyebrow tone={t.eyebrow}>{eyebrow}</Eyebrow>}
           <h2 className={`mt-5 font-serif text-4xl leading-[1.05] tracking-tight md:text-5xl lg:text-6xl ${t.title}`}>{title}</h2>

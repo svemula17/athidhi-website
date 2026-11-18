@@ -1,6 +1,7 @@
 import Link from "next/link";
 import EnquiryForm from "@/components/EnquiryForm";
 import Reveal from "@/components/Reveal";
+import { CornerWheel } from "@/components/Mandala";
 import { ArrowRight, Eyebrow, Icon, button } from "@/components/ui";
 import { cateringMenu } from "@/data/catering";
 import { asset } from "@/lib/assets";
@@ -19,7 +20,8 @@ const menuPdf = "/Athidhi%20Banquet-Catering%20Menu.pdf";
 export default function CateringPage() {
   return (
     <>
-      <section className="bg-cream pb-24 pt-16 md:pt-20">
+      <section className="relative isolate overflow-clip bg-cream pb-24 pt-16 md:pt-20">
+        <CornerWheel corner="top-left" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal stagger className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div>
@@ -88,7 +90,8 @@ export default function CateringPage() {
         </div>
       </section>
 
-      <section id="request" className="scroll-mt-24 bg-sand py-24 md:scroll-mt-32">
+      <section id="request" className="relative isolate scroll-mt-24 overflow-clip bg-sand py-24 md:scroll-mt-32">
+        <CornerWheel corner="bottom-left" />
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Reveal stagger className="text-center">
             <Eyebrow center>Enquire Now</Eyebrow>

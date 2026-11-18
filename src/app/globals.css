@@ -20,6 +20,15 @@
   /* Menu pop-ups: rise from below (dish pop-up, phones), slide in from the right (dine-in list). */
   --animate-sheet: sheet 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-drawer: drawer 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* The decorative wheels (components/Mandala.tsx) turn once a minute, or once every two. */
+  --animate-wheel: wheel 60s linear infinite;
+  --animate-wheel-slow: wheel 120s linear infinite;
+
+  @keyframes wheel {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
   @keyframes sheet {
     from {

@@ -5,6 +5,7 @@
 // and doesn't move by itself for visitors who prefer reduced motion. Reviews: src/data/reviews.ts.
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { CornerWheel } from "@/components/Mandala";
 import { Eyebrow, button } from "@/components/ui";
 import { reviewSummary, reviews, type Review } from "@/data/reviews";
 import { site } from "@/data/site";
@@ -182,7 +183,8 @@ export default function Reviews() {
     if (!reviewSummary) return null;
     return (
       <section aria-labelledby="reviews-title" className="bg-cream px-3 py-20 sm:px-6">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 rounded-[2rem] bg-white px-6 py-10 shadow-sm ring-1 ring-maroon/10 sm:px-10 md:flex-row md:items-center md:justify-between lg:px-12">
+        <div className="relative isolate mx-auto flex max-w-6xl flex-col gap-8 overflow-hidden rounded-[2rem] bg-white px-6 py-10 shadow-sm ring-1 ring-maroon/10 sm:px-10 md:flex-row md:items-center md:justify-between lg:px-12">
+          <CornerWheel corner="top-right" />
           <div>
             <Eyebrow>Guest Stories</Eyebrow>
             <h2 id="reviews-title" className="mt-5 font-serif text-4xl text-maroon md:text-5xl">
@@ -203,7 +205,7 @@ export default function Reviews() {
   return (
     <section aria-labelledby="reviews-title" className="bg-cream px-3 py-24 sm:px-6">
       <div
-        className="mx-auto max-w-6xl rounded-[2rem] bg-white px-5 py-8 shadow-sm ring-1 ring-maroon/10 sm:p-10 lg:p-12"
+        className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-white px-5 py-8 shadow-sm ring-1 ring-maroon/10 sm:p-10 lg:p-12"
         onMouseEnter={() => setHeld(true)}
         onMouseLeave={() => setHeld(false)}
         onFocus={() => setHeld(true)}
@@ -213,6 +215,7 @@ export default function Reviews() {
         onTouchStart={() => setHeld(true)}
         onTouchEnd={() => window.setTimeout(() => setHeld(false), 4000)}
       >
+        <CornerWheel corner="top-right" />
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
             <Eyebrow>Guest Stories</Eyebrow>
