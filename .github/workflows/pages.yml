@@ -8,6 +8,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      menu_only:
+        description: Only redeploy if the menu on Toast changed
+        type: boolean
+        default: false
+  # GitHub skips many of these, so once it's set up, a Cloudflare timer (workers/menu-sync) also
+  # starts this workflow every hour, as a menu-only run.
   schedule:
     - cron: "17 * * * *"
 
@@ -27,6 +34,8 @@ jobs:
     env:
       # The official site deploys to Cloudflare Pages once both secrets exist (README: "Before going live").
       HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+      # The hourly menu sync timer on Cloudflare needs this GitHub token too (README).
+      HAS_MENU_SYNC_TOKEN: ${{ secrets.MENU_SYNC_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -54,9 +63,17 @@ jobs:
           git commit -m "Update menu from Toast"
           # If main moved on during this run, the next hourly run saves it instead.
           git push origin HEAD:main || echo "::warning::Couldn't save the menu update this time; the next run will retry."
+      # Pushes and manual runs always deploy; timed (menu-only) runs only when the menu changed.
       - name: Decide whether to deploy
         id: decide
-        run: echo "deploy=${{ github.event_name != 'schedule' || steps.toast.outputs.changed == 'true' }}" >> "$GITHUB_OUTPUT"
+        env:
+          FULL: ${{ github.event_name != 'schedule' && github.event.inputs.menu_only != 'true' }}
+          CHANGED: ${{ steps.toast.outputs.changed == 'true' }}
+        run: |
+          if [ "$FULL" = true ] || [ "$CHANGED" = true ]; then deploy=true; else deploy=false; fi
+          echo "full=$FULL" >> "$GITHUB_OUTPUT"
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+          echo "Deploy: $deploy (full run: $FULL, menu changed: $CHANGED)"
 
       - if: steps.decide.outputs.deploy == 'true'
         id: pages
@@ -107,6 +124,20 @@ jobs:
           # Creates the Cloudflare Pages project on the first run; afterwards it already exists.
           npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main || true
           npx --yes wrangler@4 pages deploy out --project-name="$PROJECT" --branch=main --commit-dirty=true
+
+      # The hourly timer that starts this workflow as a menu-only run (workers/menu-sync). Set up on
+      # pushes and full manual runs; a problem here leaves a warning but doesn't hold back the site.
+      - name: Set up the hourly menu sync timer on Cloudflare
+        if: steps.decide.outputs.full == 'true' && env.HAS_CLOUDFLARE == 'true' && env.HAS_MENU_SYNC_TOKEN == 'true'
+        continue-on-error: true
+        working-directory: workers/menu-sync
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          MENU_SYNC_TOKEN: ${{ secrets.MENU_SYNC_TOKEN }}
+        run: |
+          npx --yes wrangler@4 deploy --var "REPOSITORY:$GITHUB_REPOSITORY"
+          printf '%s' "$MENU_SYNC_TOKEN" | npx --yes wrangler@4 secret put MENU_SYNC_TOKEN
 
   deploy:
     needs: build

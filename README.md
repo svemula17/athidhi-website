@@ -26,14 +26,21 @@ The official site (athidhinj.com) is hosted on Cloudflare Pages, because GitHub 
 allow business websites. The github.io preview stays, marked so search engines skip it.
 
 1. **Connect Cloudflare.** In a free Cloudflare account, create an API token with the
-   *Account → Cloudflare Pages → Edit* permission. Add it to this repository's Actions secrets as
-   `CLOUDFLARE_API_TOKEN`, and the account ID (Cloudflare dashboard) as `CLOUDFLARE_ACCOUNT_ID`.
-   The next deploy builds the official site and publishes it to the Cloudflare Pages project
-   `athidhi` (repository variable `CLOUDFLARE_PROJECT` to change it).
-2. **Point the domain.** Add athidhinj.com to Cloudflare (it copies the existing DNS records,
+   *Account → Cloudflare Pages → Edit* and *Account → Workers Scripts → Edit* permissions. Add it
+   to this repository's Actions secrets as `CLOUDFLARE_API_TOKEN`, and the account ID (Cloudflare
+   dashboard) as `CLOUDFLARE_ACCOUNT_ID`. The next deploy builds the official site and publishes
+   it to the Cloudflare Pages project `athidhi` (repository variable `CLOUDFLARE_PROJECT` to
+   change it).
+2. **Make the menu sync hourly.** GitHub skips many scheduled runs, so a small Cloudflare Worker
+   (`workers/menu-sync`) starts the sync every hour instead. Create a fine-grained GitHub token
+   (Settings → Developer settings → Personal access tokens → Fine-grained tokens) for this
+   repository only, with *Actions: Read and write*, and add it as the Actions secret
+   `MENU_SYNC_TOKEN`. The next push or manual run sets up the Worker. When the token expires,
+   replace the secret and run the workflow again.
+3. **Point the domain.** Add athidhinj.com to Cloudflare (it copies the existing DNS records,
    including email), switch the domain's name servers at IONOS to Cloudflare's, then add
    athidhinj.com and www.athidhinj.com as custom domains of the Pages project.
-3. **Update the website link** on Google Business Profile and Toast, and add the site to Google
+4. **Update the website link** on Google Business Profile and Toast, and add the site to Google
    Search Console with its sitemap (`/sitemap.xml`).
 
 The site address used in canonical links, share previews, the sitemap and Google's restaurant data
@@ -49,7 +56,9 @@ is kept only in the guest's browser; nothing is sent to the restaurant.
 ## Toast menu sync
 
 The deploy workflow (`.github/workflows/pages.yml`) copies the menu from Toast every hour and
-redeploys when it changes. It uses read-only Toast Standard API credentials stored as repository
+redeploys when it changes. The hourly runs are started by the Cloudflare timer in
+`workers/menu-sync` once it's set up ("Before going live", step 2); until then they rely on
+GitHub's own schedule, which skips many runs. It uses read-only Toast Standard API credentials stored as repository
 secrets: `TOAST_CLIENT_ID`, `TOAST_CLIENT_SECRET`, `TOAST_RESTAURANT_GUID` (and optionally
 `TOAST_API_HOSTNAME`, default `https://ws-api.toasttab.com`). Only dishes visible on Toast online
 ordering are shown; catering trays are left off the menu page. To sync now, run the workflow from
