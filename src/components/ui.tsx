@@ -151,6 +151,7 @@ export function OrderButton({ className, onClick }: { className: string; onClick
 
 export const field = {
   label: "mb-2 block text-xs font-semibold uppercase tracking-[0.15em] text-ink/70",
+  // 16px text below desktop width: iPhone and iPad Safari zoom the page in when a field under 16px is tapped.
   input:
-    "w-full rounded-xl border border-maroon/15 bg-white px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-ink/50 focus:border-gold focus:ring-2 focus:ring-gold/30",
+    "w-full rounded-xl border border-maroon/15 bg-white px-4 py-3 text-base lg:text-sm text-ink shadow-sm outline-none transition placeholder:text-ink/50 focus:border-gold focus:ring-2 focus:ring-gold/30",
 } as const;

@@ -350,7 +350,7 @@ export default function MenuPage() {
                   }
                 }}
                 placeholder="Search dishes…"
-                className="w-full rounded-full border border-maroon/20 bg-white py-2.5 pl-11 pr-4 text-sm text-ink outline-none transition placeholder:text-ink/50 focus:border-gold focus:ring-2 focus:ring-gold/30"
+                className="w-full rounded-full border border-maroon/20 bg-white py-2.5 pl-11 pr-4 text-base lg:text-sm text-ink outline-none transition placeholder:text-ink/50 focus:border-gold focus:ring-2 focus:ring-gold/30"
               />
             </div>
           ) : (
