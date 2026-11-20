@@ -137,6 +137,8 @@ jobs:
           fi
       # Two passes, so a visitor never gets a page whose files aren't there yet: new and changed
       # files first, then the pages and server settings, then files the site no longer has are removed.
+      # --upload-older is required: file times come from contents (scripts/stable-file-times.mjs), so a
+      # changed file can get an earlier time than the copy on the server, and lftp skips those by default.
       - name: Upload the official site to IONOS
         if: steps.decide.outputs.deploy == 'true' && env.HAS_IONOS == 'true'
         env:
@@ -152,8 +154,8 @@ jobs:
           set net:timeout 30
           open --env-password -u "$SFTP_USER" "sftp://$HOST"
           mkdir -p -f "$SITE_DIR"
-          mirror --reverse --overwrite --parallel=4 --verbose --exclude-glob '*.html' --exclude-glob '*.txt' --exclude-glob .htaccess out "$SITE_DIR"
-          mirror --reverse --overwrite --parallel=4 --verbose --delete --exclude-glob .well-known/ out "$SITE_DIR"
+          mirror --reverse --overwrite --upload-older --parallel=4 --verbose --exclude-glob '*.html' --exclude-glob '*.txt' --exclude-glob .htaccess out "$SITE_DIR"
+          mirror --reverse --overwrite --upload-older --parallel=4 --verbose --delete --exclude-glob .well-known/ out "$SITE_DIR"
           EOF
           lftp -f "$RUNNER_TEMP/upload.lftp"
 
