@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-22T16:34:02.069+0000",
+  "lastUpdated": "2026-11-26T03:15:59.618+0000",
   "menus": [
     {
       "name": "Traditional Items",
@@ -1992,6 +1992,53 @@
               "name": "Veg Biryani Combo",
               "description": "Veg biryani, day's special appetizer, curry and dessert. Served with naan, raita and salan.",
               "price": 16.99,
+              "image": null,
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thanksgiving Feast Packs",
+      "groups": [
+        {
+          "name": "Family Feast for 4",
+          "items": [
+            {
+              "guid": "55d14130-ea35-4c4e-ac38-e22f55392451",
+              "name": "Family Feast VEG",
+              "description": "",
+              "price": 95,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "29a8311a-09b5-4fc1-acb8-e6889d52c0af",
+              "name": "Family Feast NON-VEG",
+              "description": "",
+              "price": 109,
+              "image": null,
+              "tags": []
+            }
+          ]
+        },
+        {
+          "name": "Grand Feast for 6",
+          "items": [
+            {
+              "guid": "f2ffd756-67a1-4c14-949b-265e02ceb453",
+              "name": "Grand Feast VEG",
+              "description": "",
+              "price": 139,
+              "image": null,
+              "tags": []
+            },
+            {
+              "guid": "8ed4580f-0934-4107-aeea-03b1a7a265b6",
+              "name": "Grand Feast NON-VEG",
+              "description": "",
+              "price": 159,
               "image": null,
               "tags": []
             }
